@@ -1543,7 +1543,6 @@ dev-haskell/parsec-numbers:parsec1 - use dev-haskell/parsec1 instead of dev-hask
 dev-haskell/parsers:attoparsec - Enable the use of the `attoparsec` package
 dev-haskell/parsers:binary - You can disable the use of the `binary` package using `-f-binary`.
 dev-haskell/parsers:parsec - Enable the use of the `parsec` package
-dev-haskell/path:dev - Turn on development settings.
 dev-haskell/persistent-sqlite:build-sanity-exe - Build a sanity check test executable.
 dev-haskell/pointed:comonad - You can disable the use of the `comonad` package using `-f-transformers`.
 dev-haskell/pointed:kan-extensions - You can disable the use of the `kan-extensions` package using `-f-kan-extensions`.
@@ -1567,12 +1566,6 @@ dev-haskell/quickcheck-classes-base:unary-laws - Include infrastructure for test
 dev-haskell/recaptcha:network-uri - Get Network.URI from the network-uri package.
 dev-haskell/sandi:conduit - Build with conduit
 dev-haskell/semigroupoid-extras:profunctors - You can disable the use of the `profunctors` package using `-f-profunctors`. Disabing this is an unsupported configuration, but it may be useful for accelerating builds in sandboxes for expert users.
-dev-haskell/semigroupoids:comonad - You can disable the use of the `comonad` package using `-f-comonad`. Disabling this is an unsupported configuration, but it may be useful for accelerating builds in sandboxes for expert users. If disabled we will not supply instances of `Comonad`
-dev-haskell/semigroupoids:containers - You can disable the use of the `containers` package using `-f-containers`. Disabling this is an unsupported configuration, but it may be useful for accelerating builds in sandboxes for expert users.
-dev-haskell/semigroupoids:contravariant - You can disable the use of the `contravariant` package using `-f-contravariant`. Disabling this is an unsupported configuration, but it may be useful for accelerating builds in sandboxes for expert users. If disabled we will not supply instances of `Contravariant`
-dev-haskell/semigroupoids:distributive - You can disable the use of the `distributive` package using `-f-distributive`. Disabling this is an unsupported configuration, but it may be useful for accelerating builds in sandboxes for expert users. If disabled we will not supply instances of `Distributive`
-dev-haskell/semigroupoids:tagged - You can disable the use of the `tagged` package using `-f-tagged`. Disabing this is an unsupported configuration, but it may be useful for accelerating builds in sandboxes for expert users.
-dev-haskell/semigroupoids:unordered-containers - Enable the use of the `unordered-containers` package (and also its dependency `hashable`). Disabling this is an unsupported configuration, but it may be useful for accelerating builds in sandboxes for expert users.
 dev-haskell/sendfile:portable - Explicitly enable portable sendfile support (implemented in Haskell)
 dev-haskell/sha:exe - Build a sha1 and a sha384 executable similar to 'md5sum'.
 dev-haskell/shelly:lifted - run the tests against Shelly.Lifted
@@ -2420,7 +2413,11 @@ dev-python/QtPy:opengl - Pull in bindings for the QtOpenGL module
 dev-python/QtPy:positioning - Pull in bindings for the QtPositioning module
 dev-python/QtPy:printsupport - Pull in bindings for the QtPrintSupport module
 dev-python/QtPy:pyqt5 - Use dev-python/PyQt5 as Qt for Python implementation
+dev-python/QtPy:pyqt6 - Use dev-python/PyQt6 as Qt for Python implementation
 dev-python/QtPy:pyside2 - Use dev-python/pyside2 as Qt for Python implementation
+dev-python/QtPy:pyside6 - Use dev-python/pyside6 as Qt for Python implementation
+dev-python/QtPy:qml - Build bindings for the QtQml
+dev-python/QtPy:quick - Build bindings for the QtQuick
 dev-python/QtPy:sensors - Pull in bindings for the QtSensors module
 dev-python/QtPy:serialport - Pull in bindings for the QtSerialPort module
 dev-python/QtPy:speech - Build bindings for the QtTextToSpeech module
@@ -2470,6 +2467,7 @@ dev-python/pyocr:cuneiform - Enable support for the app-text/cuneiform OCR engin
 dev-python/pyocr:tesseract - Enable support for the app-text/tesseract OCR engine
 dev-python/pypax:ptpax - Enable PT_PAX_FLAGS support.
 dev-python/pypax:xtpax - Enable XATTR_PAX_FLAGS support.
+dev-python/pypy:full-stdlib - Install complete stdlib as necessary to use PyPy for general purpose programs. By default, only a limited subset that is used when building dev-python/pypy3-exe is installed. Note that PyPy2.7's stdlib contains multiple known vulnerabilities.
 dev-python/pypy-exe:low-memory - Build using PyPy with the engine configured towards low memory footprint. This makes it possible to build PyPy using ~3.5G of RAM on amd64 and ~half of that on x86, at the cost of lengthened build time.
 dev-python/pypy3:ensurepip - Install the ensurepip module that uses bundled wheels to bootstrap pip and setuptools (if disabled, it will be only possible to use venv `--without-pip`)
 dev-python/pypy3-exe:low-memory - Build using PyPy with the engine configured towards low memory footprint. This makes it possible to build PyPy using ~3.5G of RAM on amd64 and ~half of that on x86, at the cost of lengthened build time.
@@ -2503,6 +2501,27 @@ dev-python/pyside2:widgets - Build QtWidgets module
 dev-python/pyside2:x11extras - Build QtX11Extras module
 dev-python/pyside2:xml - Build QtXml module
 dev-python/pyside2:xmlpatterns - Build QtXmlPatterns module
+dev-python/pyside6:concurrent - Build QtConcurrent module
+dev-python/pyside6:designer - Build QtDesigner and QtUiTools modules
+dev-python/pyside6:gles2-only - Build QtGui "QOpenGL*" classes
+dev-python/pyside6:gui - Build QtGui module
+dev-python/pyside6:help - Build QtHelp module
+dev-python/pyside6:multimedia - Build QtMultimedia and QtMultimediaWidgets modules
+dev-python/pyside6:network - Build QtNetwork module
+dev-python/pyside6:positioning - Build QtPositioning module
+dev-python/pyside6:printsupport - Build QtPrintSupport module
+dev-python/pyside6:qml - Build QtQml module
+dev-python/pyside6:quick - Build QtQuick and QtQuickWidgets modules
+dev-python/pyside6:quick3d - Build QtQuick3D and QtQuickWidgets modules
+dev-python/pyside6:serialport - Build QtSerialPort modules
+dev-python/pyside6:sql - Build QtSql module
+dev-python/pyside6:svg - Build QtSvg module
+dev-python/pyside6:testlib - Build QtTest module
+dev-python/pyside6:webchannel - Build QtWebChannel module
+dev-python/pyside6:webengine - Build QtWebEngine and QtWebEngineWidgets modules
+dev-python/pyside6:websockets - Build QtWebSockets module
+dev-python/pyside6:widgets - Build QtWidgets module
+dev-python/pyside6:xml - Build QtXml module
 dev-python/python-lsp-server:all-plugins - Pull in all optional plugins
 dev-python/python-mpd:twisted - Enable twisted support
 dev-python/python-stdnum:vies - Enable VIES
@@ -2518,6 +2537,9 @@ dev-python/scipy:sparse - Adds support for sparse solving with sci-libs/umfpack
 dev-python/shiboken2:docstrings - Expose documentation as Python docstrings (recommended)
 dev-python/shiboken2:numpy - Implicitly convert passed NumPy arrays to Qt lists
 dev-python/shiboken2:vulkan - Generate "QSurface::VulkanSurface" bindings
+dev-python/shiboken6:docstrings - Expose documentation as Python docstrings (recommended)
+dev-python/shiboken6:numpy - Implicitly convert passed NumPy arrays to Qt lists
+dev-python/shiboken6:vulkan - Generate "QSurface::VulkanSurface" bindings
 dev-python/subprocess-tee:test-full - Enable full test mode. Pulls in many additional dependencies, and requires having been emerged without this flag first in order to avoid a circular dependency.
 dev-python/sympy:aesara - Add support for dev-python/aesara
 dev-python/sympy:imaging - Add support for dev-python/pillow
@@ -2955,6 +2977,7 @@ dev-vcs/git:mediawiki - Support pulling and pushing from MediaWiki
 dev-vcs/git:mediawiki-experimental - Add experimental patches for improved MediaWiki support
 dev-vcs/git:perforce - Add support for Perforce version control system (requires manual installation of Perforce client)
 dev-vcs/git:ppcsha1 - Make use of a bundled routine that is optimized for the PPC arch
+dev-vcs/git:safe-directory - Respect the safe.directory setting
 dev-vcs/git:subversion - Include git-svn for dev-vcs/subversion support
 dev-vcs/git:tk - Include the 'gitk' and 'git gui' tools
 dev-vcs/git:webdav - Adds support for push'ing to HTTP/HTTPS repositories via DAV
@@ -3267,7 +3290,6 @@ games-sports/xmoto:double-precision - more precise calculations at the expense o
 games-strategy/0ad:editor - Include Atlas scenario editor projects
 games-strategy/0ad:lobby - Enable the use of net-libs/gloox and the multiplayer lobby
 games-strategy/0ad:nvtt - Support for some uncompressed data formats (might be needed for some mods)
-games-strategy/augustus:uncapped - Uncap grand temple count
 games-strategy/colobot:devbuild - TODO
 games-strategy/colobot:tools - Build tools
 games-strategy/colobot-data:music - Enable music support
@@ -3414,6 +3436,7 @@ gui-libs/wlroots:X - Enable support for X11 applications (XWayland)
 gui-libs/wlroots:vulkan - Enable support for the vulkan backend renderer
 gui-libs/wlroots:x11-backend - Enable support for handling input/output devices through x11-libs/libxcb
 gui-libs/xdg-desktop-portal-wlr:elogind - Enable support for rootless session via elogind
+gui-wm/gamescope:pipewire - Enable screen capture via PipeWire
 gui-wm/hikari:X - Enable support for X11 applications (XWayland)
 gui-wm/sway:X - Enable support for X11 applications (XWayland)
 gui-wm/sway:grimshot - Install 'grimshot': script for taking screenshots
@@ -7578,6 +7601,9 @@ sci-mathematics/lcalc:double - Use double precision (the upstream default)
 sci-mathematics/lcalc:double-double - Use sci-libs/qdfor double-double precision
 sci-mathematics/lcalc:pari - Use sci-mathematics/pari for elliptic curve L-functions
 sci-mathematics/lcalc:quad-double - Use sci-libs/qdfor quad-double precision
+sci-mathematics/mathematica:R - Enable dev-lang/R backend support
+sci-mathematics/mathematica:cuda - Install with cuda support
+sci-mathematics/mathematica:ffmpeg - Enable media-video/ffmpeg backend support
 sci-mathematics/maxima:clisp - Compile maxima with GNU CLISP (dev-lisp/clisp)
 sci-mathematics/maxima:clozurecl - Compile maxima with 32-bit Clozure Common Lisp (dev-lisp/clozurecl)
 sci-mathematics/maxima:clozurecl64 - Compile maxima with 64-bit Clozure Common Lisp (dev-lisp/clozurecl)
@@ -9088,6 +9114,7 @@ x11-wm/fvwm3:rplay - Enable rplay support
 x11-wm/fvwm3:stroke - Mouse Gesture support
 x11-wm/i3:doc - Build and install the HTML documentation and regenerate the man pages
 x11-wm/icewm:gdk-pixbuf - Enable gdk-pixbuf rendering
+x11-wm/jwm:pango - Bidirectional text layout support with pango using xft backend.
 x11-wm/lumina:desktop-utils - Build and install lumina's desktop-utils
 x11-wm/metacity:libcanberra - Enable sound event support using media-libs/libcanberra
 x11-wm/metacity:vulkan - Enable Vulkan based compositor support via META_COMPOSITOR=vulkan environment variable

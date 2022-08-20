@@ -3937,14 +3937,12 @@ media-fonts/fonts-meta:ms - Install (free) fonts for the "ms" preset
 media-fonts/ibm-plex:otf - Install OTF fonts
 media-fonts/ibm-plex:ttf - Install TTF fonts
 media-fonts/intlfonts:bdf - Install BDF fonts in addition to PCF
-media-fonts/intlfonts:non-free - Install non-free Tibetan fonts
 media-fonts/liberation-fonts:fontforge - Use media-gfx/fontforge to build fonts from source
 media-fonts/montecarlo:bdf - Install BDF fonts in addition to PCF
 media-fonts/mplus-outline-fonts:ipafont - Generates new fonts merged with media-fonts/ja-ipafonts
 media-fonts/noto:extra - Install full upstream font set
 media-fonts/noto-emoji:buildfont - Build Noto Emoji font with supplied images.
 media-fonts/sil-charis:compact - Use more compactly spaced font
-media-fonts/sil-gentium:compact - Also install more compact version of the font.
 media-fonts/terminus-font:a-like-o - Changes view of letter 'a' - a looks like o (see homepage)
 media-fonts/terminus-font:center-tilde - Place the '~' character vertically centered on the line instead of to the top.
 media-fonts/terminus-font:distinct-l - ll2 variant with more distinctive l (lowercase L)
@@ -7791,6 +7789,11 @@ sys-apps/coreutils:hostname - Build the hostname program
 sys-apps/coreutils:kill - Build the kill program
 sys-apps/coreutils:multicall - Build all tools into a single `coreutils` program akin to busybox to save space
 sys-apps/coreutils:split-usr - Enable this if /bin and /usr/bin are separate directories
+sys-apps/cpu-x:cpu - Use the dev-libs/libcpuid library for CPU info
+sys-apps/cpu-x:force-libstatgrab - Use sys-libs/libstatgrab to instead of sys-process/procps
+sys-apps/cpu-x:gpu - Use the media-libs/glfw library for GPU info
+sys-apps/cpu-x:opencl - Use the virtual/opencl library
+sys-apps/cpu-x:pci - Use the sys-apps/pciutils library for PCI info
 sys-apps/dbus:elogind - Use sys-auth/elogind for session tracking.
 sys-apps/dbus:systemd - Build with sys-apps/systemd at_console support
 sys-apps/dbus-broker:launcher - dbus-daemon compatibility launcher
@@ -8171,6 +8174,7 @@ sys-cluster/glusterfs:georeplication - Enable support for georeplication (requir
 sys-cluster/glusterfs:ipv6 - Use IPv6 by default, requires libtirpc
 sys-cluster/glusterfs:libtirpc - Build against net-libs/libtirpc for RPC support
 sys-cluster/glusterfs:rsyslog - Install configuration snippet for app-admin/rsyslog
+sys-cluster/glusterfs:uring - Control whether or not glusterfs is compiled with uring support or not.
 sys-cluster/hpx:papi - Use dev-libs/papi for NaCl
 sys-cluster/hpx:perftools - Use dev-util/google-perftools for memory allocation
 sys-cluster/hpx:tbb - Use dev-cpp/tbb for memory allocation
@@ -8294,6 +8298,7 @@ sys-devel/llvm:ncurses - Support querying terminal properties using ncurses' ter
 sys-devel/llvm:xar - Support dumping LLVM bitcode sections in Mach-O files (uses app-arch/xar)
 sys-devel/llvm:z3 - Enable support for sci-mathematics/z3 constraint solver
 sys-devel/llvm-roc:runtime - Builds the compiler runtime libraries.
+sys-devel/mold:system-tbb - Use dev-cpp/tbb package instead of vendored copy
 sys-devel/parity:vc10_0 - Enable support for Visual Studio 2010
 sys-devel/parity:vc11_0 - Enable support for Visual Studio 2012
 sys-devel/parity:vc12_0 - Enable support for Visual Studio 2013
@@ -8826,7 +8831,6 @@ x11-apps/igt-gpu-tools:runner - Build the test runner
 x11-apps/igt-gpu-tools:tests - Build and install tests
 x11-apps/igt-gpu-tools:valgrind - Support valgrind annotations
 x11-apps/igt-gpu-tools:xv - Enable intel-gpu-overlay xv backend
-x11-apps/mesa-progs:egl - Build EGL utilities
 x11-apps/mesa-progs:gles2 - Build OpenGL ES 2 utilities
 x11-apps/xdpyinfo:dmx - Builds support for Distributed Multiheaded X x11-base/xorg-server
 x11-apps/xinit:twm - Control dependencies on legacy apps (xterm, twm, ...). Safe to disable if you use a modern desktop environment.

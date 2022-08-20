@@ -20,7 +20,7 @@ fi
 
 LICENSE="Apache-2.0 vim"
 SLOT="0"
-IUSE="+lto +nvimpager test +tui"
+IUSE="+lto +nvimpager test +tui +vim-dim"
 
 REQUIRED_USE="${LUA_REQUIRED_USE}"
 # Upstream say the test library needs LuaJIT
@@ -76,6 +76,11 @@ src_prepare() {
 	# Use our system vim dir
 	sed -e "/^# define SYS_VIMRC_FILE/s|\$VIM|${EPREFIX}/etc/vim|" \
 		-i src/nvim/globals.h || die
+
+	if use vim-dim; then
+		eapply "${FILESDIR}"/vim-dim.patch
+		eautoreconf
+	fi
 
 	cmake_src_prepare
 }

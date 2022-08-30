@@ -33,7 +33,10 @@ CDEPEND="
 	zlib? ( sys-libs/zlib:0= )"
 DEPEND="${CDEPEND}
 	java? ( virtual/jdk:1.8 )
-	test? ( sys-process/time )"
+	test? (
+		sys-process/time
+		dev-libs/boost
+	)"
 RDEPEND="${CDEPEND}
 	java? ( virtual/jre:1.8 )"
 
@@ -65,6 +68,7 @@ src_configure() {
 		$(use_with hepmc hepmcversion 3) \
 		$(use_with java javagui) \
 		$(use_with lhapdf lhapdf "${EPREFIX}"/usr) \
+		$(use_with test boost "${EPREFIX}"/usr) \
 		--without-rivet \
 		$(use_with zlib zlib "${EPREFIX}"/usr)
 }

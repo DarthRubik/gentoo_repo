@@ -343,7 +343,6 @@ app-crypt/heimdal:otp - Adds support for one-time passwords
 app-crypt/ima-evm-utils:tpm - Enable TPM support
 app-crypt/johntheripper-jumbo:opencl - Build with opencl/GPU cracking support
 app-crypt/johntheripper-jumbo:pcap - Build with pcap support
-app-crypt/kbfs:git - Build the Git remote helper for storing repositories in Keybase
 app-crypt/kstart:afs - Enables afs support which means you can acquire an afs token and set PAGs. It's recommended to set this USE if you need authenticated access to an AFS cell for your daemon/app.
 app-crypt/libb2:native-cflags - Use CFLAGS as determined by configure script. These flags will enable all CPU specific features it find available, to further optimise the implementation. This discards any existing CFLAGS set in make.conf or similar.
 app-crypt/libsecret:tpm - Enable Trusted Platform Module support via app-crypt/tpm2-tss
@@ -938,7 +937,6 @@ app-misc/wildq:hcl - HCL support via pyhcl
 app-misc/wildq:toml - TOML support via pytoml
 app-misc/wildq:xml - XML support via xmltodict
 app-misc/worker:avfs - Enable support for sys-fs/avfs
-app-misc/zygrib:maps - Installs additional GSHHS maps for high resolution coastline data and cities
 app-mobilephone/gammu:curl - Enables curl support
 app-mobilephone/gammu:irda - Enables infrared support
 app-mobilephone/gammu:mysql - Use mysql for data storage
@@ -1009,6 +1007,13 @@ app-office/lyx:rcs - Add support for revision control via dev-vcs/rcs
 app-office/lyx:rtf - Add support for RTF import/export packages
 app-office/magicpoint:contrib - Install additional contributed scripts
 app-office/mdbtools:glib - Use functions provided by dev-libs/glib, not built-in
+app-office/sc-im:X - Use x11-misc/xclip for clipboard copy/paste
+app-office/sc-im:ods - Add ods import support
+app-office/sc-im:plots - Add sci-visualization/gnuplot for plotting support
+app-office/sc-im:tmux - Use app-misc/tmux for clipboard copy/paste
+app-office/sc-im:wayland - Use gui-apps/wl-clipboard for clipboard copy/paste
+app-office/sc-im:xls - Add xls support
+app-office/sc-im:xlsx - Add xlsx support
 app-office/scribus:boost - Enable support for Boost based enhancement
 app-office/scribus:hunspell - Enable support for spell checking with app-text/hunspell
 app-office/scribus:minimal - Don't install headers (only required for e.g. plug-in developers)
@@ -1777,7 +1782,6 @@ dev-lang/rust-bin:rls - Install rls, Rust Language Server (used with IDEs suppor
 dev-lang/rust-bin:rust-src - Install rust-src, needed by developer tools and for build-std (cross)
 dev-lang/rust-bin:rustfmt - Install rustfmt, Rust code formatter
 dev-lang/scala:binary - Install from (Gentoo-compiled) binary instead of building from sources. Set this when you run out of memory during build.
-dev-lang/smlnj:pax-kernel - Enable if the user plans to run the package under a pax enabled hardened kernel
 dev-lang/spidermonkey:clang - Use Clang compiler instead of GCC
 dev-lang/spidermonkey:custom-optimization - Build with user-specified compiler optimizations (-Os, -O0, -O1, -O2, -O3) from CFLAGS (unsupported)
 dev-lang/spidermonkey:debug - Enable assertions to allow for easier debugging of programs that link to spidermonkey -- note this will often crash software on regular end-user systems
@@ -2075,6 +2079,7 @@ dev-libs/libverto:libevent - Support event loops using dev-libs/libevent
 dev-libs/libverto:tevent - Support event loops using sys-libs/tevent
 dev-libs/libvoikko:expvfst - Enable experimental features of VFST morphology backend
 dev-libs/libvoikko:hfst - Enable HFST morphology backend
+dev-libs/libxlsxwriter:openssl - Use dev-libs/openssl for MD5 digest
 dev-libs/libxmlb:stemmer - Enable language stemming support
 dev-libs/libzia:ftdi - Enable support for FTDI USB chips
 dev-libs/libzip:mbedtls - Use net-libs/mbedtls as TLS provider
@@ -3228,10 +3233,6 @@ games-simulation/openttd:fluidsynth - Compile with support for FluidSynth
 games-simulation/openttd:lzo - Enables LZO compression for savegames. This is only needed to load extremely old savegames. (versions before 0.2)
 games-simulation/openttd:openmedia - Enables the free open media sets: OpenGFX, OpenSFX, OpenMSX, removing the requirement for proprietary TTD assets to play OpenTTD.
 games-simulation/simutrans:minimal - Don't install any PakSets (scenario data)
-games-simulation/simutrans:pak128 - Install more detailed scenario data
-games-simulation/simutrans:pak128-britain - Install British scenario data
-games-simulation/simutrans:pak128-german - Install German scenario data
-games-simulation/simutrans:pak192-comic - Install comic-like scenario data
 games-simulation/simutrans-paksets:128 - Install higher resolution scenario data (128 px graphics)
 games-simulation/simutrans-paksets:comic192 - Install comic-like scenario data (192 px graphics)
 games-simulation/simutrans-paksets:cs128 - Install Czech-Slovak scenario data (128 px graphics)
@@ -4972,11 +4973,14 @@ media-video/ffmpeg:gme - Enables support for media-libs/game-music-emu for playi
 media-video/ffmpeg:gpl - Build GPL code. Should be enabled unless you require LGPL binaries.
 media-video/ffmpeg:hardcoded-tables - Use pre-calculated tables rather than calculating them on the fly.
 media-video/ffmpeg:iec61883 - Support for FireWire DV/HDV input device using media-libs/libiec61883.
+media-video/ffmpeg:jpegxl - Enable JPEG XL de/encoding via media-libs/libjxl.
 media-video/ffmpeg:kvazaar - Enables media-libs/kvazaar based HEVC encoder.
+media-video/ffmpeg:lcms - Enable ICC profile support via media-libs/lcms.
 media-video/ffmpeg:libaom - Enables media-libs/libaom based AV1 codec support.
 media-video/ffmpeg:libaribb24 - Enables ARIB text and caption decoding via media-libs/aribb24.
 media-video/ffmpeg:libdrm - Enables x11-libs/libdrm support for better screen grabbing and hardware accelerated codecs.
 media-video/ffmpeg:libilbc - Enables iLBC de/encoding via media-libs/libilbc.
+media-video/ffmpeg:libplacebo - Adds flexible GPU-accelerated processing filter based on media-libs/libplacebo.
 media-video/ffmpeg:librtmp - Enables Real Time Messaging Protocol using librtmp (media-video/rtmpdump) in addition to FFmpeg's native implementation.
 media-video/ffmpeg:libsoxr - Enables audio resampling through media-libs/soxr.
 media-video/ffmpeg:libtesseract - Enables the OCR filter via app-text/tesseract.
@@ -6142,9 +6146,7 @@ net-libs/pjproject:webrtc - Enable WebRTC support
 net-libs/qxmpp:vpx - Enable VP8 codec support via media-libs/libvpx
 net-libs/rabbitmq-c:tools - Builds cli tools to interact with brokers
 net-libs/rtrlib:ssh - Enable SSH support
-net-libs/shairplay:alac - Add support for Apple Lossless Audio Codec files
 net-libs/shairplay:playfair - Add support for handling fairplay handshake (used in for example screen mirroring)
-net-libs/shairplay:tools - Build and install a binary shairplay in /usr/bin
 net-libs/telepathy-qt:farstream - Enable support for audio/video calls via farstream
 net-libs/tox:av - Adds support for audio and video.
 net-libs/tox:daemon - Enable the DHT Bootstrap Daemon.
@@ -8871,6 +8873,7 @@ x11-misc/clipmenu:rofi - Use rofi as default launcher
 x11-misc/colord:argyllcms - Enable ArgyllCMS sensor
 x11-misc/colord:extra-print-profiles - Generate extra print profiles. Warning: significant build time and memory requirements.
 x11-misc/fbpager:xrender - Enable transparency support via x11-libs/libXrender
+x11-misc/gmrun:xdg - Enable xdf spec for configuration and history file location
 x11-misc/gpaste:gnome - Enable proper gnome support and enable gnome shell extension.
 x11-misc/grsync:gtk3 - Link against x11-libs/gtk+:3 instead of x11-libs/gtk+:2
 x11-misc/gtkdialog:gtk2 - Build with GTK+2 instead of GTK+3

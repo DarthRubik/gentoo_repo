@@ -648,6 +648,13 @@ app-emulation/vkd3d-proton:crossdev-mingw - Use sys-devel/crossdev for the toolc
 app-emulation/vkd3d-proton:extras - Install extra tools and demos in /usr/lib/vkd3d-proton
 app-emulation/wine-gecko:shared - Install pre-unpacked files which do not need to be copied into the Wine prefix
 app-emulation/wine-mono:shared - Install pre-unpacked files which do not need to be copied into the Wine prefix
+app-emulation/wine-proton:crossdev-mingw - Use sys-devel/crossdev for the toolchain rather than dev-util/mingw64-toolchain (requires manual setting up)
+app-emulation/wine-proton:gecko - Enable mshtml support using app-emulation/wine-gecko
+app-emulation/wine-proton:mono - Enable .NET support using app-emulation/wine-mono
+app-emulation/wine-proton:osmesa - Enable off-screen rendering (OpenGL in bitmaps) support
+app-emulation/wine-proton:perl - Install helpers that require perl (winedump/winemaker)
+app-emulation/wine-proton:sdl - Enable gamepad support using media-libs/libsdl2
+app-emulation/wine-proton:vkd3d - Enable DirectX 12 support using app-emulation/vkd3d
 app-emulation/wine-staging:capi - Enable ISDN support via CAPI
 app-emulation/wine-staging:crossdev-mingw - Use sys-devel/crossdev for the toolchain rather than dev-util/mingw64-toolchain (requires manual setting up)
 app-emulation/wine-staging:custom-cflags - Bypass strip-flags; use at your own peril
@@ -1660,6 +1667,7 @@ dev-lang/ghc:elfutils - Enable DWARF-based backtraces using dev-libs/elfutils.
 dev-lang/ghc:ghcbootstrap - Internal: Bootstrap GHC from an existing GHC installation.
 dev-lang/ghc:ghcmakebinary - Internal: Build binary friendly for redistribution.
 dev-lang/ghc:gmp - Use dev-libs/gmp for integer operations (works faster, but an external depend).
+dev-lang/ghc:llvm - Pull in dependencies for the sys-devel/llvm codegen backend.
 dev-lang/ghc:numa - Enable NUMA thread balancing policy using sys-process/numactl.
 dev-lang/gnat-gpl:ada - Build the ADA language (GNAT) frontend
 dev-lang/gnat-gpl:bootstrap - Used to bootstrap gnat-gpl
@@ -1795,7 +1803,6 @@ dev-lang/vala:valadoc - Installs valadoc documentation generation tool
 dev-lang/xsb:mariadb - Enable support for the mariadb database backend
 dev-lang/yap:R - Enable support for connecting R to Prolog
 dev-lang/yap:raptor - Enable support for Raptor RDF syntax libarary
-dev-lang/zig:stage2 - Install stage2 compiler (written in Zig) alongside stage1 compiler (written in C++ and Zig)
 dev-libs/aml:examples - Build and install examples
 dev-libs/antlr-c:debugger - Compiles debug info into the library
 dev-libs/appstream:apt - Enables Debians APT support
@@ -2138,6 +2145,7 @@ dev-libs/openssl-compat:sslv3 - Support for the old/insecure SSLv3 protocol -- n
 dev-libs/openssl-compat:tls-compression - Enable support for discouraged TLS compression
 dev-libs/openssl-compat:tls-heartbeat - Enable the Heartbeat Extension in TLS and DTLS
 dev-libs/openssl-compat:weak-ssl-ciphers - Build support for SSL/TLS ciphers that are considered "weak"
+dev-libs/optix:headers-only - Download and install only the header files
 dev-libs/pkcs11-helper:nss - Enable NSS crypto engine
 dev-libs/pocl:accel - Enable the generic hardware accelerator device driver
 dev-libs/pocl:cl20 - Enable reporting OpenCL 2.0 for the CPU device
@@ -2228,6 +2236,7 @@ dev-lisp/ecls:gengc - Use generational garbage collection (experimental)
 dev-lisp/ecls:precisegc - Use type information during garbage collection (experimental)
 dev-lisp/gcl:ansi - Build a GCL with ANSI support (else build a traditional CLtL1 image)
 dev-lisp/gcl:athena - Build xgcl - an interface to x11-libs/libXaw
+dev-lisp/sbcl:capstone - Enable disassembly support with dev-libs/capstone
 dev-lua/lua-cjson:internal-fpconv - Enable internal number conversion routines, can increase overall performance by up to 50%
 dev-ml/dose3:parmap - Adds multi-core CPU support via dev-ml/parmap.
 dev-ml/dose3:rpm4 - Adds support for handling rpm4 files.
@@ -2949,6 +2958,7 @@ dev-vcs/git-annex:magicmime - Use libmagic to determine file MIME types
 dev-vcs/git-annex:pairing - Enable pairing
 dev-vcs/git-annex:torrentparser - Use haskell torrent library to parse torrent files
 dev-vcs/git-annex:webapp - Enable git-annex webapp
+dev-vcs/git-delete-merged-branches:full-name-executable - Install executable /usr/bin/git-delete-merged-branches that is in conflict with dev-vcs/git-extras
 dev-vcs/gitg:glade - Install a glade catalog file
 dev-vcs/gitg:python - Install Python bindings for those plugins requiring it.
 dev-vcs/gitolite:contrib - Install user-contributed files
@@ -4174,6 +4184,7 @@ media-libs/gd:avif - Enable support for the avif format via media-libs/libavif
 media-libs/gd:heif - Enable support for the heif format via media-libs/libheif
 media-libs/gd:webp - Enable support for the webp format
 media-libs/gegl:lensfun - Enable support for media-libs/lensfun.
+media-libs/gegl:sdl2 - Add support for Simple Direct Layer 2.0 (media-libs/libsdl2)
 media-libs/gegl:umfpack - Enable sparse solving via sci-libs/umfpack.
 media-libs/glfw:wayland-only - Enable wayland support and disable X11 support
 media-libs/gmmlib:custom-cflags - Do not override user CFLAGS like -march, -msse and similar with lib defaults. Not tested by upstream.
@@ -5119,6 +5130,7 @@ media-video/peek:keybinder - Enable support for global hotkeys using dev-libs/ke
 media-video/pipewire:X - Enable audible bell for X11
 media-video/pipewire:echo-cancel - Enable WebRTC-based echo canceller via media-libs/webrtc-audio-processing
 media-video/pipewire:extra - Build pw-cat/pw-play/pw-record
+media-video/pipewire:flatpak - Enable Flatpak support
 media-video/pipewire:jack-client - Install a plugin for running PipeWire as a JACK client
 media-video/pipewire:jack-sdk - Use PipeWire as JACK replacement
 media-video/pipewire:lv2 - Allow loading LV2 plugins via media-libs/lv2
@@ -7733,7 +7745,6 @@ sec-policy/selinux-base:unknown-perms - Default allow unknown classes in kernels
 sec-policy/selinux-base-policy:unconfined - Enable support for the unconfined SELinux policy module
 sys-apps/accountsservice:elogind - Use sys-auth/elogind for session tracking
 sys-apps/accountsservice:systemd - Use sys-apps/systemd for session tracking
-sys-apps/baselayout-prefix:split-usr - Enable this if /bin and /usr/bin are separate directories
 sys-apps/busybox:make-symlinks - Create all the appropriate symlinks in /bin and /sbin.
 sys-apps/busybox:math - Enable math support in gawk (requires libm)
 sys-apps/busybox:mdev - Create the appropriate symlink in /sbin and install mdev.conf and support files
@@ -7826,7 +7837,8 @@ sys-apps/fwupd:synaptics - Install synaptics plugin
 sys-apps/fwupd:thunderbolt - Install Thunderbolt plugin
 sys-apps/fwupd:tpm - Install Trusted Platform Module plugin
 sys-apps/fwupd:uefi - Enable UEFI support
-sys-apps/gawk:mpfr - use mpfr for high precision arithmetic (-M / --bignum)
+sys-apps/gawk:mpfr - Use dev-libs/mpfr for high precision arithmetic (-M / --bignum)
+sys-apps/gawk:pma - Experimental Persistent Memory Allocator (PMA) support which allows persistence of variables, arrays, and user-defined functions across runs.
 sys-apps/gnome-disk-utility:fat - Include FAT16/FAT32 support (sys-fs/dosfstools)
 sys-apps/groff:uchardet - Enable automatic encoding detection via app-i18n/uchardet
 sys-apps/hwloc:X - use the X Window System
@@ -7901,7 +7913,7 @@ sys-apps/pciutils:zlib - Support compressed pci.ids database
 sys-apps/pcmciautils:staticsocket - Add support for static sockets
 sys-apps/pcsc-lite:embedded - limit RAM and CPU ressources by disabling features
 sys-apps/pcsc-lite:libusb - Use dev-libs/libusb detection to hotplug new smartcard readers. This flag should only be enabled if you're running a non-Linux kernel or you don't want to use sys-fs/udev.
-sys-apps/pcsc-lite:policykit - Uses sys-auth/polkit to restrict access to smartcard readers or smartcars to given users.
+sys-apps/pcsc-lite:policykit - Uses sys-auth/polkit to restrict access to smartcard readers or smartcards to given users.
 sys-apps/pcsc-lite:udev - Use virtual/libudev rules to handle devices' permissions and hotplug support. Unless you know what you're doing do not disable this flag on Linux kernels. This is provided as an option for completeness.
 sys-apps/pcsc-tools:network-cron - Monthly cronjob the update-smartcard_list script
 sys-apps/plocate:io-uring - Enable efficient I/O via sys-libs/liburing.
@@ -8411,6 +8423,7 @@ sys-libs/compiler-rt-sanitizers:tsan - Build Thread Sanitizer runtime.
 sys-libs/compiler-rt-sanitizers:ubsan - Build Undefined Behavior Sanitizer runtime.
 sys-libs/compiler-rt-sanitizers:xray - Build XRay runtime.
 sys-libs/freeipmi:nagios - Install a nagios plugin to check sensors' status.
+sys-libs/freeipmi:without-root - Configure whether or not to check for root access in ipmi tools.
 sys-libs/gdbm:berkdb - enable compatibility layer for UNIX-like dbm and ndbm interfaces
 sys-libs/glibc:cet - Enable Intel Control-flow Enforcement Technology (needs binutils 2.29 and gcc 8)
 sys-libs/glibc:clone3 - Enable the new clone3 syscall within glibc. Can be disabled to allow compatibility with older Electron applications.
@@ -8572,6 +8585,7 @@ virtual/podofo-build:boost - Add support for boost
 virtual/podofo-build:tools - Build and install commandline tools
 virtual/rust:rustfmt - Install rustfmt, Rust code formatter
 virtual/ssh:minimal - Prefer net-misc/dropbear over net-misc/openssh
+virtual/wine:proton - Enable Valve Software's fork of Wine
 virtual/wine:staging - Enable Wine-Staging's Patchset
 www-apache/mod_backtrace:unwind - Use sys-libs/libunwind to provide better resolution of function names.
 www-apache/mod_musicindex:archive - Add archive support

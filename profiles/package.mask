@@ -33,6 +33,33 @@
 
 #--- END OF EXAMPLES ---
 
+# Marc Schiffbauer <mschiff@gentoo.org> (2022-09-02)
+# Dead upstream, open bugs, removal in 30 days
+# bugs #829447, #836227, #862504
+mail-filter/sigh
+
+# Michał Górny <mgorny@gentoo.org> (2022-08-30)
+# Flask-Security-Too is a package with high maintenance cost
+# and no revdeps in ::gentoo.  The next version bump (once more)
+# introduces more dependencies.
+#
+# The remaining listed packages are used exclusively by this package
+# (or its tests).  If you find one of them useful, please let us know
+# and we'll keep it.
+#
+# Removal on 2022-09-29.  Bug #867415.
+dev-python/flask-security
+dev-python/flask-babelex
+dev-python/flask-mail
+dev-python/flask-principal
+dev-python/flask-wtf
+dev-python/mongomock
+dev-python/pony
+dev-python/pyqrcode
+dev-python/sentinels
+dev-python/speaklater
+dev-python/zxcvbn
+
 # Matt Turner <mattst88@gentoo.org> (2022-08-29)
 # Unpatched security vulerabilities. Bug #857780.
 # Removal on 2022-09-29.
@@ -110,6 +137,9 @@ dev-haskell/either
 dev-haskell/filelock
 dev-haskell/filepattern
 dev-haskell/fsnotify
+dev-haskell/genvalidity
+dev-haskell/genvalidity-hspec
+dev-haskell/genvalidity-property
 dev-haskell/ghc-lib-parser
 dev-haskell/ghc-lib-parser-ex
 dev-haskell/githash
@@ -150,6 +180,7 @@ dev-haskell/open-browser
 dev-haskell/openssl-streams
 dev-haskell/optparse-simple
 dev-haskell/pantry
+dev-haskell/path
 dev-haskell/path-io
 dev-haskell/pointed
 dev-haskell/polyparse
@@ -176,6 +207,7 @@ dev-haskell/th-expand-syns
 dev-haskell/th-orphans
 dev-haskell/th-reify-many
 dev-haskell/threads
+dev-haskell/validity
 dev-haskell/vector-builder
 dev-haskell/vector-instances
 dev-haskell/weigh
@@ -261,10 +293,6 @@ app-admin/logcheck
 <dev-lang/erlang-24
 ~dev-lang/elixir-1.11.4
 
-# Fabian Groffen <grobian@gentoo.org> (2022-08-06)
-# superseeded by sys-apps/baselayout, removal in 30 days.  bug #836114
-sys-apps/baselayout-prefix
-
 # Jimi Huotari <chiitoo@gentoo.org> (2022-08-02)
 # Masked for testing. The split of some packages may still
 # change. bug #838970.
@@ -290,18 +318,6 @@ dev-qt/qtwebsockets:6
 # Sam James <sam@gentoo.org> (2022-08-02)
 # Multiple rendering/font issues reported: bug #844115, bug #851141.
 =app-text/ghostscript-gpl-9.56.1
-
-# Marek Szuba <marecki@gentoo.org> (2022-08-01)
-# Suricata-5 has reached end of life upstream. Please switch to major version 6.
-# Removal in 30 days (Bug #)
-<net-analyzer/suricata-6.0.0
-
-# Marek Szuba <marecki@gentoo.org> (2022-07-13)
-# Upstream has switched from CMake to hand-crafted Makefiles (yes, TO them),
-# which have seriously messed up dependency handling and trigger several
-# QA violations in Gentoo. Mask until all of the latter have been resolved
-# and the jumbo patch fixing the former has been thoroughly tested.
->media-gfx/gmic-3.1.0
 
 # Fabian Groffen <grobian@gentoo.org> (2022-07-02)
 # Segfaults handling SPF validations (warn on permerror), like the

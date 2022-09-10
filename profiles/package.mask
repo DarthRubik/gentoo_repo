@@ -33,6 +33,58 @@
 
 #--- END OF EXAMPLES ---
 
+# Arthur Zamarin <arthurzam@gentoo.org> (2022-09-10)
+# Python 3.8 only. EAPI=6 ebuild. 5 open bugs. Issues with newer
+# dependencies versions.
+# Removal: 2022-10-10.  Bugs #869524, #684334.
+net-analyzer/flent
+
+# Arthur Zamarin <arthurzam@gentoo.org> (2022-09-10)
+# Python 3.8 only package. Tests are disabled. Newer targets fail
+# more tests then 3.8 target.
+# Removal: 2022-10-10.  Bug #869521.
+net-nds/nsscache
+
+# Arthur Zamarin <arthurzam@gentoo.org> (2022-09-10)
+# Python 3.8 only package, with inactive since 2017 upstream.
+# Tests fail and doesn't work on newer python targets.
+# Removal: 2022-10-10.  Bug #869512.
+dev-python/python-etcd
+
+# Arthur Zamarin <arthurzam@gentoo.org> (2022-09-10)
+# Python 3.8 only package, with capped old dependencies, and open
+# bugs and issues.
+# Removal: 2022-10-10.  Bugs #869506, #695090, #792219, #809272.
+net-misc/electrum-ltc
+
+# Arthur Zamarin <arthurzam@gentoo.org> (2022-09-10)
+# Upstream repository archived. Python 3.8 only, with issues for
+# newer targets. No reverse dependencies in tree.
+# Removal: 2022-10-10.  Bugs #869503, #747997, #832242.
+dev-python/SaltTesting
+
+# Matthias Schwarzott <zzam@gentoo.org> (2022-09-08)
+# Breaks kernel builds with BTF enabled.
+# Bug #868762.
+=dev-util/pahole-1.24
+
+# Arthur Zamarin <arthurzam@gentoo.org> (2022-09-07)
+# Python 3.8 only package, no maintainer left.
+# Removal: 2022-10-07.  Bug #869107.
+www-apps/blohg
+
+# Arthur Zamarin <arthurzam@gentoo.org> (2022-09-07)
+# Python 3.8 only package, 2 open bugs. Recommended to migrate to borg.
+# No upstream activity since 2015.
+# Bugs #674822, #830291, #832240
+# Removal: 2022-10-07.  Bug #869101.
+app-backup/attic
+
+# Mike Gilbert <floppym@gentoo.org> (2022-09-05)
+# Crash due to double-free.
+# https://bugs.gentoo.org/868567
+=sys-apps/gawk-5.2.0
+
 # Marc Schiffbauer <mschiff@gentoo.org> (2022-09-02)
 # Dead upstream, open bugs, removal in 30 days
 # bugs #829447, #836227, #862504
@@ -42,11 +94,11 @@ mail-filter/sigh
 # Flask-Security-Too is a package with high maintenance cost
 # and no revdeps in ::gentoo.  The next version bump (once more)
 # introduces more dependencies.
-#
+# 
 # The remaining listed packages are used exclusively by this package
 # (or its tests).  If you find one of them useful, please let us know
 # and we'll keep it.
-#
+# 
 # Removal on 2022-09-29.  Bug #867415.
 dev-python/flask-security
 dev-python/flask-babelex
@@ -71,7 +123,7 @@ dev-python/zxcvbn
 # Removal on 2022-09-29.
 x11-drivers/xf86-video-glint
 
-# Hans de Graaff <graaff@gentoo.org) (2022-08-27)
+# Hans de Graaff <graaff@gentoo.org> (2022-08-27)
 # No longer maintained upstream and more modern alternatives such as
 # www-servers/puma are available.
 # Removal in 30 days.
@@ -83,11 +135,6 @@ dev-ruby/aws-sdk
 dev-ruby/aws-sdk-core
 dev-ruby/aws-sdk-resources
 dev-ruby/travis
-
-# Matthew Smith <matthew@gentoo.org> (2022-08-26)
-# Unmaintained upstream. Superseded by modern GTK.
-# Bug #698950, removal in 30 days.
-x11-libs/gtkglext
 
 # Jaco Kroon <jaco@uls.co.za> (2022-08-22)
 # Superceded by bgpq4 (already in tree).  Non-co-operative upstream.  Removal
@@ -264,7 +311,7 @@ net-misc/calicoctl
 # Removal in 30 days, bug #631140
 net-analyzer/smokeping
 
-# Andrew Ammerlaan <andrewammerlaan@gentoo.org>
+# Andrew Ammerlaan <andrewammerlaan@gentoo.org> (2022-08-12)
 # Masked for testing, depends on dev-qt/qt*:6
 # Pyside6 is stuck on python3_10 for the moment being
 dev-python/shiboken6
@@ -285,13 +332,6 @@ net-analyzer/sguil-sensor
 # Root privilege escalation vulnerability, unmaintained since the git
 # transition, multiple open bugs. Removal in 30 days, bug 630752
 app-admin/logcheck
-
-# Matthew Smith <matthew@gentoo.org> (2022-08-09)
-# Please update to Erlang/OTP 24 or 25. Removal in 30 days.
-# See following link for breaking changes:
-# https://www.erlang.org/patches/otp-24.0#incompatibilities
-<dev-lang/erlang-24
-~dev-lang/elixir-1.11.4
 
 # Jimi Huotari <chiitoo@gentoo.org> (2022-08-02)
 # Masked for testing. The split of some packages may still
@@ -413,7 +453,7 @@ sys-devel/automake:1.15
 # not use this program yet if you seriously need anonymity, privacy,
 # security, or stability." Feel free to unmask if this is not a
 # necessity.
-net-p2p/arti
+<net-p2p/arti-1.0.0
 
 # Stephan Hartmann <sultan@gentoo.org> (2022-08-20)
 # Dev channel releases are only for people who
@@ -601,7 +641,7 @@ app-office/texmacs
 # switch the compiler / the binutils) ASAP. If you need them for a specific
 # (isolated) use case, feel free to unmask them on your system.
 <sys-libs/glibc-2.33
-<sys-devel/binutils-2.37_p1
+<sys-devel/binutils-2.38
 
 # Michael Orlitzky <mjo@gentoo.org> (2017-01-07)
 # This package has some dangerous quality and security issues, but

@@ -106,10 +106,10 @@ IDEPEND=">=app-eselect/eselect-wine-1.2.2-r1"
 QA_TEXTRELS="usr/lib/*/wine/i386-unix/*.so" # uses -fno-PIC -Wl,-z,notext
 
 PATCHES=(
-	"${FILESDIR}"/${PN}-7.0.4-llvm-libunwind.patch
 	"${FILESDIR}"/${PN}-7.0.4-musl.patch
 	"${FILESDIR}"/${PN}-7.0.4-noexecstack.patch
 	"${FILESDIR}"/${PN}-7.0.4-restore-menubuilder.patch
+	"${FILESDIR}"/${PN}-7.0.4-unwind.patch
 )
 
 pkg_pretend() {
@@ -242,7 +242,9 @@ src_configure() {
 		: "${CROSSCC:=${CROSSCC_x86:-i686-w64-mingw32-gcc}}"
 
 		# use *FLAGS for mingw, but strip unsupported (e.g. --hash-style=gnu)
-		: "${CROSSCFLAGS:=$(CC=${CROSSCC} test-flags-CC ${CFLAGS:--O2})}"
+		: "${CROSSCFLAGS:=$(
+			filter-flags '-fstack-protector*' #870136
+			CC=${CROSSCC} test-flags-CC ${CFLAGS:--O2})}"
 		: "${CROSSLDFLAGS:=$(
 			filter-flags '-fuse-ld=*'
 			CC=${CROSSCC} test-flags-CCLD ${LDFLAGS})}"

@@ -87,7 +87,7 @@ BDEPEND="${PYTHON_DEPS}
 	>=dev-util/cbindgen-0.24.3
 	net-libs/nodejs
 	virtual/pkgconfig
-	virtual/rust
+	<virtual/rust-1.63
 	|| (
 		(
 			sys-devel/clang:14
@@ -458,6 +458,13 @@ pkg_setup() {
 				eerror "    llvm/clang/lld/rust chain depending on your @world updates)"
 				die "LLVM version used by Rust (${version_llvm_rust}) does not match with ld.lld version (${version_lld})!"
 			fi
+		fi
+
+		if ver_test $(rustc -V | tr -cd '[0-9.]' | cut -d" " -f2) -ge "1.63"; then
+			ewarn "Rust-1.63 is currently unsupported for building Firefox-102."
+			ewarn "Please use 'eselect rust' to switch to a lower version, then resume"
+			ewarn "building Firefox."
+			die "Rust-1.63 detected. Use eselect rust to choose <1.63"
 		fi
 
 		python-any-r1_pkg_setup

@@ -61,7 +61,7 @@ SRC_URI="${MOZ_SRC_BASE_URI}/source/${MOZ_P}.source.tar.xz -> ${MOZ_P_DISTFILES}
 DESCRIPTION="SpiderMonkey is Mozilla's JavaScript engine written in C and C++"
 HOMEPAGE="https://spidermonkey.dev https://firefox-source-docs.mozilla.org/js/index.html "
 
-KEYWORDS="~amd64 ~arm ~arm64 ~mips ~ppc ~ppc64 ~riscv ~x86"
+KEYWORDS="amd64 ~arm arm64 ~mips ~ppc ppc64 ~riscv x86"
 
 SLOT="91"
 LICENSE="MPL-2.0"
@@ -292,9 +292,11 @@ src_configure() {
 		$(use_enable test tests)
 	)
 
-	if ! use x86 && [[ ${CHOST} != armv*h* ]] ; then
-		myeconfargs+=( --enable-rust-simd )
-	fi
+	# Temporary fix with rust-1.63, bgo#870193
+	# if ! use x86 && [[ ${CHOST} != armv*h* ]] ; then
+	#	myeconfargs+=( --enable-rust-simd )
+	# fi
+	myeconfargs+=( --disable-rust-simd )
 
 	# Modifications to better support ARM, bug 717344
 	if use cpu_flags_arm_neon ; then

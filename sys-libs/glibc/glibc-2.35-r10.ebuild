@@ -26,8 +26,7 @@ PATCH_DEV=dilfridge
 if [[ ${PV} == 9999* ]]; then
 	inherit git-r3
 else
-	# KEYWORDS="~alpha ~amd64 ~arm ~arm64 ~hppa ~ia64 ~loong ~m68k ~mips ~ppc ~ppc64 ~riscv ~s390 ~sparc ~x86"
-	KEYWORDS="~m68k"
+	KEYWORDS="~alpha ~amd64 ~arm ~arm64 ~hppa ~ia64 ~loong ~m68k ~mips ~ppc ~ppc64 ~riscv ~s390 ~sparc ~x86"
 	SRC_URI="mirror://gnu/glibc/${P}.tar.xz"
 	SRC_URI+=" https://dev.gentoo.org/~${PATCH_DEV}/distfiles/${P}-patches-${PATCH_VER}.tar.xz"
 	SRC_URI+=" experimental-loong? ( https://dev.gentoo.org/~xen0n/distfiles/glibc-2.35-loongarch-patches-20220522.tar.xz )"
@@ -183,6 +182,15 @@ XFAIL_TEST_LIST=(
 #
 # Small helper functions
 #
+
+dump_build_environment() {
+	einfo ==== glibc build environment ========================================================
+	local v
+	for v in ABI CBUILD CHOST CTARGET CBUILD_OPT CTARGET_OPT CC CXX CPP LD {AS,C,CPP,CXX,LD}FLAGS MAKEINFO NM AR AS STRIP RANLIB OBJCOPY STRINGS OBJDUMP READELF; do
+		einfo " $(printf '%15s' ${v}:)   ${!v}"
+	done
+	einfo =====================================================================================
+}
 
 is_crosscompile() {
 	[[ ${CHOST} != ${CTARGET} ]]
@@ -521,7 +529,12 @@ setup_env() {
 	export __ORIG_CXX=${CXX}
 
 	if tc-is-clang && ! use custom-cflags && ! is_crosscompile ; then
+		export glibc__force_gcc=yes
+		# once this is toggled on, it needs to stay on, since with CPP manipulated
+		# tc-is-clang does not work correctly anymore...
+	fi
 
+	if [[ ${glibc__force_gcc} == "yes" ]] ; then
 		# If we are running in an otherwise clang/llvm environment, we need to
 		# recover the proper gcc and binutils settings here, at least until glibc
 		# is finally building with clang. So let's override everything that is
@@ -538,6 +551,7 @@ setup_env() {
 		einfo "Overriding clang configuration, since it won't work here"
 
 		export CC="${current_gcc_path}/gcc"
+		export CPP="${current_gcc_path}/cpp"
 		export CXX="${current_gcc_path}/g++"
 		export LD="${current_binutils_path}/ld.bfd"
 		export AR="${current_binutils_path}/ar"
@@ -883,6 +897,8 @@ src_prepare() {
 		fi
 	fi
 
+	eapply "${FILESDIR}"/2.35/glibc-2.35-make-4.4-MAKEFLAGS.patch
+
 	if use clone3 ; then
 		append-cppflags -DGENTOO_USE_CLONE3
 	else
@@ -911,13 +927,8 @@ src_prepare() {
 }
 
 glibc_do_configure() {
+	dump_build_environment
 
-	local v
-	for v in ABI CBUILD CHOST CTARGET CBUILD_OPT CTARGET_OPT CC CXX LD {AS,C,CPP,CXX,LD}FLAGS MAKEINFO NM AR AS STRIP RANLIB OBJCOPY STRINGS OBJDUMP READELF; do
-		einfo " $(printf '%15s' ${v}:)   ${!v}"
-	done
-
-	echo
 	local myconf=()
 
 	# Use '=strong' instead of '=all' to protect only functions

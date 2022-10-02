@@ -6,6 +6,34 @@
 # This file is only for generic masks. For arch-specific masks (i.e.
 # mask everywhere, unmask on arch/*) use arch/base.
 
+# Sam James <sam@gentoo.org> (2022-10-02)
+# USE=compat / possibly allowing sys-libs/zlib needs to be figured out,
+# but packages want to use the actual zlib-ng library, so we need to
+# mask it and can't hold the whole thing up on the compat effort.
+sys-libs/zlib-ng compat
+sys-libs/minizip-ng compat
+
+# Matt Turner <mattst88@gentoo.org> (2022-09-26)
+# Requires nautilus-43.0 which is not in tree yet.
+>=x11-terms/gnome-terminal-3.46 nautilus
+
+# Pascal Jaeger <pascal.jaeger@leimstift.de> (2022-09-21)
+# Versions >=43.0 of evince only work with <gnome-base/nautilus-42.2.
+# Allowing that use flag for >=43.0 would stop users from updating nautilus
+>=app-text/evince-43.0 nautilus
+
+# Yiyang Wu <xgreenlandforwyy@gmail.com> (2022-09-21)
+# Intolerable mathematical errors found on AMD Radeon VII GPU during src_test,
+# may lead to incorrect results in computation.
+# https://github.com/ROCmSoftwarePlatform/rocFFT/issues/369
+=sci-libs/rocFFT-5.1.3 amdgpu_targets_gfx906
+=sci-libs/hipFFT-5.1.3 amdgpu_targets_gfx906
+
+# Georgy Yakovlev <gyakovlev@gentoo.org> (2022-09-17)
+# po4a crashes while translating
+# mask for now
+=dev-util/schroot-1.6.13_p2 nls
+
 # Sam James <sam@gentoo.org> (2022-09-15)
 # Doesn't work on e.g. glibc systems. Unmasked on the LLVM profiles.
 # It doesn't matter much as llvm-libunwind has different semantics
@@ -14,11 +42,7 @@
 # bug #870211.
 dev-lang/rust llvm-libunwind
 
-# Sam James <sam@gentoo.org> (2022-09-15)
-# Patch not rebased and supporting it is not a priority: bug #824018.
->=media-libs/libpng-1.6.38 apng
-
-# Matt Jolly <Matt.Jolly@footclan.ninja (2022-09-09)
+# Matt Jolly <Matt.Jolly@footclan.ninja> (2022-09-09)
 # app-antivirus/clamav JIT support requires LLVM <=13
 # ebuild support is there but currently failing to link
 app-antivirus/clamav jit
@@ -352,7 +376,7 @@ x11-libs/colord-gtk doc
 # Qt libraries; see https://github.com/ProtonMail/proton-bridge/issues/16
 # The qt module itself apparently can be made to build against system Qt5
 # but making it do so while vendored is a non-trivial task.
-mail-mta/protonmail-bridge gui
+mail-mta/proton-mail-bridge gui
 
 # Michał Górny <mgorny@gentoo.org> (2020-09-27)
 # The respective dependencies are masked for removal.

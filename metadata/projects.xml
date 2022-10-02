@@ -447,6 +447,10 @@
       <email>floppym@gentoo.org</email>
       <name>Mike Gilbert</name>
     </member>
+    <member>
+      <email>sultan@gentoo.org</email>
+      <name>Stephan Hartmann</name>
+    </member>
   </project>
   <project>
     <email>cjk@gentoo.org</email>
@@ -595,6 +599,10 @@
     <name>Containers</name>
     <url>https://wiki.gentoo.org/wiki/Project:Containers</url>
     <description>The Contains Project provides minimal container images for a variety of container formats so that users can have a consistent experience when building application specific containers.</description>
+    <member>
+      <email>ajak@gentoo.org</email>
+      <name>John Helmert III</name>
+    </member>
     <member>
       <email>arzano@gentoo.org</email>
       <name>Max Magorsch</name>
@@ -872,10 +880,6 @@
       <name>Guilherme Amadio</name>
     </member>
     <member>
-      <email>johu@gentoo.org</email>
-      <name>Johannes Huber</name>
-    </member>
-    <member>
       <email>jstein@gentoo.org</email>
       <name>Jonas Stein</name>
     </member>
@@ -962,10 +966,6 @@
       <name>Andreas Sturmlechner</name>
     </member>
     <member>
-      <email>eva@gentoo.org</email>
-      <name>Gilles Dartiguelongue</name>
-    </member>
-    <member>
       <email>floppym@gentoo.org</email>
       <name>Mike Gilbert</name>
     </member>
@@ -999,10 +999,6 @@
     <name>GNOME Desktop</name>
     <url>https://wiki.gentoo.org/wiki/Project:GNOME</url>
     <description>The Gentoo Gnome Project aims to bring the current and complete GNOME desktop environment to Gentoo.</description>
-    <member>
-      <email>eva@gentoo.org</email>
-      <name>Gilles Dartiguelongue</name>
-    </member>
     <member is-lead="1">
       <email>leio@gentoo.org</email>
       <name>Mart Raudsepp</name>
@@ -1099,10 +1095,6 @@
     <name>GStreamer package maintainers</name>
     <url>https://wiki.gentoo.org/wiki/Project:GStreamer</url>
     <description>The GStreamer project maintains packages associated with the upstream GStreamer project and associated Gentoo tooling</description>
-    <member>
-      <email>eva@gentoo.org</email>
-      <name>Gilles Dartiguelongue</name>
-    </member>
     <member>
       <email>leio@gentoo.org</email>
       <name>Mart Raudsepp</name>
@@ -1278,6 +1270,28 @@
     <member>
       <email>soap@gentoo.org</email>
       <name>David Seifert</name>
+    </member>
+  </project>
+  <project>
+    <email>libera-groupcontacts@gentoo.org</email>
+    <name>Group Contacts</name>
+    <url>https://wiki.gentoo.org/wiki/Project:Group_Contacts</url>
+    <description>Group Contacts for libera.chat administration</description>
+    <member>
+      <email>jmbsvicetto@gentoo.org</email>
+      <name>Jorge Manuel B. S. Vicetto</name>
+    </member>
+    <member>
+      <email>juippis@gentoo.org</email>
+      <name>Joonas Niilola</name>
+    </member>
+    <member>
+      <email>sam@gentoo.org</email>
+      <name>Sam James</name>
+    </member>
+    <member is-lead="1">
+      <email>zlogene@gentoo.org</email>
+      <name>Mikle Kolyada</name>
     </member>
   </project>
   <project>
@@ -1577,10 +1591,6 @@
     <member>
       <email>dilfridge@gentoo.org</email>
       <name>Andreas K. Hüttel</name>
-    </member>
-    <member>
-      <email>johu@gentoo.org</email>
-      <name>Johannes Huber</name>
     </member>
     <member>
       <email>kensington@gentoo.org</email>
@@ -2190,6 +2200,16 @@
       <email>nicolasbock@gentoo.org</email>
       <name>Nicolas Bock</name>
       <role>Physics</role>
+    </member>
+  </project>
+  <project>
+    <email>pkgcore@gentoo.org</email>
+    <name>PkgCore</name>
+    <url>https://wiki.gentoo.org/wiki/Project:PkgCore</url>
+    <description>The PkgCore Project is devoted to maintaining and updating the pkgcore stack, the other package manager for Gentoo and its ebuild format, and the tools based on it, which includes pkgcheck and pkgdev.</description>
+    <member is-lead="1">
+      <email>arthurzam@gentoo.org</email>
+      <name>Arthur Zamarin</name>
     </member>
   </project>
   <project>
@@ -3358,10 +3378,6 @@
     <member>
       <email>bman@gentoo.org</email>
       <name>Aaron Bauman</name>
-    </member>
-    <member>
-      <email>johu@gentoo.org</email>
-      <name>Johannes Huber</name>
     </member>
     <member>
       <email>jsmolic@gentoo.org</email>

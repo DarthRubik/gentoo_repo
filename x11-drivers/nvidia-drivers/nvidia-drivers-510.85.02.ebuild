@@ -34,7 +34,7 @@ COMMON_DEPEND="
 		net-libs/libtirpc:=
 	)
 	tools? (
-		dev-libs/atk
+		|| ( >=app-accessibility/at-spi2-core-2.46:2 dev-libs/atk )
 		dev-libs/glib:2
 		dev-libs/jansson:=
 		media-libs/harfbuzz:=
@@ -159,6 +159,7 @@ pkg_setup() {
 	fi
 
 	if kernel_is -ge 5 18 13; then
+		# https://github.com/NVIDIA/open-gpu-kernel-modules/issues/341
 		if linux_chkconfig_present FB_SIMPLE; then
 			warn+=(
 				"  CONFIG_FB_SIMPLE: is set, recommended to disable and switch to FB_EFI"
@@ -447,7 +448,8 @@ https://wiki.gentoo.org/wiki/NVIDIA/nvidia-drivers"
 	done < .manifest || die
 
 	# MODULE:installer non-skipped extras
-	exeinto /lib/systemd/system-sleep
+	: "$(systemd_get_sleepdir)"
+	exeinto "${_#"${EPREFIX}"}"
 	doexe systemd/system-sleep/nvidia
 	dobin systemd/nvidia-sleep.sh
 	systemd_dounit systemd/system/nvidia-{hibernate,resume,suspend}.service

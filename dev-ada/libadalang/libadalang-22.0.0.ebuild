@@ -38,6 +38,7 @@ BDEPEND="test? (
 		dev-ml/camomile
 		dev-ml/ocaml-ctypes
 		dev-ada/e3-testsuite
+		<dev-lang/ocaml-4.14
 	)"
 
 pkg_setup() {
@@ -67,7 +68,7 @@ src_compile() {
 	${EPYTHON} manage.py build -v \
 		--build-mode "prod" \
 		-j$(makeopts_jobs) \
-		--gargs "-cargs:C ${CFLAGS} -cargs:Ada ${ADAFLAGS} -largs:C ${LDFLAGS}" \
+		--gargs "-cargs:C ${CFLAGS} -cargs:Ada ${ADAFLAGS} -largs ${LDFLAGS}" \
 		--library-types=${libType} || die
 	GPR_PROJECT_PATH="${S}"/build \
 		gprbuild -P contrib/highlight/highlight.gpr \
@@ -76,7 +77,7 @@ src_compile() {
 		-XLIBRARY_TYPE=relocatable \
 		-XXMLADA_BUILD=relocatable \
 		-cargs:C ${CFLAGS} -cargs:Ada ${ADAFLAGS} \
-		-largs:C ${LDFLAGS} \
+		-largs ${LDFLAGS} \
 		|| die
 }
 

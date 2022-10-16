@@ -1,6 +1,14 @@
 # Copyright 1999-2022 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
+# WANG Xuerui <xen0n@gentoo.org> (2022-10-07)
+# sys-libs/libsmbios unavailable on most arches (requires the very low-level
+# <sys/io.h> header that is only ever present on alpha, amd64, ia64 and x86),
+# only unmask on relevant arches.
+# bug #875830
+app-laptop/pbbuttonsd macbook
+sys-apps/fwupd dell
+
 # Conrad Kostecki <conikost@gentoo.org> (2022-07-19)
 # www-servers/nginx requires keywording
 www-servers/nginx nginx_modules_http_security
@@ -203,11 +211,6 @@ dev-util/catalyst system-bootloader
 # Vulkan support is only available on few selected arches atm.
 # Mask everywhere, unmask where appropriate.
 media-video/mpv vulkan
-
-# Nick Sarnie <sarnex@gentoo.org> (2018-04-29)
-# media-libs/vulkan-loader and app-emulation/vkd3d are not available everywhere
-app-emulation/wine-staging vulkan
-app-emulation/wine-vanilla vkd3d vulkan
 
 # Richard Yao <ryao@gentoo.org> (2018-04-16)
 # sys-fs/zfs is not available everywhere.

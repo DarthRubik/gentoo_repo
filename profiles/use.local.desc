@@ -659,18 +659,13 @@ app-emulation/wine-staging:opencl - Enable OpenCL support
 app-emulation/wine-staging:osmesa - Enable off-screen rendering (OpenGL in bitmaps) support
 app-emulation/wine-staging:pcap - Support packet capture software (e.g. wireshark)
 app-emulation/wine-staging:perl - Install helpers that require perl (winedump/winemaker)
-app-emulation/wine-staging:pipelight - Apply Wine-Staging patches for Pipelight/Silverlight support
-app-emulation/wine-staging:realtime - Pull in sys-auth/rtkit for low-latency pulseaudio support
-app-emulation/wine-staging:run-exes - Use Wine to open and run .EXE and .MSI files
 app-emulation/wine-staging:samba - Pull in net-fs/samba with winbind for NTLM auth support
 app-emulation/wine-staging:sdl - Enable gamepad support using media-libs/libsdl2
-app-emulation/wine-staging:staging - Apply Wine-Staging patches for advanced feature support that haven't made it into upstream Wine yet
 app-emulation/wine-staging:vulkan - Enable Vulkan drivers
 app-emulation/wine-vanilla:capi - Enable ISDN support using net-libs/libcapi
 app-emulation/wine-vanilla:crossdev-mingw - Use sys-devel/crossdev for the toolchain rather than dev-util/mingw64-toolchain (requires manual setting up)
 app-emulation/wine-vanilla:dos - Pull in games-emulation/dosbox to run DOS applications
 app-emulation/wine-vanilla:gecko - Enable mshtml support using app-emulation/wine-gecko
-app-emulation/wine-vanilla:gssapi - Use GSSAPI (Kerberos SSP support)
 app-emulation/wine-vanilla:mingw - Build PE files using a MinGW toolchain for better compatibility
 app-emulation/wine-vanilla:mono - Enable .NET support using app-emulation/wine-mono
 app-emulation/wine-vanilla:netapi - Enable support for configuring remote shares using net-fs/samba
@@ -678,8 +673,6 @@ app-emulation/wine-vanilla:opencl - Enable OpenCL support
 app-emulation/wine-vanilla:osmesa - Enable off-screen rendering (OpenGL in bitmaps) support
 app-emulation/wine-vanilla:pcap - Support packet capture software (e.g. wireshark)
 app-emulation/wine-vanilla:perl - Install helpers that require perl (winedump/winemaker)
-app-emulation/wine-vanilla:realtime - Pull in sys-auth/rtkit for low-latency pulseaudio support
-app-emulation/wine-vanilla:run-exes - Use Wine to open and run .EXE and .MSI files
 app-emulation/wine-vanilla:samba - Pull in net-fs/samba with winbind for NTLM auth support
 app-emulation/wine-vanilla:sdl - Enable gamepad support using media-libs/libsdl2
 app-emulation/wine-vanilla:vkd3d - Enable DirectX 12 support using app-emulation/vkd3d
@@ -2977,7 +2970,8 @@ games-action/minetest:redis - Enable redis backend via dev-libs/hiredis
 games-action/minetest:server - Build Minetest server
 games-action/minetest:spatial - Enable SpatialIndex AreaStore backend
 games-action/polymc:lto - Enable link-time optimization
-games-action/polymc:qt6 - Build with Qt6 support instead of the default Qt5
+games-action/prismlauncher:lto - Enable link-time optimization
+games-action/prismlauncher:qt6 - Build with Qt6 support instead of the default Qt5
 games-action/supermariowar:server - Compile and install Super Mario War server files
 games-action/supertuxkart:nettle - Use dev-libs/nettle crypto backend
 games-action/supertuxkart:recorder - Enable recording with media-libs/libopenglrecorder
@@ -4020,8 +4014,9 @@ media-gfx/freecad:techdraw - Build the techdraw module and workbench, a more adv
 media-gfx/freecad:tux - Build the Tux module
 media-gfx/geeqie:ffmpegthumbnailer - Enable video thumbnail support with media-video/ffmpegthumbnailer
 media-gfx/geeqie:gpu-accel - Enable GPU acceleration support - experimental
-media-gfx/geeqie:gtk3 - Link against x11-libs/gtk+:3 instead of x11-libs/gtk+:2
-media-gfx/geeqie:map - Enable items map display - experimental
+media-gfx/geeqie:heif - Enable support for ISO/IEC 23008-12:2017 HEIF/HEIC image format using media-libs/libheif
+media-gfx/geeqie:jpegxl - Enable support for JPEG XL image format
+media-gfx/geeqie:map - Enable items GPS map display
 media-gfx/gimp:heif - Enable support for ISO/IEC 23008-12:2017 HEIF files
 media-gfx/gimp:jpegxl - Enable support for JPEG XL image format
 media-gfx/gimp:vector-icons - Enable support for vector icons (experimental)
@@ -4290,6 +4285,11 @@ media-libs/libsdl2:sound - Control audio support (disable at your own risk)
 media-libs/libsdl2:video - Control video support (disable at your own risk)
 media-libs/libsdl2:vulkan - Enable Vulkan support
 media-libs/libtgvoip:dsp - Enable signal processing (echo cancellation, noise suppression, and automatic gain control)
+media-libs/libva:drm - Enables VA/DRM API support.
+media-libs/libva-compat:drm - Enables VA/DRM API support.
+media-libs/libva-compat:egl - Enables EGL support.
+media-libs/libva-intel-driver:hybrid - Enable support for hybrid vaapi hardware acceleration on Intel Haswell and newer architectures
+media-libs/libva-intel-media-driver:redistributable - Install redistributable media kernel binaries (no source code) files (primarily needed for video encoding support)
 media-libs/libvisio:tools - Build conversion tools
 media-libs/libvmaf:embed-models - Compile default vmaf models into the library (needs app-editors/vim-core)
 media-libs/libvpx:highbitdepth - Enable 10 and 12 bit support for VP9.
@@ -4804,6 +4804,7 @@ media-sound/shntool:shorten - Add support for the shorten audio compressor
 media-sound/snapcast:client - Build and install Snapcast client component
 media-sound/snapcast:server - Build and install Snapcast server component
 media-sound/snapcast:tremor - Build with TREMOR version of vorbis
+media-sound/snd:notcurses - Terminal interface via dev-cpp/notcurses
 media-sound/snd:s7 - Enable the s7 extension language (a version of Scheme)
 media-sound/sonic-visualiser:id3tag - Enables ID3 tagging with id3tag library
 media-sound/sox:amr - Enables Adaptive Multi-Rate Audio support
@@ -5584,6 +5585,9 @@ net-dns/knot:synthrecord - Enable the automatic forward/reverse records module
 net-dns/knot:utils - Install Knot utilities, such as kdig, kzonecheck, ...
 net-dns/knot:whoami - Enable the whoami response module
 net-dns/knot:xdp - Enable eXpress Data Path
+net-dns/knot-resolver:dnstap - Build dnstap binary logging module
+net-dns/knot-resolver:kresc - Build (experimental) command-line client
+net-dns/knot-resolver:nghttp2 - DNS-over-HTTPS support
 net-dns/mydns:alias - Enable David Phillips aliasing
 net-dns/mydns:status - Enable the STATUS opcode to check server status
 net-dns/nsd:bind8-stats - Enables BIND8 like NSTATS and XSTATS
@@ -7306,7 +7310,6 @@ sci-libs/dealii:arpack - Adds support for ARPACK (sci-libs/arpack)
 sci-libs/dealii:assimp - Add support for assimp (media-libs/assimp)
 sci-libs/dealii:cgal - Adds support for CGAL (sci-mathematics/cgal)
 sci-libs/dealii:cuda - Add support for cuda (dev-util/nvidia-cuda-sdk)
-sci-libs/dealii:debug - Build an additional debug library with extra debug codepaths, like asserts and extra output. If you want to get meaningful backtraces see <https://www.gentoo.org/proj/en/qa/backtraces.xml>
 sci-libs/dealii:ginkgo - Add support for ginkgo (sci-libs/ginkgo)
 sci-libs/dealii:gmsh - Add support for gmsh (sci-libs/gmsh)
 sci-libs/dealii:metis - Add support for metis (sci-libs/metis)
@@ -8479,6 +8482,7 @@ sys-libs/libselinux:pcre2 - Use dev-libs/libpcre2 for fcontext regexes
 sys-libs/libunwind:debug-frame - Adds support for DWARF .debug_frame section: Use the information from this section if available
 sys-libs/libunwind:libatomic - Use libatomic instead of builtin atomic operations
 sys-libs/libxcrypt:compat - Build with compatibility interfaces for other crypt implementations
+sys-libs/libxcrypt:headers-only - Build and install only the headers.
 sys-libs/libxcrypt:system - Install as system libcrypt.so rather than to an alternate directory (will collide with sys-libs/glibc's version)
 sys-libs/llvm-libunwind:clang - Force building using installed clang (rather than the default CC/CXX; required for testing).
 sys-libs/minizip-ng:compat - Enable compatibility with sys-libs/zlib's USE=minizip
@@ -8860,11 +8864,6 @@ x11-libs/libdrm:valgrind - Compile in valgrind memory hints
 x11-libs/libfm:automount - Use gnome-base/gvfs for automounting
 x11-libs/libfm:udisks - Use libfm's udisks-based volume monitor implementation instead of using the one from gvfs
 x11-libs/libfm:vala - Support custom actions in menus
-x11-libs/libva:drm - Enables VA/DRM API support.
-x11-libs/libva-compat:drm - Enables VA/DRM API support.
-x11-libs/libva-compat:egl - Enables EGL support.
-x11-libs/libva-intel-driver:hybrid - Enable support for hybrid vaapi hardware acceleration on Intel Haswell and newer architectures
-x11-libs/libva-intel-media-driver:redistributable - Install redistributable media kernel binaries (no source code) files (primarily needed for video encoding support)
 x11-libs/libwnck:tools - Install wnckprop-3 and wnck-urgency-monitor-3 command-line tools
 x11-libs/libxcb:xkb - Enable the XCB keyboard extension
 x11-libs/libxkbcommon:tools - Build the xkbcli tools
@@ -9118,7 +9117,6 @@ x11-wm/stumpwm:contrib - Install contrib modules
 x11-wm/stumpwm:doc - Include documentation
 x11-wm/subtle:xrandr - Enable support for the X RandR extension
 x11-wm/subtle:xtest - Enable support for the XTest extension
-x11-wm/vtwm:rplay - Enable rplay support, needed for sound.
 x11-wm/windowmaker:modelock - Enable XKB language status lock support. README says: "If you don't know what it is you probably don't need it."
 x11-wm/windowmaker:xrandr - Enable XRandR window extension support
 x11-wm/wmfs:imlib2 - Enable image support through media-libs/imlib2

@@ -33,6 +33,38 @@
 
 #--- END OF EXAMPLES ---
 
+# David Seifert <soap@gentoo.org> (2022-10-18)
+# Dead package, use dev-util/nvidia-cuda-toolkit instead. Examples were
+# removed in 11.6, no revdeps left. Removal on 2022-11-17.
+# Bug #722092, #749900, #762169, #840656, #845381, #858392, #866701.
+dev-util/nvidia-cuda-sdk
+
+# Andrew Ammerlaan <andrewammerlaan@gentoo.org> (2022-10-17)
+# Hostile takeover ongoing, integrity cannot be guaranteed.
+# Use the release version only if you change the meta server setting.
+# Use games-action/multimc-bin or games-action/prismlauncher instead
+# to be completely safe.
+# https://bugs.gentoo.org/877495
+#
+# Update (2022-10-20)
+# Removal in 15 days, please install games-action/prismlauncher instead
+games-action/polymc
+
+# Michał Górny <mgorny@gentoo.org> (2022-10-17)
+# Unmaintained since 2018.  Requires dev-python/nose.  No revdeps left.
+# Removal on 2022-11-16.  Bug #877375.
+dev-python/case
+
+# Michał Górny <mgorny@gentoo.org> (2022-10-17)
+# dev-python/nose plugin.  No revdeps left.
+# Removal on 2022-11-16.  Bug #877369.
+dev-python/nose_warnings_filters
+
+# John Helmert III <ajak@gentoo.org> (2022-10-16)
+# <OpenSSL-1.1.1 are EOL and contain known vulnerabilities. Users should
+# migrate to a newer branch.
+<dev-libs/openssl-1.1.1
+
 # Matt Turner <mattst88@gentoo.org> (2022-10-14)
 # Last upstream release in 2013. Last upstream commit in 2019. No maintainer in
 # Gentoo. No reverse dependencies. EAPI=6.
@@ -521,6 +553,7 @@ sys-devel/automake:1.11
 >=gnome-extra/gnome-calendar-43
 >=gnome-extra/gnome-clocks-43
 >=gnome-extra/gnome-shell-extensions-43
+>=gnome-extra/gnome-shell-frippery-43
 >=gnome-extra/gnome-software-43
 >=gnome-extra/sushi-43
 >=mail-client/balsa-2.6.4

@@ -15,8 +15,13 @@ SRC_URI="mirror://pypi/${PN:0:1}/${PN}/${P}.tar.gz"
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS="~amd64 ~ppc64"
+KEYWORDS="amd64 ~ppc64"
 IUSE="examples opengl"
+
+# Running tests on GPUs requires both appropriate hardware and additional permissions
+# having been granted to the user running them. Testing on CPUs with dev-libs/pocl
+# is in theory possible but has been found to be very fragile, see e.g. Bug #872308.
+RESTRICT="test"
 
 COMMON=">=virtual/opencl-2"
 # libglvnd is only needed for the headers

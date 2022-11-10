@@ -79,7 +79,7 @@ app-admin/keepassxc:autotype - Add support to autotype the passwords into other 
 app-admin/keepassxc:browser - Enables browser plugin support
 app-admin/keepassxc:keeshare - Enable KeeShare sharing integration
 app-admin/keepassxc:network - Enable network support
-app-admin/keepassxc:yubikey - Enable database unlocking via YubiKey.
+app-admin/keepassxc:yubikey - Enable database unlocking via hardware keys supporting YubiKey-style HMAC-SHA1 protocol
 app-admin/lnav:pcap - Enable support for pcap files.
 app-admin/logrotate:acl - Installs acl support
 app-admin/logrotate:cron - Installs cron file
@@ -1956,6 +1956,7 @@ dev-libs/libcec:xrandr - Enable detection of active HDMI using xrandr extensions
 dev-libs/libcgroup:daemon - Install the configuration tools and init/config files.
 dev-libs/libcgroup:tools - Install the cgroup rules processing daemon and init/config files.
 dev-libs/libcharon:client - Install the charon client library
+dev-libs/libclc:spirv - Build SPIRV targets
 dev-libs/libdbusmenu:gtk - Enable support for GTK+2
 dev-libs/libdbusmenu:gtk3 - Enable support for GTK+3
 dev-libs/libdynd:cuda - Enable NVIDIA CUDA toolkit support
@@ -1972,6 +1973,7 @@ dev-libs/libffi-compat:pax-kernel - Use PaX emulated trampolines, for we can't u
 dev-libs/libfido2:nfc - Enable experimental NFC support
 dev-libs/libflatarray:cuda - Enables plugins for NVIDIA GPUs (e.g. CUDAAllocator)
 dev-libs/libgcrypt:asm - Enable assembly for optimization
+dev-libs/libgcrypt:getentropy - Use getentropy function to obtain randomness from the kernel
 dev-libs/libgdata:crypt - Use app-crypt/gcr for keeping tokens and passwords in non-pageable memory for improved security
 dev-libs/libgdata:gnome-online-accounts - Enable net-libs/gnome-online-accounts support
 dev-libs/libgit2:gssapi - Enable GSSAPI support for SPNEGO auth
@@ -2438,6 +2440,7 @@ dev-python/pyside2:widgets - Build QtWidgets module
 dev-python/pyside2:x11extras - Build QtX11Extras module
 dev-python/pyside2:xml - Build QtXml module
 dev-python/pyside2:xmlpatterns - Build QtXmlPatterns module
+dev-python/pyside6:charts - Build QtCharts module
 dev-python/pyside6:concurrent - Build QtConcurrent module
 dev-python/pyside6:designer - Build QtDesigner and QtUiTools modules
 dev-python/pyside6:gles2-only - Build QtGui "QOpenGL*" classes
@@ -2445,6 +2448,7 @@ dev-python/pyside6:gui - Build QtGui module
 dev-python/pyside6:help - Build QtHelp module
 dev-python/pyside6:multimedia - Build QtMultimedia and QtMultimediaWidgets modules
 dev-python/pyside6:network - Build QtNetwork module
+dev-python/pyside6:network-auth - Build QtNetworkAuth module
 dev-python/pyside6:positioning - Build QtPositioning module
 dev-python/pyside6:printsupport - Build QtPrintSupport module
 dev-python/pyside6:qml - Build QtQml module
@@ -2468,6 +2472,7 @@ dev-python/qiskit-terra:visualization - Enable visualization modules
 dev-python/rarfile:compressed - Enables the module to support compressed v3 archives by calling the app-arch/unrar.
 dev-python/rfc3986:idna - enable support for the IDNA specification (RFC 5891)
 dev-python/rpyc:gdb - Run tests depending on sys-devel/gdb
+dev-python/rpyc:gevent - Use dev-python/gevent for GeventServer
 dev-python/rpyc:numpy - Run tests depending on dev-python/numpy, dev-python/pandas
 dev-python/scipy:pythran - Use dev-python/pythran to accelerate runtime
 dev-python/scipy:sparse - Adds support for sparse solving with sci-libs/umfpack
@@ -2787,7 +2792,6 @@ dev-util/diffoscope:tcpdump - Use net-analyzer/tcpdump
 dev-util/diffoscope:zip - Use app-arch/unzip
 dev-util/edi:clang - Provide integration with sys-devel/clang and dev-util/bear for autocompletion, inline errors and information about compilation units.
 dev-util/flatpak-builder:yaml - Use libyaml for yaml support
-dev-util/geany:gtk2 - Use GTK+2 instead of GTK+3
 dev-util/geany:vte - Enable Terminal support (x11-libs/vte)
 dev-util/geany-plugins:ctags - Enable ctags plugin
 dev-util/geany-plugins:debugger - Enable the debugger plugin which interfaces with sys-devel/gdb
@@ -2970,7 +2974,6 @@ games-action/minetest:prometheus - Enable prometheus client support
 games-action/minetest:redis - Enable redis backend via dev-libs/hiredis
 games-action/minetest:server - Build Minetest server
 games-action/minetest:spatial - Enable SpatialIndex AreaStore backend
-games-action/polymc:lto - Enable link-time optimization
 games-action/prismlauncher:lto - Enable link-time optimization
 games-action/prismlauncher:qt6 - Build with Qt6 support instead of the default Qt5
 games-action/supermariowar:server - Compile and install Super Mario War server files
@@ -3074,7 +3077,7 @@ games-engines/devilutionx:sodium - Enable network packet encryption using dev-li
 games-engines/devilutionx:zerotier - Enable ZeroTier for online public games
 games-engines/exult:fluidsynth - Compile with support for FluidSynth
 games-engines/exult:sdl2 - Use libsdl2 instead of libsdl
-games-engines/exult:tools - Enable tools
+games-engines/exult:tools - Enable tools, usercode compiler and mods support
 games-engines/frobtads:tads2compiler - Build TADS2 compiler
 games-engines/frobtads:tads3compiler - Build TADS3 compiler
 games-engines/love:gme - Use media-libs/game-music-emu to support additional music formats
@@ -3209,7 +3212,6 @@ games-simulation/flightgear:gdal - Enable alternative terrain engine based on pa
 games-simulation/flightgear:qt5 - Build Qt5 launcher application
 games-simulation/flightgear:udev - Enable event-based Input devices through virtual/udev
 games-simulation/flightgear:utils - Build various utilities (fgpanel, fgviewer among others)
-games-simulation/openrct2:lightfx - Enables LightFX for better lightning effects.
 games-simulation/openrct2:scripting - Enable the dev-lang/duktape scripting engine for executing user scripts.
 games-simulation/openttd:allegro - Add support for Allegro
 games-simulation/openttd:dedicated - Build only the openttd server, and not the client.
@@ -3996,7 +3998,6 @@ media-gfx/fotowall:webcam - Enable webcam support
 media-gfx/freecad:addonmgr - Build the addon manager module for automatic handling of 3rd party addons
 media-gfx/freecad:cloud - Build the Cloud workbench, to access cloud providers (mostly Amazon S3).
 media-gfx/freecad:designer - Build and install the Qt designer plugin, so the FreeCAD widgets can be used from within designer.
-media-gfx/freecad:drawing - Build the Drawing workbench, a predecessor to the TechDraw workbench. Users are encouraged to learn how to use the TechDraw workbench and switch to it instead. This is a compatibility option and will be removed in a later (0.20+) version of the package.
 media-gfx/freecad:fem - Build the FEM module and workbench which provides Finite Element Analysis (FEA) workflows
 media-gfx/freecad:headless - Build FreeCAD without a GUI, usable for server-side instances. The Python modules are still available, without their GUI parts though.
 media-gfx/freecad:idf - Build the IDF module to provide file exchange capabilities with IDF files
@@ -4007,11 +4008,9 @@ media-gfx/freecad:openscad - Build the OpenSCAD module for interoperability with
 media-gfx/freecad:part-design - Build the part design module and workbench for build part shapes from sketches
 media-gfx/freecad:path - Build the path module and workbench to procude G-Code instructions for CNC
 media-gfx/freecad:pcl - Use external sci-libs/pcl for point clouds support.
-media-gfx/freecad:plot - Build the internal plot workbench. NOTE: This conflicts with the external plot workbench, which you can add via the Addon Manager!
 media-gfx/freecad:points - Build the points module and workbench for working with point clouds
 media-gfx/freecad:raytracing - Build the raytracing module and workbench for raytracing and rendering
 media-gfx/freecad:robot - Build the robot module and workbench for studying robot movements
-media-gfx/freecad:ship - Build the ship module and workbench which works over ship entities, that must be created on top of provided geometry. NOTE: This conflicts with the external ship workbench, which you can add via the Addon Manager!
 media-gfx/freecad:show - Build the show module, a helper module for visibility automation
 media-gfx/freecad:surface - Build the surface module and workbench
 media-gfx/freecad:techdraw - Build the techdraw module and workbench, a more advanced and feature-rich successor of the drawing workbench
@@ -4623,8 +4622,6 @@ media-sound/fapg:xspf - Enable support for saving XSPF playlists.
 media-sound/fluidsynth:network - enable network support (requires BSD sockets)
 media-sound/gimmix:cover - Enable cover art fetching
 media-sound/gimmix:lyrics - Enable lyric fetching
-media-sound/gmpc:unique - Enable single instance support using dev-libs/libunique
-media-sound/gmpc:xspf - Enable support for reading and saving XSPF playlists
 media-sound/gmusicbrowser:extras - Install some extra deps for plugins (ex. Titlebar)
 media-sound/guitarix:lv2 - Build lv2 plugins
 media-sound/guitarix:nsm - Build NSM (Non Session Manager) support
@@ -4634,10 +4631,13 @@ media-sound/herrie:xspf - Enable support for reading and saving XSPF playlists
 media-sound/hydrogen:archive - Use libarchive instead of libtar
 media-sound/hydrogen:portmidi - Add portmidi support
 media-sound/jack-audio-connection-kit:pam - Add basic realtime configuration via sys-auth/realtime-base
+media-sound/jack-example-tools:jack-net - Build jack_net_* example clients
+media-sound/jack-example-tools:jack-netsource - Build jack_netsource for configuring network sources
+media-sound/jack-example-tools:zalsa - Build the zalsa internal client using media-libs/zita-resampler
 media-sound/jack2:classic - Enable building of jackd
 media-sound/jack2:metadata - Enable metadata API
 media-sound/jack2:pam - Add basic realtime configuration via sys-auth/realtime-base
-media-sound/jalv:gtkmm - Adds support for dev-cpp/gtkmm: C++ interface for GTK+2
+media-sound/jack2:tools - Pull basic tools (e.g. jack_lsp/connect) from media-sound/jack-example-tools
 media-sound/kid3:acoustid - Build acoustic fingerprinting plugin using media-libs/chromaprint
 media-sound/kid3:mpris - Enable support for MPRIS2 interface using dev-qt/qtdbus
 media-sound/klick:rubberband - Enable rubberband support
@@ -4756,11 +4756,6 @@ media-sound/pulseaudio-daemon:system-wide - Allow preparation and installation o
 media-sound/pulseaudio-daemon:systemd - Build with sys-apps/systemd support to replace standalone ConsoleKit.
 media-sound/pulseaudio-daemon:valgrind - Compile in valgrind memory hints
 media-sound/pulseaudio-daemon:webrtc-aec - Uses the webrtc.org AudioProcessing library for enhancing VoIP calls greatly in applications that support it by performing acoustic echo cancellation, analog gain control, noise suppression and other processing.
-media-sound/pulseaudio-modules-bt:fdk - AAC encoding support using media-libs/fdk-aac
-media-sound/pulseaudio-modules-bt:ffmpeg - APTX, APTX-HD encoding support
-media-sound/pulseaudio-modules-bt:ldac - LDAC encoding support, using media-libs/libldac
-media-sound/pulseaudio-modules-bt:native-headset - Build with native HSP (Headset Profile) headset for bluez 5
-media-sound/pulseaudio-modules-bt:ofono-headset - Build with oFono HFP (Hands Free Profile) headset for bluez 5, requires net-misc/ofono.
 media-sound/pulseeffects:bs2b - Enable use of media-libs/libbs2b for the crossfeed FX
 media-sound/pulseeffects:calf - Enable use of media-plugins/calf for adding various FX
 media-sound/pulseeffects:doc - Install packages needed to display built-in user documentation
@@ -5097,6 +5092,7 @@ media-video/mpv:gamepad - Enable gamepad input support
 media-video/mpv:gbm - Enable Graphics Buffer Manager based EGL video backend
 media-video/mpv:jpeg - Enable support for saving screenshots in JPEG format
 media-video/mpv:libmpv - Build mpv shared library
+media-video/mpv:libplacebo - Enable support for GPU accelerated video rendering with media-libs/libplacebo
 media-video/mpv:lua - Enable Lua scripting, OSC (On Screen Controller) GUI and net-misc/youtube-dl hook-script
 media-video/mpv:mmal - Enables Multi-Media Abstraction Layer (MMAL) decoding support: Available e.g. on the Raspberry Pi.
 media-video/mpv:opengl - Enable support for various OpenGL-based video backends
@@ -5119,6 +5115,7 @@ media-video/obs-studio:python - Build with scripting support for Python 3.
 media-video/obs-studio:speex - Build with Speex noise suppression filter support.
 media-video/obs-studio:ssl - Build with TLS/SSL support for RTMPS connections.
 media-video/obs-studio:vlc - Build with VLC media source support.
+media-video/obs-studio:websocket - Build with WebSocket API support.
 media-video/ogmrip:ogm - Support for OGM container format
 media-video/ogmrip:srt - Support for SRT subtitle format
 media-video/peek:keybinder - Enable support for global hotkeys using dev-libs/keybinder
@@ -5581,6 +5578,7 @@ net-dns/knot:libidn2 - If IDN support is enabled, use net-dns/libidn2 instead of
 net-dns/knot:noudp - Enable the module which can send empty truncated responses to UDP queries
 net-dns/knot:onlinesign - Enable the module that sign zones on the fly instead of pre-signing zone
 net-dns/knot:queryacl - Enable the module for query access control
+net-dns/knot:quic - Enable the DNS over QUIC (DoQ) module using libngtcp2
 net-dns/knot:rrl - Enable the response rate limiting module
 net-dns/knot:stats - Enable the server statistics module
 net-dns/knot:synthrecord - Enable the automatic forward/reverse records module
@@ -5782,6 +5780,7 @@ net-im/dino:gpg - Enable OpenPGP encryption plugin
 net-im/dino:http - Enable HTTP file upload plugin
 net-im/dino:notification-sound - notification sounds plugin
 net-im/dino:omemo - Enable OMEMO encryption plugin
+net-im/discord-bin:system-ffmpeg - Use the system-wide media-video/ffmpeg instead of bundled
 net-im/ejabberd:captcha - Support for CAPTCHA Forms (XEP-158) on registration
 net-im/ejabberd:full-xml - Use XML features in XMPP stream (ex: CDATA), requires XML compliant clients
 net-im/ejabberd:mssql - Enable Microsoft SQL Server support (via ODBC) for data storage
@@ -6571,7 +6570,6 @@ net-misc/ntpsec:rclock_trimble - Trimble driver
 net-misc/ntpsec:rclock_truetime - Trutime driver (deprecated)
 net-misc/ntpsec:rclock_zyfer - Zyfer driver
 net-misc/ntpsec:smear - Specify the interval over which a leap second is applied (experimental)
-net-misc/ntpsec:tests - Enable tests
 net-misc/ofono:atmodem - ETSI AT modem support.
 net-misc/ofono:bluetooth - Enable Bluetooth modem support using net-wireless/bluez.
 net-misc/ofono:cdmamodem - Enable CDMA modem support.
@@ -7104,9 +7102,12 @@ sci-astronomy/siril:libconfig - Require dev-libs/libconfig to read old configura
 sci-astronomy/siril:wcs - Add supprt astrometry features using sci-astronomy/wcslib
 sci-astronomy/stellarium:deep-sky - Install extra deep sky objects catalog (may affect performance)
 sci-astronomy/stellarium:media - Enable sound and video support
+sci-astronomy/stellarium:scripting - Enable JS scripting via dev-qt/qtscript in Qt5 or using Qml via dev-qt/qtdeclarative in Qt6
+sci-astronomy/stellarium:show-my-sky - Enable a better atmosphere model via sci-astronomy/calcmysky
 sci-astronomy/stellarium:stars - Install extra star catalogs
 sci-astronomy/stellarium:telescope - Enable telescope control via sci-libs/indilib
 sci-astronomy/stellarium:webengine - Show online results about the selected star in an embedded window using dev-qt/qtwebengine
+sci-astronomy/stellarium:xlsx - Support XLSX (Excel) files via dev-libs/qxlsx
 sci-astronomy/swarp:cfitsio - Link with sci-libs/cfitsio
 sci-astronomy/wcslib:fits - Enable support for the FITS format through sci-libs/cfitsio
 sci-astronomy/wcslib:pgplot - Builds PGBSOX routines, needs sci-libs/pgplot library
@@ -7585,7 +7586,10 @@ sci-mathematics/maxima:vtk - Support plotting with sci-libs/vtk
 sci-mathematics/msieve:ecm - Enable support for the GMP-ECM library
 sci-mathematics/normaliz:extras - Install Macaulay2 and sci-mathematics/singularpackages as shipped by upstream
 sci-mathematics/normaliz:nauty - Use sci-mathematics/nauty to compute automorphism groups.
+sci-mathematics/octave:fltk - Use x11-libs/fltk as the backend for the OpenGL renderer in the absence of the Qt GUI
 sci-mathematics/octave:glpk - Add support for sci-mathematics/glpk for linear programming
+sci-mathematics/octave:gnuplot - Use sci-visualization/gnuplot to render plots if OpenGL is unavailable
+sci-mathematics/octave:imagemagick - Use media-gfx/graphicsmagick to read and write images
 sci-mathematics/octave:json - Allow using jsonencode and jsondecode commands via dev-libs/rapidjson
 sci-mathematics/octave:qhull - Add support for media-libs/qhull, to allow `delaunay', `convhull', and related functions
 sci-mathematics/octave:qrupdate - Add support for sci-libs/qrupdatefor QR and Cholesky update functions
@@ -8047,7 +8051,7 @@ sys-block/fio:rbd - Enable Rados block device support via sys-cluster/ceph
 sys-block/fio:rdma - Enable infiniband support via sys-cluster/rdma-core
 sys-block/fio:tcmalloc - Link against dev-util/google-perftools by default which will speed up USE=rbd up to 20%
 sys-block/fio:zbc - Enable ZBC & ZAC disks via sys-block/libzbc.
-sys-block/gparted:wayland - Enable interim workaround to allow running GParted under Wayland by granting permission to the X11 display using x11-apps/xhost.
+sys-block/gparted:wayland - Enable interim workaround to allow running GParted under Wayland by granting permission to the X11 display using x11-apps/xhost
 sys-block/libfabric:cuda - Enable for CUDA provider
 sys-block/libfabric:efa - Enable Amazon EC2 Elastic Fabric Adapter provider
 sys-block/libfabric:rocr - Enable Radeon Open Compute provider
@@ -8825,7 +8829,6 @@ x11-base/xorg-server:xephyr - Build the Xephyr server
 x11-base/xorg-server:xnest - Build the Xnest server
 x11-base/xorg-server:xorg - Build the Xorg X server (HIGHLY RECOMMENDED)
 x11-base/xorg-server:xvfb - Build the Xvfb server
-x11-base/xorg-x11:fonts - Install fonts from X.Org
 x11-base/xwayland:unwind - Enable libunwind usage for backtraces
 x11-base/xwayland:xcsecurity - Build Security extension
 x11-drivers/nvidia-drivers:driver - Install kernel driver modules
@@ -8849,7 +8852,7 @@ x11-libs/cairo:utils - Build support for Cairo script and trace utilities
 x11-libs/cairo:valgrind - Built-in support to mark memory regions
 x11-libs/fltk:games - Builds and installs some extra games
 x11-libs/fox:tools - Install adie, calculator, shutterbug, and pathfinder apps.
-x11-libs/gtk+:broadway - Enable the GDK Broadway backend.
+x11-libs/gtk+:broadway - Enable the GDK Broadway backend
 x11-libs/gtk+:colord - Use x11-misc/colord for color management in printing
 x11-libs/gtk+:sysprof - Enable profiling data capture support using dev-util/sysprof-capture
 x11-libs/gtkdatabox:glade - Build with libglade and glade-3 supports, which includes a glade's module for GtkDataBox widget
@@ -8900,7 +8903,6 @@ x11-misc/fbpager:xrender - Enable transparency support via x11-libs/libXrender
 x11-misc/gmrun:xdg - Enable xdg spec for configuration and history files location
 x11-misc/gpaste:gnome - Enable proper gnome support and enable gnome shell extension.
 x11-misc/grsync:gtk3 - Link against x11-libs/gtk+:3 instead of x11-libs/gtk+:2
-x11-misc/gtkdialog:gtk2 - Build with GTK+2 instead of GTK+3
 x11-misc/i3blocks:contrib - Install contrib modules
 x11-misc/i3status:filecaps - Linux capabilities library is required for i3status to be able to read net bandwith
 x11-misc/j4-dmenu-desktop:dmenu - Use x11-misc/dmenu as default. Disable to use a different implementation.

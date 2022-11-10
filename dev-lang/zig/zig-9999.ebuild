@@ -18,8 +18,6 @@ fi
 
 LICENSE="MIT"
 SLOT="0"
-IUSE="test +threads"
-RESTRICT="!test? ( test )"
 
 BUILD_DIR="${S}/build"
 
@@ -38,12 +36,18 @@ RDEPEND="
 	!dev-lang/zig-bin
 "
 
+# see https://github.com/ziglang/zig/issues/3382
+QA_FLAGS_IGNORED="usr/bin/zig"
+
+# see https://ziglang.org/download/0.10.0/release-notes.html#Self-Hosted-Compiler
+# 0.10.0 release - 9.6 GiB, since we use compiler written in C++ for bootstrapping
+# 0.11.0 release - ~2.8 GiB, since we will (at least according to roadmap) use self-hosted compiler
+# (transpiled to C via C backend) for bootstrapping
+CHECKREQS_MEMORY="10G"
+
 llvm_check_deps() {
 	has_version "sys-devel/clang:${LLVM_SLOT}"
 }
-
-# see https://github.com/ziglang/zig/wiki/Troubleshooting-Build-Issues#high-memory-requirements
-CHECKREQS_MEMORY="10G"
 
 pkg_setup() {
 	llvm_pkg_setup
@@ -54,7 +58,6 @@ src_configure() {
 	local mycmakeargs=(
 		-DZIG_USE_CCACHE=OFF
 		-DZIG_SHARED_LLVM=ON
-		-DZIG_SINGLE_THREADED="$(usex !threads)"
 		-DCMAKE_PREFIX_PATH=$(get_llvm_prefix ${LLVM_MAX_SLOT})
 	)
 
@@ -64,11 +67,4 @@ src_configure() {
 src_test() {
 	cd "${BUILD_DIR}" || die
 	./zig2 build test -Dstatic-llvm=false -Denable-llvm=true -Dskip-non-native=true || die
-}
-
-# see https://github.com/ziglang/zig/issues/3382
-QA_FLAGS_IGNORED="usr/bin/zig"
-
-pkg_postinst() {
-	elog "If you want to use stage1 backend, use -fstage1 flag"
 }

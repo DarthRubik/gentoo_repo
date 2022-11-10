@@ -41,7 +41,7 @@ DESCRIPTION="GNAT Ada Compiler - GPL version"
 HOMEPAGE="http://libre.adacore.com/"
 
 LICENSE+=" GPL-2 GPL-3"
-KEYWORDS="~amd64 ~x86"
+KEYWORDS="amd64 ~x86"
 IUSE="+ada +bootstrap"
 RESTRICT="test"
 
@@ -74,7 +74,8 @@ src_prepare() {
 	if ! use bootstrap && [[ -z "$(type ${GNATMAKE} 2>/dev/null)" ]] ; then
 		eerror "You need a gcc compiler that provides the Ada Compiler:"
 		eerror "1) use gcc-config to select the right compiler or"
-		eerror "2) set the bootstrap use flag"
+		eerror "2) set the bootstrap use flag or"
+		eerror "3) set ADA to a working gcc ada compiler"
 		die "ada compiler not available"
 	fi
 

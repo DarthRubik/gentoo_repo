@@ -14,7 +14,7 @@ SRC_URI="https://github.com/rabbitmq/rabbitmq-server/releases/download/v${PV}/${
 
 LICENSE="MPL-2.0"
 SLOT="0"
-KEYWORDS="~amd64 ~arm64 ~x86"
+KEYWORDS="amd64 ~arm64 x86"
 RESTRICT="test"
 
 # See https://www.rabbitmq.com/which-erlang.html for Erlang version
@@ -29,7 +29,7 @@ DEPEND="${RDEPEND}
 	app-arch/unzip
 	app-text/docbook-xml-dtd:4.5
 	app-text/xmlto
-	dev-lang/elixir
+	>=dev-lang/elixir-1.13.4 <dev-lang/elixir-1.15.0
 	dev-libs/libxslt
 	$(python_gen_any_dep 'dev-python/simplejson[${PYTHON_USEDEP}]')
 "

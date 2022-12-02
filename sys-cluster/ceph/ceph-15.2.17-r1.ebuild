@@ -135,7 +135,7 @@ RDEPEND="${DEPEND}
 	sys-fs/cryptsetup
 	sys-fs/lsscsi
 	sys-fs/lvm2[lvm]
-	virtual/awk
+	app-alternatives/awk
 	dev-python/bcrypt[${PYTHON_USEDEP}]
 	dev-python/cherrypy[${PYTHON_USEDEP}]
 	dev-python/python-dateutil[${PYTHON_USEDEP}]
@@ -158,12 +158,10 @@ RDEPEND="${DEPEND}
 		dev-python/six[${PYTHON_USEDEP}]
 	)
 "
-# diskprediction needs older scipy not compatible with py38
-# bug #724438
 REQUIRED_USE="
 	${PYTHON_REQUIRED_USE}
 	?? ( jemalloc tcmalloc )
-	diskprediction? ( mgr !python_targets_python3_8 )
+	diskprediction? ( mgr )
 	kafka? ( radosgw )
 	mgr? ( cephfs )
 	rabbitmq? ( radosgw )

@@ -1584,20 +1584,6 @@
     </member>
   </project>
   <project>
-    <email>security-kernel@gentoo.org</email>
-    <name>Linux Kernel Security Project</name>
-    <url>https://wiki.gentoo.org/wiki/Project:Kernel_Security</url>
-    <description>The Linux Kernel Security Project handles patching our many kernel sources and informing our users about global kernel security status.</description>
-    <member>
-      <email>alicef@gentoo.org</email>
-      <name>Alice Ferrazzi</name>
-    </member>
-    <member>
-      <email>zx2c4@gentoo.org</email>
-      <name>Jason A. Donenfeld</name>
-    </member>
-  </project>
-  <project>
     <email>ldap-bugs@gentoo.org</email>
     <name>LDAP Project</name>
     <url>https://wiki.gentoo.org/wiki/Project:LDAP</url>
@@ -1899,11 +1885,6 @@
     <url>https://wiki.gentoo.org/wiki/Project:Netmon</url>
     <description>Maintaining network monitoring and analysis libraries and programs</description>
     <member>
-      <email>jstein@gentoo.org</email>
-      <name>Jonas Stein</name>
-      <role>liquidator</role>
-    </member>
-    <member>
       <email>sam@gentoo.org</email>
       <name>Sam James</name>
     </member>
@@ -2080,10 +2061,6 @@
       <role>Minor Perl helper</role>
     </member>
     <member>
-      <email>titanofold@gentoo.org</email>
-      <name>Aaron W. Swenson</name>
-    </member>
-    <member>
       <email>zlogene@gentoo.org</email>
       <name>Mikle Kolyada</name>
     </member>
@@ -2162,6 +2139,10 @@
     <description>The Portage Development Project is devoted to maintaining and updating Portages core functionality and utilities.</description>
     <subproject ref="tools-portage@gentoo.org"/>
     <subproject ref="sandbox@gentoo.org"/>
+    <member>
+      <email>ajak@gentoo.org</email>
+      <name>John Helmert III</name>
+    </member>
     <member>
       <email>floppym@gentoo.org</email>
       <name>Mike Gilbert</name>
@@ -2455,10 +2436,6 @@
       <name>Matthias Maier</name>
     </member>
     <member>
-      <email>titanofold@gentoo.org</email>
-      <name>Aaron W. Swenson</name>
-    </member>
-    <member>
       <email>zlogene@gentoo.org</email>
       <name>Mikle Kolyada</name>
     </member>
@@ -2670,11 +2647,6 @@
       <name>Alexis Ballier</name>
       <role>Almost everything</role>
     </member>
-    <member>
-      <email>arthurzam@gentoo.org</email>
-      <name>Arthur Zamarin</name>
-      <role>Python coordinator</role>
-    </member>
   </project>
   <project>
     <email>rsbac@gentoo.org</email>
@@ -2745,7 +2717,7 @@
     <member>
       <email>blueness@gentoo.org</email>
       <name>Anthony G. Basile</name>
-      <role>Hardened/UCLIBC Release Coordinator</role>
+      <role>hardened / musl</role>
     </member>
     <member>
       <email>dilfridge@gentoo.org</email>
@@ -3066,7 +3038,6 @@
     <name>Security Project</name>
     <url>https://wiki.gentoo.org/wiki/Project:Security</url>
     <description>The Security Project's mission is to ensure that vulnerabilities in software accessible through the Portage tree are found and fixed in a timely manner, so that our users remain protected against known vulnerabilities.</description>
-    <subproject ref="security-kernel@gentoo.org"/>
     <member is-lead="1">
       <email>ajak@gentoo.org</email>
       <name>John Helmert III</name>

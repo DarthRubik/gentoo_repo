@@ -21,7 +21,7 @@ fi
 
 LICENSE="Apache-2.0 vim"
 SLOT="0"
-IUSE="+lto +nvimpager test +tui"
+IUSE="+lto +nvimpager test +tui +vim-dim"
 
 REQUIRED_USE="${LUA_REQUIRED_USE}"
 # Upstream say the test library needs LuaJIT
@@ -90,6 +90,12 @@ src_prepare() {
 
 	# https://forums.gentoo.org/viewtopic-p-8750050.html
 	xdg_environment_reset
+
+	if use vim-dim; then
+		eapply "${FILESDIR}"/vim-dim.patch
+		eautoreconf
+	fi
+
 	cmake_src_prepare
 }
 

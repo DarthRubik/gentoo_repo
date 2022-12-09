@@ -15,10 +15,6 @@
       <name>Dennis Lamm</name>
     </member>
     <member>
-      <email>matthew@gentoo.org</email>
-      <name>Matthew Smith</name>
-    </member>
-    <member>
       <email>mva@gentoo.org</email>
       <name>Vadim Misbakh-Soloviov</name>
     </member>
@@ -1078,6 +1074,10 @@
     <member>
       <email>arthurzam@gentoo.org</email>
       <name>Arthur Zamarin</name>
+    </member>
+    <member>
+      <email>ceamac@gentoo.org</email>
+      <name>Viorel Munteanu</name>
     </member>
     <member is-lead="1">
       <email>mgorny@gentoo.org</email>
@@ -2387,6 +2387,10 @@
       <name>Craig Andrews</name>
     </member>
     <member>
+      <email>ceamac@gentoo.org</email>
+      <name>Viorel Munteanu</name>
+    </member>
+    <member>
       <email>conikost@gentoo.org</email>
       <name>Conrad Kostecki</name>
     </member>
@@ -3330,6 +3334,10 @@
     <member>
       <email>ajak@gentoo.org</email>
       <name>John Helmert III</name>
+    </member>
+    <member>
+      <email>ceamac@gentoo.org</email>
+      <name>Viorel Munteanu</name>
     </member>
     <member>
       <email>dlan@gentoo.org</email>

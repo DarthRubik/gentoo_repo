@@ -39,6 +39,16 @@ REQUIRED_USE="lua? ( ${LUA_REQUIRED_USE} )"
 
 RESTRICT="!test? ( test )"
 
+# It is sometimes requested, by both users and certain devs, to have sys-devel/gcc[graphite]
+# in BDEPEND. This has not been done *on purpose*, for the following reason:
+#  - darktable can also be built with sys-devel/clang so we'd have to have that, as an alternative,
+#    in BDEPEND too
+#  - there are at least two darktable dependencies (media-libs/mesa and virtual/rust) which
+#    by default pull in sys-devel/clang
+#  - as a result of the above, for most gcc users adding the above to BDEPEND is a no-op
+#    (and curiously enough, empirical observations suggest current versions of Portage are
+#    more likely to pull in Clang to build darktable with than to request enabling USE=graphite
+#    on GCC; that might be a bug though)
 BDEPEND="dev-util/intltool
 	virtual/pkgconfig
 	nls? ( sys-devel/gettext )
@@ -95,8 +105,11 @@ pkg_pretend() {
 	if [[ ${MERGE_TYPE} != binary ]]; then
 		# Bug #695658
 		if tc-is-gcc; then
-			test-flags-CC -floop-block &> /dev/null || \
-				die "Please switch to a gcc version built with USE=graphite"
+			if ! test-flags-CC -floop-block &> /dev/null; then
+				eerror "Building ${PN} with GCC requires Graphite support."
+				eerror "Please switch to a version of sys-devel/gcc built with USE=graphite, or use a different compiler."
+				die "Selected compiler is sys-devel/gcc[-graphite]"
+			fi
 		fi
 
 		use openmp && tc-check-openmp

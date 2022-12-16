@@ -119,6 +119,7 @@ lpsol
 zvbi
 gts
 anthy
+snapcast
 
 # Unmask ARM-only video-cards
 -video_cards_exynos
@@ -138,7 +139,6 @@ anthy
 # Modular X: mask for architectures on which they aren't available
 video_cards_glint
 video_cards_mga
-video_cards_nv
 video_cards_r128
 video_cards_radeon
 

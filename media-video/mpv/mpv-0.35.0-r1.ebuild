@@ -1,4 +1,4 @@
-# Copyright 1999-2022 Gentoo Authors
+# Copyright 1999-2023 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
@@ -12,7 +12,7 @@ if [[ ${PV} == 9999 ]]; then
 	EGIT_REPO_URI="https://github.com/mpv-player/mpv.git"
 else
 	SRC_URI="https://github.com/mpv-player/mpv/archive/v${PV}.tar.gz -> ${P}.tar.gz"
-	KEYWORDS="~amd64 ~arm ~arm64 ~loong ~riscv ~x86 ~amd64-linux"
+	KEYWORDS="amd64 ~arm ~arm64 ~loong ~ppc ~riscv x86 ~amd64-linux"
 fi
 
 DESCRIPTION="Media player for the command line"
@@ -37,7 +37,10 @@ REQUIRED_USE="
 	test? ( cli )
 	tools? ( cli )
 	uchardet? ( iconv )
-	vaapi? ( || ( X egl libplacebo wayland ) )
+	vaapi? (
+		|| ( X egl libplacebo wayland )
+		wayland? ( drm )
+	)
 	vdpau? ( X )
 	vulkan? ( || ( X wayland ) libplacebo )
 	xv? ( X )"
@@ -247,7 +250,22 @@ src_configure() {
 
 src_test() {
 	# https://github.com/mpv-player/mpv/blob/master/DOCS/man/options.rst#debugging
-	edo "${BUILD_DIR}"/mpv --no-config -v --unittest=all-simple
+	local tests=($("${BUILD_DIR}"/mpv --no-config --unittest=help | tail -n +2; assert))
+	(( ${#tests[@]} )) || die "failed to gather any tests"
+
+	local skip=(
+		all-simple
+
+		# fails on non-issue minor inconsistencies (bug #888639)
+		img_format
+		repack_sws
+	)
+
+	local test
+	for test in "${tests[@]}"; do
+		[[ ${test} == @($(IFS='|'; echo "${skip[*]}")) ]] ||
+			edo "${BUILD_DIR}"/mpv -v --no-config --unittest="${test}"
+	done
 }
 
 src_install() {

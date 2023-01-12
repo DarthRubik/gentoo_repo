@@ -1,4 +1,4 @@
-# Copyright 2019-2022 Gentoo Authors
+# Copyright 2019-2023 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
@@ -47,6 +47,11 @@ QA_FLAGS_IGNORED="usr/bin/zig"
 # (transpiled to C via C backend) for bootstrapping
 CHECKREQS_MEMORY="10G"
 
+PATCHES=(
+	"${FILESDIR}/${P}-avoid-cmake-bug.patch"
+	"${FILESDIR}/${P}-build-dir-install-stage3.patch"
+)
+
 llvm_check_deps() {
 	has_version "sys-devel/clang:${LLVM_SLOT}"
 }
@@ -71,7 +76,22 @@ src_configure() {
 
 src_test() {
 	cd "${BUILD_DIR}" || die
-	./zig2 build test -Dstatic-llvm=false -Denable-llvm=true -Dskip-non-native=true || die
+	local ZIG_TESTARGS=("-Dstatic-llvm=false -Denable-llvm=true -Dskip-non-native=true -Drelease -Dtarget=native")
+	./stage3/bin/zig build test-cases ${ZIG_TESTARGS[@]} || die
+	./stage3/bin/zig build test-fmt ${ZIG_TESTARGS[@]} || die
+	./stage3/bin/zig build test-behavior ${ZIG_TESTARGS[@]} || die
+	./stage3/bin/zig build test-compiler-rt ${ZIG_TESTARGS[@]} || die
+	./stage3/bin/zig build test-universal-libc ${ZIG_TESTARGS[@]} || die
+	./stage3/bin/zig build test-compare-output ${ZIG_TESTARGS[@]} || die
+	./stage3/bin/zig build test-standalone ${ZIG_TESTARGS[@]} || die
+	./stage3/bin/zig build test-c-abi ${ZIG_TESTARGS[@]} || die
+	./stage3/bin/zig build test-link ${ZIG_TESTARGS[@]} || die
+	./stage3/bin/zig build test-stack-traces ${ZIG_TESTARGS[@]} || die
+	./stage3/bin/zig build test-cli ${ZIG_TESTARGS[@]} || die
+	./stage3/bin/zig build test-asm-link ${ZIG_TESTARGS[@]} || die
+	./stage3/bin/zig build test-translate-c ${ZIG_TESTARGS[@]} || die
+	./stage3/bin/zig build test-run-translated-c ${ZIG_TESTARGS[@]} || die
+	./stage3/bin/zig build test-std ${ZIG_TESTARGS[@]} || die
 }
 
 pkg_postinst() {

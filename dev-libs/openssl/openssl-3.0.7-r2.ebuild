@@ -19,7 +19,7 @@ else
 	SRC_URI="mirror://openssl/source/${MY_P}.tar.gz
 		verify-sig? ( mirror://openssl/source/${MY_P}.tar.gz.asc )"
 	#KEYWORDS="~alpha ~amd64 ~arm ~arm64 ~hppa ~ia64 ~m68k ~mips ~ppc ~ppc64 ~riscv ~s390 ~sparc ~x86 ~x86-linux"
-	KEYWORDS="~alpha ~amd64 ~arm64"
+	KEYWORDS="~alpha ~amd64 ~arm64 ~hppa ~ia64 ~loong ~m68k ~mips ~riscv ~s390 ~sparc ~x86"
 fi
 
 S="${WORKDIR}"/${MY_P}
@@ -63,6 +63,7 @@ pkg_setup() {
 			CONFIG_CHECK="~TLS ~TLS_DEVICE"
 			ERROR_TLS="You will be unable to offload TLS to kernel because CONFIG_TLS is not set!"
 			ERROR_TLS_DEVICE="You will be unable to offload TLS to kernel because CONFIG_TLS_DEVICE is not set!"
+			use test && CONFIG_CHECK+=" ~CRYPTO_USER_API_SKCIPHER"
 
 			linux-info_pkg_setup
 		fi
@@ -93,7 +94,7 @@ src_unpack() {
 
 src_prepare() {
 	# Allow openssl to be cross-compiled
-	cp "${FILESDIR}"/gentoo.config-1.0.3 gentoo.config || die
+	cp "${FILESDIR}"/gentoo.config-1.0.4 gentoo.config || die
 	chmod a+rx gentoo.config || die
 
 	# Keep this in sync with app-misc/c_rehash

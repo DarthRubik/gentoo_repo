@@ -1,4 +1,4 @@
-# Copyright 1999-2022 Gentoo Authors
+# Copyright 1999-2023 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=7
@@ -11,11 +11,13 @@ MY_P="${MY_PN}-${PV}"
 DESCRIPTION="Enterprise client-server fax package for class 1 and 2 fax modems"
 HOMEPAGE="https://hylafax.sourceforge.io/"
 SRC_URI="mirror://sourceforge/hylafax/${MY_P}.tar.gz"
+# bug #886303
+SRC_URI+=" https://dev.gentoo.org/~sam/distfiles/${CATEGORY}/${PN}/${P}-tiff-4.5.0.patch.xz"
 S="${WORKDIR}"/${MY_P}
 
 LICENSE="hylafaxplus"
 SLOT="0"
-KEYWORDS="~amd64 ~x86"
+KEYWORDS="amd64 x86"
 IUSE="html jbig lcms ldap mgetty pam"
 
 DEPEND="
@@ -42,15 +44,17 @@ CONFIG_PROTECT="${CONFIG_PROTECT} /var/spool/fax/etc /usr/lib/fax"
 CONFIG_PROTECT_MASK="${CONFIG_PROTECT_MASK} /var/spool/fax/etc/xferfaxlog"
 
 # See bug #706154, bug #810658 if need to patch for newer libtiff.
-
 PATCHES=(
 	"${FILESDIR}"/ldconfig-patch
+	"${FILESDIR}"/${P}-allow-tiff-4.5.patch
+	"${WORKDIR}"/${P}-tiff-4.5.0.patch
 )
 
 src_prepare() {
 	default
 
 	# Force it not to strip binaries
+	local dir
 	for dir in etc util faxalter faxcover faxd faxmail faxrm faxstat \
 		hfaxd sendfax sendpage ; do
 			sed -i -e "s:-idb:-idb \"nostrip\" -idb:g" \

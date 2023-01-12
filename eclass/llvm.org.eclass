@@ -1,4 +1,4 @@
-# Copyright 2019-2022 Gentoo Authors
+# Copyright 2019-2023 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 # @ECLASS: llvm.org.eclass
@@ -81,14 +81,11 @@ if [[ -z ${_LLVM_SOURCE_TYPE+1} ]]; then
 			_LLVM_SOURCE_TYPE=snapshot
 
 			case ${PV} in
-				16.0.0_pre20221126)
-					EGIT_COMMIT=959c9cc7acf4d0aa433f2436e2a45b782e18022a
+				16.0.0_pre20230101)
+					EGIT_COMMIT=b20dd2b186fdc76828219b705a2b58f5830f4b9d
 					;;
-				16.0.0_pre20221205)
-					EGIT_COMMIT=e99edb92356b5ba078b5bc4d5846770414586a1d
-					;;
-				16.0.0_pre20221210)
-					EGIT_COMMIT=d5987fe324fcaedcea12914d6f9644cc5329f364
+				16.0.0_pre20230107)
+					EGIT_COMMIT=6dc85bd3fde7df2999fda07e9e9f2e83d52c6125
 					;;
 				*)
 					die "Unknown snapshot: ${PV}"
@@ -197,9 +194,18 @@ case ${LLVM_MAJOR} in
 			PowerPC RISCV Sparc SystemZ VE WebAssembly X86 XCore
 		)
 		;;
-	*)
+	15)
 		ALL_LLVM_EXPERIMENTAL_TARGETS=(
 			ARC CSKY DirectX LoongArch M68k SPIRV
+		)
+		ALL_LLVM_PRODUCTION_TARGETS=(
+			AArch64 AMDGPU ARM AVR BPF Hexagon Lanai Mips MSP430 NVPTX
+			PowerPC RISCV Sparc SystemZ VE WebAssembly X86 XCore
+		)
+		;;
+	*)
+		ALL_LLVM_EXPERIMENTAL_TARGETS=(
+			ARC CSKY DirectX LoongArch M68k SPIRV Xtensa
 		)
 		ALL_LLVM_PRODUCTION_TARGETS=(
 			AArch64 AMDGPU ARM AVR BPF Hexagon Lanai Mips MSP430 NVPTX
@@ -486,7 +492,7 @@ llvm_install_manpages() {
 	# install pre-generated manpages
 	if ! llvm_are_manpages_built; then
 		# (doman does not support custom paths)
-		insinto "/usr/lib/llvm/${SLOT}/share/man/man1"
+		insinto "/usr/lib/llvm/${LLVM_MAJOR}/share/man/man1"
 		doins "${WORKDIR}/llvm-${PV}-manpages/${LLVM_COMPONENTS[0]}"/*.1
 	fi
 }

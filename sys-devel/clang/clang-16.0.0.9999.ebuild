@@ -1,4 +1,4 @@
-# Copyright 1999-2022 Gentoo Authors
+# Copyright 1999-2023 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
@@ -16,7 +16,7 @@ HOMEPAGE="https://llvm.org/"
 LICENSE="Apache-2.0-with-LLVM-exceptions UoI-NCSA MIT"
 SLOT="${LLVM_MAJOR}/${LLVM_SOABI}"
 KEYWORDS=""
-IUSE="debug doc +extra +pie +static-analyzer test xml"
+IUSE="debug doc +extra ieee-long-double +pie +static-analyzer test xml"
 REQUIRED_USE="${PYTHON_REQUIRED_USE}"
 RESTRICT="!test? ( test )"
 
@@ -198,6 +198,9 @@ get_distribution_components() {
 			clang-scan-deps
 			diagtool
 			hmaptool
+
+			# needed for cross-compiling Clang
+			clang-tblgen
 		)
 
 		if use extra; then
@@ -273,6 +276,13 @@ multilib_src_configure() {
 
 		-DPython3_EXECUTABLE="${PYTHON}"
 	)
+
+	if ! use elibc_musl; then
+		mycmakeargs+=(
+			-DPPC_LINUX_DEFAULT_IEEELONGDOUBLE=$(usex ieee-long-double)
+		)
+	fi
+
 	use test && mycmakeargs+=(
 		-DLLVM_BUILD_TESTS=ON
 		-DLLVM_LIT_ARGS="$(get_lit_flags)"
@@ -296,6 +306,9 @@ multilib_src_configure() {
 		fi
 		mycmakeargs+=(
 			-DCLANG_INCLUDE_DOCS=${build_docs}
+
+			# Hack to install clang-tblgen: https://reviews.llvm.org/D141092
+			-DLLVM_BUILD_UTILS=ON
 		)
 	fi
 	if multilib_native_use extra; then
@@ -316,11 +329,12 @@ multilib_src_configure() {
 	fi
 
 	if tc-is-cross-compiler; then
-		[[ -x "/usr/bin/clang-tblgen" ]] \
-			|| die "/usr/bin/clang-tblgen not found or usable"
+		has_version -b sys-devel/clang:${LLVM_MAJOR} ||
+			die "sys-devel/clang:${LLVM_MAJOR} is required on the build host."
+		local tools_bin=${BROOT}/usr/lib/llvm/${LLVM_MAJOR}/bin
 		mycmakeargs+=(
-			-DCMAKE_CROSSCOMPILING=ON
-			-DCLANG_TABLEGEN=/usr/bin/clang-tblgen
+			-DLLVM_TOOLS_BINARY_DIR="${tools_bin}"
+			-DCLANG_TABLEGEN="${tools_bin}"/clang-tblgen
 		)
 	fi
 

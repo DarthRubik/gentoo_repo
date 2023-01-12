@@ -1,4 +1,4 @@
-# Copyright 2020-2022 Gentoo Authors
+# Copyright 2020-2023 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
@@ -21,12 +21,11 @@ SRC_URI="
 
 LICENSE="BSD"
 SLOT="0"
-KEYWORDS="~amd64 ~arm ~arm64 ~hppa ~ia64 ~loong ~ppc ~ppc64 ~riscv ~s390 ~sparc ~x86"
+KEYWORDS="amd64 arm arm64 hppa ~ia64 ~loong ppc ppc64 ~riscv ~s390 sparc x86"
 
 RDEPEND="
 	>=dev-python/jupyter_client-6.1.12[${PYTHON_USEDEP}]
-	>=dev-python/jupyter_core-4.12[${PYTHON_USEDEP}]
-	!=dev-python/jupyter_core-5.0*[${PYTHON_USEDEP}]
+	>=dev-python/jupyter_core-5.1.0[${PYTHON_USEDEP}]
 	>=dev-python/nbformat-5.0[${PYTHON_USEDEP}]
 	>=dev-python/traitlets-5.3[${PYTHON_USEDEP}]
 "

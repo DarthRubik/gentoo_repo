@@ -1,4 +1,4 @@
-# Copyright 1999-2022 Gentoo Authors
+# Copyright 1999-2023 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
@@ -132,11 +132,6 @@ src_prepare() {
 
 	append-flags $(test-flags-CC -Wa,--noexecstack)
 
-	# Prefixify Configure shebang (bug #141906)
-	sed \
-		-e "1s,/usr/bin/env,${BROOT}&," \
-		-i Configure || die
-
 	# Remove test target when FEATURES=test isn't set
 	if ! use test ; then
 		sed \
@@ -160,10 +155,12 @@ src_prepare() {
 
 	local sslout=$(./gentoo.config)
 	einfo "Using configuration: ${sslout:-(openssl knows best)}"
+	local config="perl Configure"
+	[[ -z ${sslout} ]] && config="sh config -v"
 
 	# The config script does stupid stuff to prompt the user.  Kill it.
 	sed -i '/stty -icanon min 0 time 50; read waste/d' config || die
-	./config ${sslout} --test-sanity || die "I AM NOT SANE"
+	edo ${config} ${sslout} --test-sanity
 
 	multilib_copy_sources
 }
@@ -196,8 +193,8 @@ multilib_src_configure() {
 
 	local sslout=$(./gentoo.config)
 	einfo "Use configuration ${sslout:-(openssl knows best)}"
-	local config="Configure"
-	[[ -z ${sslout} ]] && config="config"
+	local config="perl Configure"
+	[[ -z ${sslout} ]] && config="sh config -v"
 
 	# "disable-deprecated" option breaks too many consumers.
 	# Don't set it without thorough revdeps testing.
@@ -235,7 +232,7 @@ multilib_src_configure() {
 		threads
 	)
 
-	CFLAGS= LDFLAGS= edo ./${config} "${myeconfargs[@]}"
+	CFLAGS= LDFLAGS= edo ${config} "${myeconfargs[@]}"
 
 	# Clean out hardcoded flags that openssl uses
 	local DEFAULT_CFLAGS=$(grep ^CFLAGS= Makefile | LC_ALL=C sed \

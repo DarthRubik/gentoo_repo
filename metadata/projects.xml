@@ -2867,6 +2867,7 @@
     <member>
       <email>arthurzam@gentoo.org</email>
       <name>Arthur Zamarin</name>
+      <role>sparc keywording/stabilization</role>
     </member>
     <member>
       <email>mattst88@gentoo.org</email>
@@ -3186,6 +3187,10 @@
     <url>https://wiki.gentoo.org/wiki/Project:Toolchain</url>
     <description>Manages gcc/binutils/glibc and other toolchain-related packages</description>
     <subproject ref="crossdev@gentoo.org"/>
+    <member>
+      <email>arsen@gentoo.org</email>
+      <name>Arsen Arsenović</name>
+    </member>
     <member is-lead="1">
       <email>dilfridge@gentoo.org</email>
       <name>Andreas K. Hüttel</name>
@@ -3421,6 +3426,10 @@
     <name>wxWidgets Project</name>
     <url>https://wiki.gentoo.org/wiki/Project:WxWidgets</url>
     <description>The wxWidgets Project maintains wxGTK and wxPython related packages and applications.</description>
+    <member>
+      <email>arsen@gentoo.org</email>
+      <name>Arsen Arsenović</name>
+    </member>
     <member>
       <email>leio@gentoo.org</email>
       <name>Mart Raudsepp</name>

@@ -10,7 +10,6 @@ acct-user/vdr:remote - Prepare group membership for media-plugins/vdr-remote.
 acct-user/vdr:serial - Prepare group membership for media-plugins/vdr-serial.
 app-accessibility/brltty:api - build brltty's application program interface
 app-accessibility/brltty:beeper - support the console tone generator
-app-accessibility/brltty:contracted-braille - support in-line contracted braille
 app-accessibility/brltty:fm - support for the sound card synthesizer
 app-accessibility/brltty:louis - Use braille translator dev-libs/liblouis
 app-accessibility/brltty:midi - support the musical instrument digital interface
@@ -396,6 +395,7 @@ app-crypt/tpm2-totp:plymouth - Add sys-boot/plymouth support
 app-crypt/tpm2-tss:fapi - Enable feature API (requires openssl as crypto backend)
 app-crypt/tpm2-tss:mbedtls - Use net-libs/mbedtls as crypto engine
 app-crypt/tpm2-tss:openssl - Use dev-libs/openssl as crypto engine
+app-crypt/tpm2-tss:policy - Enable policy library (requires openssl as crypto backend)
 app-crypt/veracrypt:asm - Enable assembly for optimization
 app-crypt/zulucrypt:gnome - Enable support for the freedesktop.org Secret Service API via app-crypt/libsecret
 app-crypt/zulucrypt:kwallet - Enable encrypted storage of passwords with kde-frameworks/kwallet
@@ -424,7 +424,6 @@ app-editors/bluefish:spell - Enable spell checking capabilities via enchant libr
 app-editors/emacs:athena - Enable the MIT Athena widget set (x11-libs/libXaw)
 app-editors/emacs:dynamic-loading - Enable loading of dynamic libraries (modules) at runtime
 app-editors/emacs:games - Support shared score files for games
-app-editors/emacs:gconf - Use gnome-base/gconf to read the system font name
 app-editors/emacs:gfile - Use gfile (dev-libs/glib) for file notification
 app-editors/emacs:gmp - Use the GNU multiple precision arithmetic library (dev-libs/gmp) instead of the bundled mini-gmp subset
 app-editors/emacs:gsettings - Use gsettings (dev-libs/glib) to read the system font name
@@ -1020,7 +1019,7 @@ app-office/lyx:rcs - Add support for revision control via dev-vcs/rcs
 app-office/lyx:rtf - Add support for RTF import/export packages
 app-office/magicpoint:contrib - Install additional contributed scripts
 app-office/mdbtools:glib - Use functions provided by dev-libs/glib, not built-in
-app-office/planner:libgda - Database/GDA support
+app-office/planner:libgda - PostgreSQL support via gnome-extra/libgda
 app-office/sc-im:X - Use x11-misc/xclip for clipboard copy/paste
 app-office/sc-im:ods - Add ods import support
 app-office/sc-im:plots - Add sci-visualization/gnuplot for plotting support
@@ -1292,7 +1291,6 @@ dev-cpp/libjson-rpc-cpp:http-server - Build support for HTTP server using net-li
 dev-cpp/libjson-rpc-cpp:redis-client - Build support for Redis client using dev-libs/hiredis
 dev-cpp/libjson-rpc-cpp:redis-server - Build support for Redis server using dev-libs/hiredis
 dev-cpp/libjson-rpc-cpp:stubgen - Build header stub code generator (needed for development and when pregenerated headers are not bundled)
-dev-cpp/muParser:wchar - Add support for wide character (wchar_t)
 dev-cpp/opentelemetry-cpp:jaeger - Include the jaeger exporter
 dev-cpp/opentelemetry-cpp:prometheus - include the Prometheus Client in the SDK
 dev-cpp/sdbus-c++:systemd - Use external libsystemd instead of statically-linked build
@@ -1636,17 +1634,14 @@ dev-java/jaxen:dom4j - Includes org.jaxen.dom4j package
 dev-java/jaxen:jdom - Includes org.jaxen.jdom package
 dev-java/jaxen:xom - Includes org.jaxen.xom package
 dev-java/miglayout:swt - Add support for the SWT toolkit.
-dev-java/openjdk:gentoo-vm - Allow this JDK to be recognised by Gentoo (package manager, eselect, java-config, EXPERIMENTAL!)
 dev-java/openjdk:headless-awt - Don't install the X backend for AWT, needed by some GUIs
 dev-java/openjdk:javafx - Import OpenJFX modules at build time, via dev-java/openjfx
 dev-java/openjdk:jbootstrap - Build OpenJDK twice, the second time using the result of the first
 dev-java/openjdk:source - Install JVM sources
 dev-java/openjdk:system-bootstrap - Bootstrap using installed openjdk
 dev-java/openjdk:systemtap - Enable SystemTAP/DTrace tracing
-dev-java/openjdk-bin:gentoo-vm - Allow this JDK to be recognised by Gentoo (package manager, eselect, java-config, EXPERIMENTAL!)
 dev-java/openjdk-bin:headless-awt - Don't install the X backend for AWT, needed by some GUIs (used to be X flag)
 dev-java/openjdk-bin:source - Install JVM sources
-dev-java/openjdk-jre-bin:gentoo-vm - Allow this JDK to be recognised by Gentoo (package manager, eselect, java-config, EXPERIMENTAL!)
 dev-java/openjdk-jre-bin:headless-awt - Don't install the X backend for AWT, needed by some GUIs (used to be X flag)
 dev-java/openjfx:media - Compile media module, based on gstreamer-minimal (does not pull gstreamer)
 dev-java/openjfx:source - Install JavaFX sources
@@ -1937,7 +1932,6 @@ dev-libs/libevent:mbedtls - Support for net-libs/mbedtls encryption
 dev-libs/libevent:ssl - Support for dev-libs/openssl encryption
 dev-libs/libevent:verbose-debug - Support for verbose debug logging
 dev-libs/libffi:exec-static-trampoline - Don't rely on dynamic code generation for trampolines.
-dev-libs/libffi:experimental-loong - Add experimental LoongArch patchset
 dev-libs/libffi:pax-kernel - Use PaX emulated trampolines, for we can't use PROT_EXEC
 dev-libs/libffi-compat:pax-kernel - Use PaX emulated trampolines, for we can't use PROT_EXEC
 dev-libs/libfido2:nfc - Enable experimental NFC support
@@ -2353,7 +2347,6 @@ dev-python/mido:rtmidi - Support using media-libs/rtmidi as MIDI back-end
 dev-python/mpmath:matplotlib - Add support for dev-python/matplotlib
 dev-python/msgpack:native-extensions - Compiles native "C" extensions (speedups, instead of using python fallback code).
 dev-python/nbdime:webtools - Install web-based diff and merge tools.
-dev-python/nltk-data:extra - Install the complete set of data files. Otherwise, only files required by tests are installed.
 dev-python/pandas:full-support - Pull all packages to give pandas full support
 dev-python/paramiko:server - Enable server feature
 dev-python/pillow:imagequant - Build with Image Quantization Library support
@@ -2629,9 +2622,6 @@ dev-qt/qtwebengine:widgets - Enable QtWidgets support
 dev-qt/qtwebsockets:qml - Build QML bindings
 dev-qt/qtwidgets:gtk - Build the GTK platform theme plugin
 dev-qt/qtxmlpatterns:qml - Build the XmlListModel import for QtQuick (requires QtDeclarative)
-dev-ros/rosbag:lz4 - Add support for lz4 compressed bags.
-dev-ros/rosconsole:glog - Use dev-cpp/glog as log backend.
-dev-ros/rosconsole:log4cxx - Use dev-libs/log4cxx as log backend.
 dev-ruby/barby:cairo - Add support for writing images (PNG, PS, EPS and, if supported, PDF and SVG) using dev-ruby/rcairo. Not available on JRuby.
 dev-ruby/barby:png - Add support for writing PNG images using dev-ruby/chunky_png.
 dev-ruby/barby:prawn - Add support for writing PDF documents using dev-ruby/prawn.
@@ -2817,7 +2807,6 @@ dev-util/perf:perl - Add support for Perl as a scripting language for perf tools
 dev-util/perf:systemtap - Add support to define SDT event in perf tools.
 dev-util/perf:unwind - Use sys-libs/libunwind for frame unwinding support.
 dev-util/plan9port:freefonts - Don't install BigelowHolmes fonts
-dev-util/poke:machine-interface - Enable machine-interface protocol using dev-libs/json-c
 dev-util/poke:nbd - Enable poking at networked block devices via sys-libs/libnbd.
 dev-util/poke:pvm-profiling - Enable profiling in the PVM
 dev-util/pycharm-community:bundled-jdk - Use bundled jdk
@@ -2993,6 +2982,17 @@ games-emulation/generator:sdlaudio - Enable SDL Audio
 games-emulation/hatari:capsimage - Use dev-libs/spsdeclib to read .IPF, .RAW, and .CTR disk images
 games-emulation/hatari:portmidi - Use media-libs/portmidi as an alternative MIDI backend
 games-emulation/higan:gtk - Use GTK3 (Qt5 if disabled) user interface backend
+games-emulation/jgemu:bsnes - Install bsnes for Super Nintendo
+games-emulation/jgemu:cega - Install Cega for SG-1000, Sega Master System and Game Gear
+games-emulation/jgemu:gambatte - Install Gambatte for Game Boy and Game Boy Color
+games-emulation/jgemu:jollycv - Install JollyCV for ColecoVision
+games-emulation/jgemu:mednafen - Install Mednafen for Atari Lynx, Nintendo Virtual Boy, NEC PC Engine, NEC SuperGrafx, Sony PlayStation, Sega Saturn, Super Nintendo, Neo Geo Pocket and WonderSwan
+games-emulation/jgemu:melonds - Install MelonDS for Nintendo DS
+games-emulation/jgemu:mgba - Install mGBA for Game Boy Advance
+games-emulation/jgemu:nestopia - Install Nestopia for Nintendo Entertainment System
+games-emulation/jgemu:prosystem - Install ProSystem for Atari 7800
+games-emulation/jgemu:sameboy - Install SameBoy for Game Boy and Game Boy Color
+games-emulation/jgemu:vecx - Install Vecx for Vectrex
 games-emulation/m64py:7z - Ensure support for .7z archives.
 games-emulation/m64py:rar - Ensure support for .rar archives.
 games-emulation/mgba:discord - Enable Discord RPC support
@@ -3038,7 +3038,6 @@ games-engines/odamex:portmidi - Enable PortMidi support
 games-engines/odamex:server - Build server target
 games-engines/openmw:devtools - Install development tools like bsatool, esmtool and opencs.
 games-engines/openmw:osg-fork - Use OpenSceneGraph forked by OpenMW instead of upstream OSG.
-games-engines/residualvm:mpeg2 - enable mpeg2 codec for cutscenes
 games-engines/scummvm:fluidsynth - compile with support for fluidsynth
 games-engines/scummvm:fribidi - Support for right-to-left languages via dev-libs/fribidi
 games-engines/scummvm:glew - enable support for OpenGL Extension Wrangler Library (media-libs/glew)
@@ -4467,8 +4466,10 @@ media-sound/aqualung:systray - Enable system tray support
 media-sound/ardour:phonehome - contact ardour.org at startup for new announcements
 media-sound/ario:idle - Enable experimental support for MPD's idle command to reduce bandwidth and cpu usage, requires MPD 0.14
 media-sound/asunder:mac - Support for creation of Monkey's Audio files (APE)
+media-sound/audacity:audiocom - Enable integrated uploading to audio.com
 media-sound/audacity:id3tag - Enables ID3 tagging with id3tag library
 media-sound/audacity:lv2 - Add support for Ladspa V2
+media-sound/audacity:mpg123 - Use media-sound/mpg123 instead of media-libs/libmad for decoding MPEG decoding
 media-sound/audacity:portmidi - Enable support for MIDI via media-libs/portmidi
 media-sound/audacity:portmixer - Enable the internal portmixer feature
 media-sound/audacity:portsmf - Enable support for Portable Standard Midi File Library
@@ -4645,6 +4646,10 @@ media-sound/ncmpcpp:clock - Enable clock screen
 media-sound/ncmpcpp:lto - Build with link-time optimisation
 media-sound/ncmpcpp:outputs - Enable outputs screen
 media-sound/ncmpcpp:visualizer - Enable visualizer screen with sound wave/frequency spectrum modes
+media-sound/ncspot:clipboard - Use the system clipboard to e.g. share a link
+media-sound/ncspot:cover - Support displaying the album cover
+media-sound/ncspot:mpris - Allow ncspot to be controlled via MPRIS API
+media-sound/ncspot:notify - Show what's playing via a notification
 media-sound/patchage:jack-dbus - Use Jack via D-Bus instead of libjack
 media-sound/picard:discid - Enable reading the ID of the inserted CD
 media-sound/picard:fingerprints - Enable calculation and lookup of AcoustID fingerprints
@@ -5043,8 +5048,6 @@ media-video/obs-studio:speex - Build with Speex noise suppression filter support
 media-video/obs-studio:ssl - Build with TLS/SSL support for RTMPS connections.
 media-video/obs-studio:vlc - Build with VLC media source support.
 media-video/obs-studio:websocket - Build with WebSocket API support.
-media-video/ogmrip:ogm - Support for OGM container format
-media-video/ogmrip:srt - Support for SRT subtitle format
 media-video/peek:keybinder - Enable support for global hotkeys using dev-libs/keybinder
 media-video/pipewire:X - Enable audible bell for X11
 media-video/pipewire:echo-cancel - Enable WebRTC-based echo canceller via media-libs/webrtc-audio-processing
@@ -5573,10 +5576,6 @@ net-firewall/nftables:doc - Create man pages for the package (requires app-text/
 net-firewall/nftables:json - Enable JSON support via dev-libs/jansson
 net-firewall/nftables:modern-kernel - Install init scripts for 3.18 or higher kernels with atomic rule updates
 net-firewall/nftables:xtables - Add libxtables support to try to automatically translate rules added by iptables-compat
-net-firewall/nufw:nfconntrack - Use netfilter_conntrack
-net-firewall/nufw:nfqueue - Use NFQUEUE instead of QUEUE
-net-firewall/nufw:pam_nuauth - Add support for pam nufw from PAM
-net-firewall/nufw:plaintext - Add support for authentication with plaintext files
 net-firewall/pglinux:cron - Install cron script
 net-firewall/shorewall:init - Adds the capability to place the firewall in a safe state prior to bringing up the network interfaces
 net-firewall/shorewall:ipv4 - Installs everything needed to create a full IPv4 firewall
@@ -5701,7 +5700,6 @@ net-im/dino:gpg - Enable OpenPGP encryption plugin
 net-im/dino:http - Enable HTTP file upload plugin
 net-im/dino:notification-sound - notification sounds plugin
 net-im/dino:omemo - Enable OMEMO encryption plugin
-net-im/discord-bin:system-ffmpeg - Use the system-wide media-video/ffmpeg instead of bundled
 net-im/ejabberd:captcha - Support for CAPTCHA Forms (XEP-158) on registration
 net-im/ejabberd:full-xml - Use XML features in XMPP stream (ex: CDATA), requires XML compliant clients
 net-im/ejabberd:mssql - Enable Microsoft SQL Server support (via ODBC) for data storage
@@ -5855,11 +5853,13 @@ net-irc/hexchat:plugin-checksum - Build Checksum plugin (needs plugins)
 net-irc/hexchat:plugin-fishlim - Build FiSHLiM plugin (needs plugins )
 net-irc/hexchat:plugin-sysinfo - Build SysInfo plugin (needs plugins)
 net-irc/hexchat:theme-manager - Build the theme manager (mono)
+net-irc/inspircd:argon2 - Enable Argon2 hashes in modules
 net-irc/inspircd:gnutls - Enable TLS support
 net-irc/inspircd:ldap - Enable LDAP support
 net-irc/inspircd:maxminddb - Add support for geolocation using libMaxMindDB
 net-irc/inspircd:mbedtls - Add support for TLS using the mbedTLS library
 net-irc/inspircd:mysql - Enable MySQL database backend
+net-irc/inspircd:pcre2 - Add support for Perl Compatible Regular Expressions 2
 net-irc/inspircd:postgres - Enable PostgreSQL database backend
 net-irc/inspircd:re2 - Add support for Google RE2 regular expressions library
 net-irc/inspircd:regex-posix - Add support for POSIX Regular Expressions
@@ -6371,7 +6371,6 @@ net-misc/frr:rpki - Enable RPKI
 net-misc/gerbera:curl - Support HTTP media sources (e.g. internet radio)
 net-misc/gerbera:exiv2 - Use media-gfx/exiv2 to extract EXIF information
 net-misc/gerbera:ffmpegthumbnailer - Enable video thumbnail support with media-video/ffmpegthumbnailer
-net-misc/gerbera:lastfm - Enable last.fm support
 net-misc/gerbera:mysql - Use dev-db/mysql as backend rather than SQLite3
 net-misc/gerbera:taglib - Use media-libs/taglib for reading files' metadata
 net-misc/gnome-online-miners:flickr - Enable Flickr support
@@ -6572,9 +6571,11 @@ net-misc/streamtuner:xiph - Enable xiph.org plug-in.
 net-misc/stunnel:stunnel3 - Install the stunnel3 wrapper.
 net-misc/tigervnc:dri3 - Build with DRI3 support
 net-misc/tigervnc:drm - Build with DRM support
+net-misc/tigervnc:java - Build TigerVNC Java viewer
 net-misc/tigervnc:server - Build TigerVNC server
-net-misc/turbovnc:client - Build the client (vncviewer)
+net-misc/tigervnc:viewer - Build TigerVNC viewer
 net-misc/turbovnc:server - Build the server (vncserver, Xvnc)
+net-misc/turbovnc:viewer - Build the viewer (vncviewer)
 net-misc/uftp:server - Install uftp server daemon
 net-misc/vde:pcap - Enable the pcap-based plugin that allows creating a switch against a real interface.
 net-misc/wget:cookie-check - Enable cookie checks via net-libs/libpsl
@@ -6629,13 +6630,11 @@ net-news/sfeed:theme-mono-highlight - Use mono_highlight theme
 net-news/sfeed:theme-newsboat - Use newsboat theme
 net-news/sfeed:theme-templeos - Use templeos theme
 net-nntp/nzbget:parcheck - Enable support for checking PAR archives
-net-nntp/sabnzbd:7za - Add support for extracting 7za files
-net-nntp/sabnzbd:rar - Add support for extracting rar files
-net-nntp/sabnzbd:unzip - Add support for extracting zip files
 net-nntp/slrn:canlock - Add support for cancel locks via net-libs/canlock
 net-nntp/slrn:uudeview - Add support for yEnc coding and more using dev-libs/uulib
 net-nntp/tin:cancel-locks - Enable Cancel-Lock header functionality
 net-nntp/tin:gpg - Enable app-crypt/gnupg support
+net-nntp/tin:libtls - Prefer dev-libs/libretls as SSL/TLS provider (ineffective with USE=-ssl)
 net-p2p/airdcpp-webclient:nat-pmp - Enable support for the NAT-PMP protocol
 net-p2p/airdcpp-webclient:tbb - Enable support of the TBB library to improve performance
 net-p2p/airdcpp-webclient:webui - Enable the Web UI
@@ -6915,15 +6914,15 @@ net-wireless/gnuradio:vocoder - enable blocks for audio voice encoders
 net-wireless/gnuradio:wavelet - enable wavelet signal processing blocks
 net-wireless/gnuradio:zeromq - enable zeromq message passing blocks
 net-wireless/gqrx:gr-audio - Use audio support from net-wireless/gnuradio
-net-wireless/gr-osmosdr:airspy - Build with Airspy support
-net-wireless/gr-osmosdr:bladerf - Build with Nuand BladeRF support
-net-wireless/gr-osmosdr:hackrf - Build with Great Scott Gadgets HackRF support
-net-wireless/gr-osmosdr:iqbalance - Enable support for I/Q balancing using gr-iqbal
-net-wireless/gr-osmosdr:rtlsdr - Build with Realtek RTL2832U (rtlsdr) support
+net-wireless/gr-osmosdr:airspy - Build with Airspy support through net-wireless/airspy
+net-wireless/gr-osmosdr:bladerf - Build with Nuand BladeRF support through net-wireless/bladerf
+net-wireless/gr-osmosdr:hackrf - Build with Great Scott Gadgets HackRF support through net-libs/libhackrf
+net-wireless/gr-osmosdr:iqbalance - Enable support for I/Q balancing using gr-iqbal through net-wireless/gr-iqbal
+net-wireless/gr-osmosdr:rtlsdr - Build with Realtek RTL2832U support through net-wireless/rtl-sdr
 net-wireless/gr-osmosdr:sdrplay - Enable support for SDRplay devices through net-wireless/sdrplay
-net-wireless/gr-osmosdr:soapy - Build with SoapySDR support
-net-wireless/gr-osmosdr:uhd - Build with Ettus Research USRP Hardware Driver support
-net-wireless/gr-osmosdr:xtrx - Build with xtrx Hardware Driver support
+net-wireless/gr-osmosdr:soapy - Build with SoapySDR support through net-wireless/soapysdr
+net-wireless/gr-osmosdr:uhd - Build with Ettus Research USRP Hardware Driver support through net-wireless/uhd
+net-wireless/gr-osmosdr:xtrx - Build with xtrx Hardware Driver support through net-wireless/libxtrx
 net-wireless/horst:pcap - Add support for network packet capture via net-libs/libpcap
 net-wireless/hostapd:crda - Add CRDA support
 net-wireless/hostapd:internal-tls - Use internal TLSv1 implementation instead of depending on OpenSSL or GnuTLS
@@ -7113,7 +7112,7 @@ sci-geosciences/gmt:htmldoc - Install html documentation
 sci-geosciences/gmt:metric - Use SI (cm) units instead of US (inches) ones
 sci-geosciences/gmt:mex - Enable compilation of mex supplement which requires Octave/Matlab
 sci-geosciences/gmt:octave - Enable octave support
-sci-geosciences/gmt:pcre2 - Use libpcre2 for regular expressions
+sci-geosciences/gmt:pcre2 - Use dev-libs/libpcre2 for regular expressions
 sci-geosciences/gmt:tutorial - Install data files for tutorial
 sci-geosciences/gpsd:dbus - export gpsd data over dbus connections
 sci-geosciences/gpsd:latency-timing - support latency timing information
@@ -8158,29 +8157,29 @@ sys-devel/clang-toolchain-symlinks:multilib-symlinks - Install symlinks for all 
 sys-devel/clang-toolchain-symlinks:native-symlinks - Install generic tool symlinks like 'cc' and 'c++', as well as ${CTARGET}-*. These symlinks are installed into slotted LLVM bindir, so they should not take precedence over symlinks installed into /usr/bin by sys-devel/gcc-config but they can be helpful for GCC-free setups.
 sys-devel/distcc:gssapi - Enable support for net-libs/libgssglue
 sys-devel/gcc:ada - Build the ADA language (GNAT) frontend
-sys-devel/gcc:cet - Enable support for Intel Control Flow Enforcement Technology (CET)
+sys-devel/gcc:cet - Enable support for Intel Control Flow Enforcement Technology (CET). Only effective on amd64/x86. Only provides benefits on newer CPUs. For Intel, the CPU must be at least as new as Tiger Lake. For AMD, it must be at least as new as Zen 3. This is harmless on older CPUs, but provides no benefit either. When combined with USE=hardened, GCC will set -fcf-protection by default when building software. The effect is minimal on systems which do not support it, other than a possible small increase in codesize for the NOPs. The generated code is therefore compatible with i686 at the earliest.
 sys-devel/gcc:d - Enable support for the D programming language
-sys-devel/gcc:default-stack-clash-protection - Build packages with stack clash protection on by default
-sys-devel/gcc:default-znow - Request full relocation on start from ld.so by default
+sys-devel/gcc:default-stack-clash-protection - Build packages with stack clash protection on by default as a hardening measure. This enables -fstack-clash-protection by default which protects against large memory allocations allowing stack smashing. May cause slightly increased codesize, but modern compilers have been adapted to optimize well for this case, as this mitigation is now quite common. See https://developers.redhat.com/blog/2020/05/22/stack-clash-mitigation-in-gcc-part-3 and https://www.qualys.com/2017/06/19/stack-clash/stack-clash.txt.
+sys-devel/gcc:default-znow - Request full relocation on start from ld.so by default. This sets the -z,now (BIND_NOW) flag by default on all linker invocations. By resolving all dynamic symbols at application startup, parts of the program can be made read-only as a hardening measure. This is closely related to RELRO which is also separately enabled by default. In some applications with many unresolved symbols (heavily plugin based, for example), startup time may be impacted.
 sys-devel/gcc:fixed-point - Enable fixed-point arithmetic support for MIPS targets in gcc (Warning: significantly increases compile time!)
 sys-devel/gcc:go - Build the GCC Go language frontend.
 sys-devel/gcc:graphite - Add support for the framework for loop optimizations based on a polyhedral intermediate representation
 sys-devel/gcc:ieee-long-double - Use accelerated 128-bit IEEE long double ABI (ppc64le only)
 sys-devel/gcc:jit - Enable libgccjit so other applications can embed gcc for Just-In-Time compilation.
 sys-devel/gcc:libssp - Build SSP support into a dedicated library rather than use the code in the C library (DO NOT ENABLE THIS IF YOU DON'T KNOW WHAT IT DOES)
-sys-devel/gcc:lto - Build using Link Time Optimizations (LTO)
+sys-devel/gcc:lto - Build using Link Time Optimizations (LTO). Note that GCC is always built with support for building other programs with LTO. This USE flag is for whether GCC itself is built and optimized with LTO.
 sys-devel/gcc:mpx - Enable support for Intel Memory Protection Extensions (MPX)
 sys-devel/gcc:nptl - Enable support for Native POSIX Threads Library, the new threading module (requires linux-2.6 or better usually)
 sys-devel/gcc:objc - Build support for the Objective C code language
 sys-devel/gcc:objc++ - Build support for the Objective C++ language
 sys-devel/gcc:objc-gc - Build support for the Objective C code language Garbage Collector
-sys-devel/gcc:pgo - Build GCC using Profile Guided Optimization (PGO)
+sys-devel/gcc:pgo - Build GCC using Profile Guided Optimization (PGO). GCC will build itself and then analyze the just-built binary and then rebuild itself using the data obtained from analysis of codepaths taken. It does not affect whether GCC itself supports PGO when building other software. This substantially increases the build time needed for building GCC itself.
 sys-devel/gcc:rust - Build support for the Rust language, installs gccrs.
-sys-devel/gcc:sanitize - Build support for various sanitizer functions (ASAN/TSAN/etc...)
-sys-devel/gcc:ssp - Build packages with stack smashing protector on by default
+sys-devel/gcc:sanitize - Build support for various sanitizer functions (ASAN/TSAN/etc...) to find runtime problems in applications.
+sys-devel/gcc:ssp - Build packages with stack smashing protection on by default
 sys-devel/gcc:systemtap - enable systemtap static probe points
 sys-devel/gcc:valgrind - Enable valgrind annotations for gcc internals (useful for gcc debugging).
-sys-devel/gcc:vtv - Build support for virtual table verification (a C++ hardening feature)
+sys-devel/gcc:vtv - Build support for virtual table verification (a C++ hardening feature). This does not control whether GCC defaults to using VTV> Note that actually using VTV breaks ABI and hence the whole system must be built with -fvtable-verify.
 sys-devel/gcc-apple:bootstrap - !DO NOT SET THIS FLAG YOURSELF! avoids need for autoconf during bootstrap stage2
 sys-devel/gcc-apple:objc - Build support for the Objective C code language
 sys-devel/gcc-apple:objc++ - Build support for the Objective C++ language

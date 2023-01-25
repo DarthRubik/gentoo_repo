@@ -5,7 +5,7 @@ EAPI=8
 
 LUA_COMPAT=( lua5-3 )
 LUA_REQ_USE="deprecated"
-PYTHON_COMPAT=( python3_{8..11} )
+PYTHON_COMPAT=( python3_{9..11} )
 PLOCALES="de es fr hi hr hu id it ja pl pt_BR pt_PR ro ru sk zh"
 PLOCALE_BACKUP="en"
 inherit autotools lua-single plocale python-single-r1 toolchain-funcs
@@ -28,7 +28,7 @@ else
 fi
 
 # https://github.com/nmap/nmap/issues/2199
-LICENSE="NPSL-0.94"
+LICENSE="NPSL-0.95"
 SLOT="0"
 IUSE="ipv6 libssh2 ncat ndiff nping nls +nse ssl symlink +system-lua zenmap"
 REQUIRED_USE="

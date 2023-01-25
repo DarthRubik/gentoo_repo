@@ -60,13 +60,13 @@ LLVM_VERSION=$(ver_cut 1-3)
 # @DESCRIPTION:
 # The major version of current LLVM trunk.  Used to determine
 # the correct branch to use.
-_LLVM_MASTER_MAJOR=16
+_LLVM_MASTER_MAJOR=17
 
 # @ECLASS_VARIABLE: _LLVM_NEWEST_MANPAGE_RELEASE
 # @INTERNAL
 # @DESCRIPTION:
 # The newest release of LLVM for which manpages were generated.
-_LLVM_NEWEST_MANPAGE_RELEASE=15.0.6
+_LLVM_NEWEST_MANPAGE_RELEASE=15.0.7
 
 # @ECLASS_VARIABLE: _LLVM_SOURCE_TYPE
 # @INTERNAL
@@ -81,9 +81,6 @@ if [[ -z ${_LLVM_SOURCE_TYPE+1} ]]; then
 			_LLVM_SOURCE_TYPE=snapshot
 
 			case ${PV} in
-				16.0.0_pre20230101)
-					EGIT_COMMIT=b20dd2b186fdc76828219b705a2b58f5830f4b9d
-					;;
 				16.0.0_pre20230107)
 					EGIT_COMMIT=6dc85bd3fde7df2999fda07e9e9f2e83d52c6125
 					;;
@@ -205,11 +202,12 @@ case ${LLVM_MAJOR} in
 		;;
 	*)
 		ALL_LLVM_EXPERIMENTAL_TARGETS=(
-			ARC CSKY DirectX LoongArch M68k SPIRV Xtensa
+			ARC CSKY DirectX M68k SPIRV Xtensa
 		)
 		ALL_LLVM_PRODUCTION_TARGETS=(
-			AArch64 AMDGPU ARM AVR BPF Hexagon Lanai Mips MSP430 NVPTX
-			PowerPC RISCV Sparc SystemZ VE WebAssembly X86 XCore
+			AArch64 AMDGPU ARM AVR BPF Hexagon Lanai LoongArch Mips
+			MSP430 NVPTX PowerPC RISCV Sparc SystemZ VE WebAssembly X86
+			XCore
 		)
 		;;
 esac

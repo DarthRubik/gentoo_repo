@@ -4,7 +4,7 @@
 EAPI=8
 
 PVCUT=$(ver_cut 1-3)
-PYTHON_COMPAT=( python3_{8..11} )
+PYTHON_COMPAT=( python3_{9..11} )
 inherit ecm plasma.kde.org python-any-r1
 
 DESCRIPTION="Official GTK+ port of Plasma's Breeze widget style"
@@ -12,7 +12,7 @@ HOMEPAGE="https://invent.kde.org/plasma/breeze-gtk"
 
 LICENSE="LGPL-2.1+"
 SLOT="5"
-KEYWORDS="~amd64 ~arm ~arm64 ~loong ~ppc64 ~riscv ~x86"
+KEYWORDS="~amd64 ~arm ~arm64 ~loong ~ppc64 ~riscv x86"
 IUSE=""
 
 BDEPEND="${PYTHON_DEPS}

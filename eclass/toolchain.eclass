@@ -1231,6 +1231,7 @@ toolchain_src_configure() {
 	# users to control this feature in the event they need the support.
 	tc_version_is_at_least 4.3 && in_iuse fixed-point && confgcc+=( $(use_enable fixed-point) )
 
+	hardfloat_explicit=0
 	case $(tc-is-softfloat) in
 		yes)
 			confgcc+=( --with-float=soft )
@@ -1243,6 +1244,7 @@ toolchain_src_configure() {
 			# otherwise let the gcc default kick in.
 			case ${CTARGET//_/-} in
 				*-hardfloat-*|*eabihf)
+					hardfloat_explicit=1
 					confgcc+=( --with-float=hard )
 				;;
 			esac
@@ -1292,7 +1294,8 @@ toolchain_src_configure() {
 			# for target arm-none-eabi, since doing this is
 			# incompatible with --with-arch/cpu/float/fpu.
 			if is_multilib && [[ ${arm_arch} == arm ]] && \
-			   tc_version_is_at_least 7.1
+			   tc_version_is_at_least 7.1 && \
+			   [[ ${hardfloat_explicit} != 1 ]]
 			then
 				confgcc+=( --with-multilib-list=aprofile,rmprofile  )
 			fi

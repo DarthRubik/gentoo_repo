@@ -4,16 +4,21 @@
 EAPI=8
 
 DISTUTILS_USE_PEP517=setuptools
+PYPI_NO_NORMALIZE=1
 PYTHON_COMPAT=( python3_{9..10} )
-inherit distutils-r1
+
+inherit distutils-r1 pypi
 
 DESCRIPTION="A client for the OpenStack Quantum API"
-HOMEPAGE="https://launchpad.net/neutron"
-SRC_URI="mirror://pypi/${PN:0:1}/${PN}/${P}.tar.gz"
+HOMEPAGE="
+	https://opendev.org/openstack/python-neutronclient/
+	https://github.com/openstack/python-neutronclient/
+	https://pypi.org/project/python-neutronclient/
+"
 
 LICENSE="Apache-2.0"
 SLOT="0"
-KEYWORDS="~amd64 ~arm ~arm64 ~riscv ~x86"
+KEYWORDS="amd64 ~arm ~arm64 ~riscv x86"
 
 RDEPEND="
 	>dev-python/pbr-2.1.0[${PYTHON_USEDEP}]
@@ -27,7 +32,7 @@ RDEPEND="
 	>dev-python/oslo-serialization-2.19.1[${PYTHON_USEDEP}]
 	>=dev-python/oslo-utils-3.33.0[${PYTHON_USEDEP}]
 	>=dev-python/os-client-config-1.28.0[${PYTHON_USEDEP}]
-	>=dev-python/keystoneauth-3.8.0[${PYTHON_USEDEP}]
+	>=dev-python/keystoneauth1-3.8.0[${PYTHON_USEDEP}]
 	>=dev-python/python-keystoneclient-3.8.0[${PYTHON_USEDEP}]
 	>=dev-python/requests-2.14.2[${PYTHON_USEDEP}]
 	>=dev-python/simplejson-3.5.1[${PYTHON_USEDEP}]

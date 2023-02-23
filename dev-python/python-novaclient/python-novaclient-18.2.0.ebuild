@@ -4,13 +4,17 @@
 EAPI=8
 
 DISTUTILS_USE_PEP517=setuptools
+PYPI_NO_NORMALIZE=1
 PYTHON_COMPAT=( python3_{9..10} )
 
-inherit distutils-r1
+inherit distutils-r1 pypi
 
 DESCRIPTION="A client for the OpenStack Nova API"
-HOMEPAGE="https://opendev.org/openstack/python-novaclient"
-SRC_URI="mirror://pypi/${PN:0:1}/${PN}/${P}.tar.gz"
+HOMEPAGE="
+	https://opendev.org/openstack/python-novaclient/
+	https://github.com/openstack/python-novaclient/
+	https://pypi.org/project/python-novaclient/
+"
 
 LICENSE="Apache-2.0"
 SLOT="0"
@@ -18,7 +22,7 @@ KEYWORDS="amd64 ~arm ~arm64 ~riscv x86"
 
 RDEPEND="
 	>dev-python/pbr-2.1.0[${PYTHON_USEDEP}]
-	>=dev-python/keystoneauth-3.5.0[${PYTHON_USEDEP}]
+	>=dev-python/keystoneauth1-3.5.0[${PYTHON_USEDEP}]
 	>=dev-python/iso8601-0.1.11[${PYTHON_USEDEP}]
 	>=dev-python/oslo-i18n-3.15.3[${PYTHON_USEDEP}]
 	>dev-python/oslo-serialization-2.19.1[${PYTHON_USEDEP}]

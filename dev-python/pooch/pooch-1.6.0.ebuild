@@ -13,7 +13,7 @@ SRC_URI="mirror://pypi/${PN:0:1}/${PN}/${P}.tar.gz"
 
 LICENSE="BSD"
 SLOT="0"
-KEYWORDS="~amd64"
+KEYWORDS="amd64 arm arm64 ~ppc ppc64 ~riscv ~sparc x86"
 
 RDEPEND="
 	dev-python/appdirs[${PYTHON_USEDEP}]
@@ -42,7 +42,7 @@ EPYTEST_DESELECT=(
 
 ### docs no included in pypi tarball
 # distutils_enable_sphinx doc \
-#	dev-python/sphinx_rtd_theme
+#	dev-python/sphinx-rtd-theme
 distutils_enable_tests pytest
 
 export SETUPTOOLS_SCM_PRETEND_VERSION=${PV}

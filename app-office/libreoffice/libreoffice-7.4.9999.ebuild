@@ -149,7 +149,7 @@ COMMON_DEPEND="${PYTHON_DEPS}
 	media-gfx/graphite2
 	media-libs/fontconfig
 	>=media-libs/freetype-2.11.0-r1:2
-	>=media-libs/harfbuzz-0.9.42:=[graphite,icu]
+	>=media-libs/harfbuzz-2.6.0:=[graphite,icu]
 	media-libs/lcms:2
 	>=media-libs/libcdr-0.1.0
 	>=media-libs/libepoxy-1.3.1[X]
@@ -165,7 +165,7 @@ COMMON_DEPEND="${PYTHON_DEPS}
 	media-libs/zxing-cpp:=
 	>=net-libs/neon-0.31.1:=
 	net-misc/curl
-	sci-mathematics/lpsolve
+	sci-mathematics/lpsolve:=
 	sys-libs/zlib
 	virtual/opengl
 	x11-libs/cairo[X]
@@ -271,9 +271,6 @@ BDEPEND="
 			(	sys-devel/clang:14
 				sys-devel/llvm:14
 				=sys-devel/lld-14*	)
-			(	sys-devel/clang:13
-				sys-devel/llvm:13
-				=sys-devel/lld-13*	)
 		)
 	)
 	odk? ( >=app-doc/doxygen-1.8.4 )

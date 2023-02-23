@@ -19,7 +19,7 @@ SRC_URI="mirror://pypi/${PN:0:1}/${PN}/${P}.tar.gz"
 
 LICENSE="BSD"
 SLOT="0"
-KEYWORDS="~amd64 ~arm ~arm64 ~ia64 ~loong ~ppc64 ~riscv ~sparc ~x86 ~amd64-linux ~x86-linux ~ppc-macos ~x64-macos"
+KEYWORDS="amd64 arm arm64 ~ia64 ~loong ~ppc64 ~riscv ~sparc x86 ~amd64-linux ~x86-linux ~ppc-macos ~x64-macos"
 
 BDEPEND="
 	test? (
@@ -60,6 +60,6 @@ pkg_postinst() {
 	optfeature "recommended dependencies" "dev-python/matplotlib dev-python/numpy dev-python/pandas dev-python/scipy"
 	optfeature "graph drawing and graph layout algorithms" "dev-python/pygraphviz dev-python/pydot"
 	optfeature "YAML format reading and writing" "dev-python/pyyaml"
-	optfeature "shapefile format reading and writing" "dev-python/gdal"
+	optfeature "shapefile format reading and writing" "sci-libs/gdal[python]"
 	optfeature "GraphML XML format" "dev-python/lxml"
 }

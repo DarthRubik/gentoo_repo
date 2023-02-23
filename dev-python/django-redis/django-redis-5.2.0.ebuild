@@ -3,7 +3,7 @@
 
 EAPI=8
 
-PYTHON_COMPAT=( python3_{9..10} )
+PYTHON_COMPAT=( python3_{9..11} )
 inherit distutils-r1
 
 DESCRIPTION="Full featured redis cache backend for Django"
@@ -16,7 +16,7 @@ KEYWORDS="~amd64"
 
 RDEPEND="
 	>=dev-python/django-2.2[${PYTHON_USEDEP}]
-	>=dev-python/redis-py-3.0.0[${PYTHON_USEDEP}]
+	>=dev-python/redis-3.0.0[${PYTHON_USEDEP}]
 "
 BDEPEND="
 	test? (

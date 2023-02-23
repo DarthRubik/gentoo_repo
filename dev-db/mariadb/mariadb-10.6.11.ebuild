@@ -27,11 +27,14 @@ IUSE="+backup bindist columnstore cracklib debug extraengine galera innodb-lz4
 
 RESTRICT="!bindist? ( bindist ) !test? ( test )"
 
-REQUIRED_USE="jdbc? ( extraengine server !static )
+REQUIRED_USE="
+	jdbc? ( extraengine server !static )
 	?? ( tcmalloc jemalloc )
-	static? ( yassl !pam )"
+	static? ( yassl !pam )
+	test? ( extraengine perl server xml )
+"
 
-KEYWORDS="~alpha amd64 ~arm ~arm64 ~hppa ~ia64 ~loong ~mips ~ppc ~ppc64 ~riscv ~s390 ~sparc ~x86 ~amd64-linux ~x86-linux ~ppc-macos ~x64-macos ~x64-solaris ~x86-solaris"
+KEYWORDS="~alpha amd64 arm ~arm64 ~hppa ~ia64 ~loong ~mips ~ppc ~ppc64 ~riscv ~s390 ~sparc ~x86 ~amd64-linux ~x86-linux ~ppc-macos ~x64-macos ~x64-solaris ~x86-solaris"
 
 # Shorten the path because the socket path length must be shorter than 107 chars
 # and we will run a mysql server during test phase
@@ -208,7 +211,8 @@ src_unpack() {
 src_prepare() {
 	eapply "${WORKDIR}"/mariadb-patches
 	eapply "${FILESDIR}"/${PN}-10.6.11-gssapi.patch
-	eapply "${FILESDIR}"/mariadb-10.6.11-include.patch
+	eapply "${FILESDIR}"/${PN}-10.6.11-include.patch
+	eapply "${FILESDIR}"/${PN}-10.6.11-gcc-13.patch
 
 	eapply_user
 

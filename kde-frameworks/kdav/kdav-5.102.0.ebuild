@@ -12,7 +12,7 @@ inherit ecm frameworks.kde.org
 DESCRIPTION="DAV protocol implemention with KJobs"
 
 LICENSE="LGPL-2+"
-KEYWORDS="~amd64 ~arm64 ~loong ~ppc64 ~riscv ~x86"
+KEYWORDS="amd64 arm64 ~loong ~ppc64 ~riscv x86"
 IUSE=""
 
 RDEPEND="
@@ -27,8 +27,9 @@ DEPEND="${RDEPEND}"
 src_test() {
 	# bug 616808 - DavItemFetchJobTest requires D-Bus
 	# bug 653602 - DavItemsListJobTest mimetypes unsupported
+	# bug 765061 - kdav-davcollectionsmultifetchjobtest
 	local myctestargs=(
-		-E "(kdav-davitemfetchjob|kdav-davitemslistjob)"
+		-E "(kdav-davitemfetchjob|kdav-davitemslistjob|kdav-davcollectionsmultifetchjobtest)"
 	)
 	ecm_src_test
 }

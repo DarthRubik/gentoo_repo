@@ -43,7 +43,7 @@ DEPEND="
 	doc? (
 		$(python_gen_cond_dep '
 			dev-python/sphinx[${PYTHON_USEDEP}]
-			dev-python/sphinx_rtd_theme[${PYTHON_USEDEP}]
+			dev-python/sphinx-rtd-theme[${PYTHON_USEDEP}]
 		')
 		net-misc/rsync
 	)"
@@ -70,6 +70,11 @@ src_configure() {
 		--with-python="${PYTHON}"
 	)
 	econf "${econf_args[@]}"
+}
+
+src_install() {
+	docompress -x "${EPREFIX}"/usr/share/doc/"${PF}"/examples
+	default
 }
 
 pkg_postinst() {

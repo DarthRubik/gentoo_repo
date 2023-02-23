@@ -15,7 +15,7 @@ SRC_URI="https://www.webkitgtk.org/releases/${MY_P}.tar.xz"
 
 LICENSE="LGPL-2+ BSD"
 SLOT="4.1/0" # soname version of libwebkit2gtk-4.1
-KEYWORDS="amd64 arm arm64 ~ppc ~ppc64 ~riscv ~sparc x86"
+KEYWORDS="amd64 arm arm64 ppc ppc64 ~riscv ~sparc x86"
 
 IUSE="aqua avif +egl examples gamepad gles2-only gnome-keyring +gstreamer +introspection pdf +jpeg2k +jumbo-build lcms seccomp spell systemd test wayland X"
 
@@ -154,6 +154,7 @@ pkg_setup() {
 src_prepare() {
 	cmake_src_prepare
 	gnome2_src_prepare
+	eapply "${FILESDIR}"/2.38.3-gcc-13.patch
 }
 
 src_configure() {
@@ -257,4 +258,7 @@ src_install() {
 
 pkg_postinst() {
 	optfeature "geolocation service (used at runtime if available)" "app-misc/geoclue"
+	optfeature "Common Multimedia codecs" "media-plugins/gst-plugins-meta"
+	optfeature "(MPEG-)DASH support" "media-plugins/gst-plugins-dash"
+	optfeature "HTTP-Live-Streaming support" "media-plugins/gst-plugins-hls"
 }

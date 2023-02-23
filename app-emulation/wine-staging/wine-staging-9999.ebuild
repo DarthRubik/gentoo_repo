@@ -4,7 +4,9 @@
 EAPI=8
 
 MULTILIB_COMPAT=( abi_x86_{32,64} )
-inherit autotools flag-o-matic multilib multilib-build toolchain-funcs wrapper
+PYTHON_COMPAT=( python3_{9..11} )
+inherit autotools edo flag-o-matic multilib multilib-build
+inherit python-any-r1 toolchain-funcs wrapper
 
 WINE_GECKO=2.47.3
 WINE_MONO=7.4.0
@@ -30,8 +32,8 @@ SLOT="${PV}"
 IUSE="
 	+X +abi_x86_32 +abi_x86_64 +alsa capi crossdev-mingw cups dos
 	llvm-libunwind debug custom-cflags +fontconfig +gecko gphoto2
-	+gstreamer kerberos +mingw +mono netapi nls odbc opencl +opengl
-	osmesa pcap perl pulseaudio samba scanner +sdl selinux +ssl
+	+gstreamer kerberos +mingw +mono netapi nls opencl +opengl osmesa
+	pcap perl pulseaudio samba scanner +sdl selinux smartcard +ssl
 	+truetype udev udisks +unwind usb v4l +vulkan +xcomposite xinerama"
 REQUIRED_USE="
 	X? ( truetype )
@@ -61,7 +63,6 @@ WINE_DLOPEN_DEPEND="
 	fontconfig? ( media-libs/fontconfig[${MULTILIB_USEDEP}] )
 	kerberos? ( virtual/krb5[${MULTILIB_USEDEP}] )
 	netapi? ( net-fs/samba[${MULTILIB_USEDEP}] )
-	odbc? ( dev-db/unixODBC[${MULTILIB_USEDEP}] )
 	sdl? ( media-libs/libsdl2[haptic,joystick,${MULTILIB_USEDEP}] )
 	ssl? ( net-libs/gnutls:=[${MULTILIB_USEDEP}] )
 	truetype? ( media-libs/freetype[${MULTILIB_USEDEP}] )
@@ -86,6 +87,7 @@ WINE_COMMON_DEPEND="
 	pcap? ( net-libs/libpcap[${MULTILIB_USEDEP}] )
 	pulseaudio? ( media-libs/libpulse[${MULTILIB_USEDEP}] )
 	scanner? ( media-gfx/sane-backends[${MULTILIB_USEDEP}] )
+	smartcard? ( sys-apps/pcsc-lite[${MULTILIB_USEDEP}] )
 	udev? ( virtual/libudev:=[${MULTILIB_USEDEP}] )
 	unwind? (
 		llvm-libunwind? ( sys-libs/llvm-libunwind[${MULTILIB_USEDEP}] )
@@ -110,7 +112,16 @@ DEPEND="
 	${WINE_COMMON_DEPEND}
 	sys-kernel/linux-headers
 	X? ( x11-base/xorg-proto )"
+# gitapply.sh prefers git but can fallback to patch+extras
 BDEPEND="
+	${PYTHON_DEPS}
+	|| (
+		dev-vcs/git
+		(
+			sys-apps/gawk
+			sys-apps/util-linux
+		)
+	)
 	dev-lang/perl
 	sys-devel/binutils
 	sys-devel/bison
@@ -122,6 +133,7 @@ BDEPEND="
 	nls? ( sys-devel/gettext )"
 IDEPEND=">=app-eselect/eselect-wine-2"
 
+QA_FLAGS_IGNORED="usr/lib/.*/wine/.*-unix/odbc32.so" # has no compiled objects
 QA_TEXTRELS="usr/lib/*/wine/i386-unix/*.so" # uses -fno-PIC -Wl,-z,notext
 
 PATCHES=(
@@ -153,7 +165,7 @@ src_unpack() {
 		EGIT_CHECKOUT_DIR=${WORKDIR}/${P}
 		git-r3_src_unpack
 
-		EGIT_COMMIT=$("${BASH}" "${EGIT_CHECKOUT_DIR}"/patches/patchinstall.sh --upstream-commit) || die
+		EGIT_COMMIT=$(<"${EGIT_CHECKOUT_DIR}"/staging/upstream-commit) || die
 		EGIT_REPO_URI=${WINE_EGIT_REPO_URI}
 		EGIT_CHECKOUT_DIR=${S}
 		einfo "Fetching Wine commit matching the current patchset by default (${EGIT_COMMIT})"
@@ -164,19 +176,14 @@ src_unpack() {
 }
 
 src_prepare() {
-	local staging=(
-		./patchinstall.sh DESTDIR="${S}"
+	local patchinstallargs=(
 		--all
-		--backend=eapply
 		--no-autoconf
 		-W winemenubuilder-Desktop_Icon_Path #652176
 		${MY_WINE_STAGING_CONF}
 	)
 
-	# source patcher in a subshell so can use eapply as a backend
-	ebegin "Running ${staging[*]}"
-	( cd ../${P}/patches && . "${staging[@]}" )
-	eend ${?} || die "Failed to apply the patchset"
+	edo "${PYTHON}" ../${P}/staging/patchinstall.py "${patchinstallargs[@]}"
 
 	# sanity check, bumping these has a history of oversights
 	local geckomono=$(sed -En '/^#define (GECKO|MONO)_VER/{s/[^0-9.]//gp}' \
@@ -230,6 +237,7 @@ src_configure() {
 		$(use_with pulseaudio pulse)
 		$(use_with scanner sane)
 		$(use_with sdl)
+		$(use_with smartcard pcsclite)
 		$(use_with ssl gnutls)
 		$(use_with truetype freetype)
 		$(use_with udev)
@@ -240,7 +248,6 @@ src_configure() {
 		$(use_with vulkan)
 		$(use_with xcomposite)
 		$(use_with xinerama)
-		$(usev !odbc ac_cv_lib_soname_odbc=)
 	)
 
 	tc-ld-force-bfd # builds with non-bfd but broken at runtime (bug #867097)

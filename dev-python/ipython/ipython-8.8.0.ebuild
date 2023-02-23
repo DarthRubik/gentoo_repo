@@ -19,7 +19,7 @@ SRC_URI="mirror://pypi/${PN:0:1}/${PN}/${P}.tar.gz"
 
 LICENSE="BSD"
 SLOT="0"
-KEYWORDS="~amd64 ~arm ~arm64 ~hppa ~ia64 ~loong ~ppc ~ppc64 ~riscv ~s390 ~sparc ~x86"
+KEYWORDS="amd64 arm arm64 hppa ~ia64 ~loong ppc ppc64 ~riscv ~s390 sparc x86"
 IUSE="doc examples matplotlib notebook nbconvert qt5 +smp test"
 RESTRICT="!test? ( test )"
 
@@ -31,8 +31,8 @@ RDEPEND="
 	dev-python/matplotlib-inline[${PYTHON_USEDEP}]
 	>=dev-python/pexpect-4.3[${PYTHON_USEDEP}]
 	dev-python/pickleshare[${PYTHON_USEDEP}]
-	>=dev-python/prompt_toolkit-2[${PYTHON_USEDEP}]
-	<dev-python/prompt_toolkit-3.1[${PYTHON_USEDEP}]
+	>=dev-python/prompt-toolkit-2[${PYTHON_USEDEP}]
+	<dev-python/prompt-toolkit-3.1[${PYTHON_USEDEP}]
 	>=dev-python/pygments-2.4.0[${PYTHON_USEDEP}]
 	dev-python/setuptools[${PYTHON_USEDEP}]
 	dev-python/stack_data[${PYTHON_USEDEP}]
@@ -53,7 +53,7 @@ BDEPEND="
 		>=dev-python/ipykernel-5.1.0[${PYTHON_USEDEP}]
 		dev-python/matplotlib[${PYTHON_USEDEP}]
 		>=dev-python/sphinx-2[${PYTHON_USEDEP}]
-		dev-python/sphinx_rtd_theme[${PYTHON_USEDEP}]
+		dev-python/sphinx-rtd-theme[${PYTHON_USEDEP}]
 	)
 "
 

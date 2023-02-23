@@ -21,7 +21,7 @@ else
 	S="${WORKDIR}/${PN}-${MY_PV}"
 
 	if [[ ${PV} != *_rc* ]] ; then
-		KEYWORDS="~amd64 ~arm64 ~riscv ~x86"
+		KEYWORDS="amd64 ~arm64 ~riscv ~x86"
 	fi
 fi
 
@@ -77,6 +77,7 @@ CHECKREQS_DISK_BUILD="900M"
 PATCHES=(
 	"${FILESDIR}/${PN}-scripts-install-fix.patch"
 	"${FILESDIR}/${PN}-6.0.6-unitialized-variable-fix.patch"
+	"${FILESDIR}/${PN}-6.0.9-gcc-13.patch"
 )
 
 pkg_setup() {

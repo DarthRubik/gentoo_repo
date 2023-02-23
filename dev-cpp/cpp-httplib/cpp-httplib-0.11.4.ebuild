@@ -4,7 +4,7 @@
 EAPI=8
 
 PYTHON_COMPAT=( python3_{9..11} )
-inherit cmake-multilib python-any-r1
+inherit cmake-multilib python-any-r1 toolchain-funcs
 
 DESCRIPTION="C++ HTTP/HTTPS server and client library"
 HOMEPAGE="https://github.com/yhirose/cpp-httplib"
@@ -12,7 +12,7 @@ SRC_URI="https://github.com/yhirose/cpp-httplib/archive/refs/tags/v${PV}.tar.gz 
 
 LICENSE="MIT"
 SLOT="0/0.11" # soversion
-KEYWORDS="~amd64 ~x86"
+KEYWORDS="amd64 ~x86"
 
 IUSE="brotli ssl test zlib"
 REQUIRED_USE="test? ( brotli ssl zlib )"

@@ -83,7 +83,7 @@ BDEPEND="
 	doc? (
 		$(python_gen_cond_dep '
 			dev-python/sphinx[${PYTHON_USEDEP}]
-			dev-python/sphinx_rtd_theme[${PYTHON_USEDEP}]
+			dev-python/sphinx-rtd-theme[${PYTHON_USEDEP}]
 		')
 	)
 	gtk-doc? (
@@ -111,7 +111,7 @@ that are currently available with packages include:
   autocompletion support.
 * dev-util/valgrind for integration with valgrind.
 * dev-util/meson for integration with the Meson build system.
-* dev-util/cargo for integration with the Rust Cargo build system.
+* virtual/rust for integration with the Rust Cargo build system.
 * dev-util/cmake for integration with the CMake build system.
 * net-libs/nodejs[npm] for integration with the NPM package system.
 '

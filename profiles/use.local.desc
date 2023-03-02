@@ -260,6 +260,7 @@ app-backup/bacula:bacula-clientonly - Disable DB support, and just build a clien
 app-backup/bacula:bacula-nodir - Disable building of director
 app-backup/bacula:bacula-nosd - Disable building of storage daemon
 app-backup/bacula:batch-insert - Enable batch insert into data base
+app-backup/bacula:ipv6 - Support IPV6 protocol"
 app-backup/bacula:logwatch - Install support files for logwatch
 app-backup/bareos:ceph - Enable sys-cluster/ceph support
 app-backup/bareos:clientonly - Only install file-daemon (client)
@@ -1201,7 +1202,6 @@ app-text/stardict:wordnet - Enable wordnet plugin to find similar English words 
 app-text/stardict:xdxfparse - Enable plugin to parse dictionaries in xdxf (XML Dictionary eXchange Format)
 app-text/stardict:youdaodict - Enable youdao.com network plugin (for Chinese language)
 app-text/sword:clucene - Use dev-cpp/clucene for lucene search support
-app-text/sword-modules:esoteric - Install modules with no linguistic content, in unknown languages etc.
 app-text/tessdata_best:osd - Enable support orientation and script detection.
 app-text/tessdata_fast:osd - Enable support orientation and script detection.
 app-text/tessdata_legacy:math - Enable support for recognition of equations.
@@ -1749,7 +1749,7 @@ dev-lang/php:cli - Enable CLI SAPI
 dev-lang/php:coverage - Include gcov symbols for test coverage and lcov reports. Only useful for extension developers, and requires GCC.
 dev-lang/php:ctype - Enable ctype functions
 dev-lang/php:embed - Enable embed SAPI
-dev-lang/php:enchant - Add supports Enchant spelling library.
+dev-lang/php:enchant - Add supports Enchant spelling library
 dev-lang/php:ffi - Add foreign function interface (ffi extension) support
 dev-lang/php:fileinfo - Add fileinfo extension support
 dev-lang/php:filter - Add filter extension support
@@ -2701,6 +2701,7 @@ dev-tex/abntex:lyx - Install with app-office/lyx layout
 dev-tex/biblatex:biber - Install the unicode compatible backend processor
 dev-tex/pythontex:highlighting - Syntax highlighting using dev-python/pygments
 dev-texlive/texlive-basic:luajittex - Add support for LuaJitTeX: LuaTeX based on LuaJIT which is usually faster.
+dev-util/Tensile:client - Build and install tensile_client executable to run benchmarks and tune GPU GEMM
 dev-util/bazel:tools - Install extra bazel tools to build from sources
 dev-util/bitcoin-tx:knots - Build enhanced Bitcoin Knots version, rather than Bitcoin Core
 dev-util/bpftool:caps - Use sys-libs/libcap to enable unprivileged run support
@@ -3851,8 +3852,9 @@ media-fonts/intlfonts:bdf - Install BDF fonts in addition to PCF
 media-fonts/liberation-fonts:fontforge - Use media-gfx/fontforge to build fonts from source
 media-fonts/montecarlo:bdf - Install BDF fonts in addition to PCF
 media-fonts/mplus-outline-fonts:ipafont - Generates new fonts merged with media-fonts/ja-ipafonts
-media-fonts/noto:extra - Install full upstream font set
+media-fonts/noto:extra - Install full upstream font set including condensed, semi-bold, extra-light variants
 media-fonts/noto-emoji:buildfont - Build Noto Emoji font with supplied images
+media-fonts/noto-emoji:icons - Install Noto Emoji icon theme
 media-fonts/sil-charis:compact - Use more compactly spaced font
 media-fonts/terminus-font:a-like-o - Changes view of letter 'a' - a looks like o (see homepage)
 media-fonts/terminus-font:center-tilde - Place the '~' character vertically centered on the line instead of to the top.
@@ -4538,7 +4540,6 @@ media-sound/deadbeef:shellexec - Define custom shell commands that can be called
 media-sound/deadbeef:supereq - Enable equalizer
 media-sound/denemo:alsa - Enable alsa support through media-libs/alsa-lib
 media-sound/denemo:aubio - Enable media-libs/aubio support
-media-sound/denemo:fluidsynth - Enable Fluidsynth MIDI software synthesis using media-sound/fluidsynth
 media-sound/denemo:jack - Enable jack support through virtual/jack
 media-sound/denemo:portaudio - Enable support for media-libs/portaudio
 media-sound/denemo:portmidi - Enable support for the media-libs/portmidi backend
@@ -5430,7 +5431,6 @@ net-analyzer/zabbix:mbedtls - Use net-libs/mbedtls as TLS backend
 net-analyzer/zabbix:odbc - Enable Database Monitor and use UnixODBC Library by default
 net-analyzer/zabbix:openipmi - Enable openipmi things
 net-analyzer/zabbix:openssl - Use dev-libs/openssl as TLS backend
-net-analyzer/zabbix:pcre2 - Use dev-libs/libpcre2 instead of dev-libs/libpcre
 net-analyzer/zabbix:proxy - Enable proxy support
 net-analyzer/zabbix:server - Enable zabbix server
 net-analyzer/zabbix:ssh - SSH v2 based checks
@@ -6605,7 +6605,6 @@ net-misc/x2goserver:fuse - Use net-fs/sshfs to allow shared folders
 net-misc/xmrig:donate - Set the default donation level to 1% instead of 0
 net-misc/xmrig:hwloc - Use sys-apps/hwloc for CPU affinity support
 net-misc/xmrig:opencl - Enable OpenCL support
-net-misc/youtube-dl:yt-dlp - Use net-misc/yt-dlp to provide the command and only install the python module
 net-misc/youtube-viewer:gtk - Install the gtk3 GUI
 net-misc/ytfzf:minimal - Skip app-shells/fzf and media-video/mpv dependencies (requires custom settings)
 net-misc/zerotier:clang - Use Clang compiler instead of GCC
@@ -7182,6 +7181,7 @@ sci-libs/blis:openmp - Use openmp threadding model
 sci-libs/blis:pthread - Use pthread threadding model
 sci-libs/blis:serial - Use no threadding model
 sci-libs/caffe2:cuda - Add support for CUDA processing
+sci-libs/caffe2:distributed - Support distributed applications
 sci-libs/caffe2:ffmpeg - Add support for video processing operators
 sci-libs/caffe2:nnpack - Use NNPACK
 sci-libs/caffe2:numpy - Add support for math operations through numpy
@@ -7189,6 +7189,7 @@ sci-libs/caffe2:opencl - Use OpenCL
 sci-libs/caffe2:opencv - Add support for image processing operators
 sci-libs/caffe2:openmp - Use OpenMP for parallel code
 sci-libs/caffe2:qnnpack - Use QNNPACK
+sci-libs/caffe2:tensorpipe - Use tensorpipe
 sci-libs/caffe2:xnnpack - Use XNNPACK
 sci-libs/cantera:cti - Install CTI tools (ck2cti, ck2yaml, ctml_writer) for conversion of Chemkin files to Cantera format
 sci-libs/cddlib:tools - Add a few executables and tests for cddlib
@@ -7966,6 +7967,7 @@ sys-block/nbdkit:libssh - Enable the SSH plugin via net-libs/libssh.
 sys-block/nbdkit:libvirt - Enable the app-emulation/libvirt plugin.
 sys-block/nbdkit:nbd - Enable the nbd plugin via sys-libs/libnbd.
 sys-block/nbdkit:torrent - Enable the torrent plugin via net-libs/libtorrent-rasterbar.
+sys-block/ndctl:libtracefs - Use dev-libs/libtracefs to build cxl-monitor binary
 sys-block/open-iscsi:rdma - Support iSCSI over RDMA
 sys-block/open-iscsi:tcp - Support iSCSI over TCP
 sys-block/parted:debug - Enable debugging as encouraged by upstream: [The default configuration] includes --enable-debug (by default), which contains many assertions. Obviously, these "waste" space, but in the past, they have caught potentially dangerous bugs before they would have done damage, so we think it's worth it. Also, it means we get more bug reports ;)
@@ -9026,6 +9028,7 @@ x11-wm/notion:xrandr - Add support for xrandr
 x11-wm/openbox:session - Enables support for session managers
 x11-wm/openbox:xdg - Install the python xdg files for xdg autostart
 x11-wm/pekwm:contrib - Install optional extras in the documentation directory
+x11-wm/pekwm:pango - Pango font support
 x11-wm/pekwm:themes - Install additional themes
 x11-wm/ratpoison:history - Use sys-libs/readline for history handling
 x11-wm/ratpoison:sloppy - Install sloppy, a focus-follows-mouse implementation for ratpoison

@@ -229,8 +229,10 @@ app-antivirus/clamtk:nautilus - Install the Nautilus plugin.
 app-antivirus/clamtk:nemo - Install the Nemo plugin.
 app-antivirus/clamtk:thunar - Install the Thunar plugin.
 app-arch/cabextract:extras - Install experimental extra tools: wince_info and wince_rename for examining and processing Windows CE installation cabinet header files; cabinfo for examining the structure of a cab file.
+app-arch/createrepo_c:legacy - Build with support for legacy weakdeps and hashes (not recommended!)
 app-arch/dpkg:libmd - Use app-crypt/libmd library for message digest functions
 app-arch/dpkg:update-alternatives - Install update-alternatives
+app-arch/drpm:lzip - Enable app-arch/lzip decompression support via app-arch/lzlib
 app-arch/dump:ermt - encrypted rmt support
 app-arch/dump:uuid - Enable UUID support
 app-arch/engrampa:caja - Enable engrampa to integrate with mate-base/caja by providing entries in its context menu
@@ -1405,6 +1407,8 @@ dev-embedded/sdcc:ez80-z80 - Add support for EZ80-Z80
 dev-embedded/sdcc:gbz80 - Add support for Gameboy gbz80
 dev-embedded/sdcc:hc08 - Add support for Freescale/Motorola HC08 based
 dev-embedded/sdcc:mcs51 - Add support for Intel mcs51
+dev-embedded/sdcc:mos6502 - Add support for MOS 6502
+dev-embedded/sdcc:mos65c02 - Add support for MOS 65C02
 dev-embedded/sdcc:non-free - Enable non-free runtime library parts
 dev-embedded/sdcc:packihx - Enable Intel HEX files pack utility
 dev-embedded/sdcc:pdk13 - Add support for PDK13
@@ -1420,6 +1424,7 @@ dev-embedded/sdcc:s08 - Add support for Freescale/Motorola S08
 dev-embedded/sdcc:sdbinutils - Enable SDCC library archive utilities sdar, sdranlib, sdnm
 dev-embedded/sdcc:sdcdb - Enable SDCC source level debugger
 dev-embedded/sdcc:sdcpp - Enable SDCC preprocessor based on GCC cpp
+dev-embedded/sdcc:sm83 - Add support for Gameboy SM83
 dev-embedded/sdcc:stm8 - Add support for STMicroelectronics STM8
 dev-embedded/sdcc:tlcs90 - Add support for TLCS-90
 dev-embedded/sdcc:ucsim - Enable software simulator for microcontrollers
@@ -2871,7 +2876,6 @@ dev-vcs/git:curl - Support fetching and pushing (requires webdav too) over http:
 dev-vcs/git:gpg - Pull in gnupg for signing -- without gnupg, attempts at signing will fail at runtime!
 dev-vcs/git:highlight - GitWeb support for app-text/highlight
 dev-vcs/git:mediawiki - Support pulling and pushing from MediaWiki
-dev-vcs/git:mediawiki-experimental - Add experimental patches for improved MediaWiki support
 dev-vcs/git:perforce - Add support for Perforce version control system (requires manual installation of Perforce client)
 dev-vcs/git:safe-directory - Respect the safe.directory setting
 dev-vcs/git:subversion - Include git-svn for dev-vcs/subversion support
@@ -3325,6 +3329,7 @@ gui-apps/wayvnc:gbm - enable GPU-side screencopy (experimental)
 gui-apps/wayvnc:tracing - Trace kernel and memory calls
 gui-apps/wf-recorder:opencl - Enable OpenCL
 gui-libs/gtk:broadway - Enable the GDK Broadway backend.
+gui-libs/gtk:cloudproviders - Enable GtkPlacesSidebar to access cloud services
 gui-libs/gtk:colord - Use x11-misc/colord for color management in printing
 gui-libs/gtk:sysprof - Enable profiling data capture support using dev-util/sysprof-capture
 gui-libs/gtk:vulkan - Enable support for the Vulkan graphics API
@@ -4140,7 +4145,6 @@ media-libs/gstreamer:unwind - Enable sys-libs/libunwind usage for better backtra
 media-libs/harfbuzz:experimental - Enable experimental APIs
 media-libs/harfbuzz:glib - Enable dev-libs/glib unicode functions
 media-libs/harfbuzz:graphite - Enable media-gfx/graphite2 complementary shaper
-media-libs/ilmbase:large-stack - Enables code to take advantage of large stack support
 media-libs/imlib2:X - Use the X window system
 media-libs/imlib2:apidoc - Provide doxygen generated API docs
 media-libs/imlib2:bzip2 - Bzip2 loader support
@@ -4532,9 +4536,11 @@ media-sound/deadbeef:converter - File format converter
 media-sound/deadbeef:cover - Support for cover art
 media-sound/deadbeef:hotkeys - Keyboard shortcuts support
 media-sound/deadbeef:lastfm - last.fm/AudioScrobbler protocol support
+media-sound/deadbeef:libretro - libretro resampling plugin
 media-sound/deadbeef:libsamplerate - Support the Secret Rabbit Code resampler
 media-sound/deadbeef:notify - Desktop notifications support
 media-sound/deadbeef:nullout - Dummy output driver
+media-sound/deadbeef:pipewire - Pipewire output plugin
 media-sound/deadbeef:sc68 - Atari ST and Amiga music player
 media-sound/deadbeef:shellexec - Define custom shell commands that can be called on tracks
 media-sound/deadbeef:supereq - Enable equalizer
@@ -7432,14 +7438,10 @@ sci-libs/vtk:cuda - Add support for CUDA
 sci-libs/vtk:freetype - Build support for font rendering
 sci-libs/vtk:gdal - Support for gdal formated data
 sci-libs/vtk:imaging - Building Imaging modules
-sci-libs/vtk:json - Support for json formatted data
-sci-libs/vtk:kits - Build kits in addition to modules
 sci-libs/vtk:las - Build support for LiDAR files
 sci-libs/vtk:logging - Build the logging module
-sci-libs/vtk:offscreen - Offscreen rendering through OSMesa
 sci-libs/vtk:openvdb - Build support to handle VDB data files
 sci-libs/vtk:pdal - Build support to handle point cloud data files
-sci-libs/vtk:pegtl - Use pegtl to build parsers
 sci-libs/vtk:qt6 - Use Qt6 packages instead of Qt5
 sci-libs/vtk:rendering - Building Redering modules
 sci-libs/vtk:sdl - Enable SDL2 support for rendering modules
@@ -8196,7 +8198,6 @@ sys-devel/llvm:exegesis - Enable performance counter support for llvm-exegesis t
 sys-devel/llvm:ncurses - Support querying terminal properties using ncurses' terminfo
 sys-devel/llvm:xar - Support dumping LLVM bitcode sections in Mach-O files (uses app-arch/xar)
 sys-devel/llvm:z3 - Enable support for sci-mathematics/z3 constraint solver
-sys-devel/llvm-roc:runtime - Builds the compiler runtime libraries.
 sys-devel/llvm-toolchain-symlinks:multilib-symlinks - Install symlinks for all ABI CHOSTs. Note that this can result in gcc being overrode for native builds, as well as conflict with crossdev if used for the same targets.
 sys-devel/llvm-toolchain-symlinks:native-symlinks - Install generic tool symlinks like 'objdump' and 'ranlib', as well as ${CTARGET}-*. These symlinks are installed into slotted LLVM bindir, so they should not take precedence over symlinks installed into /usr/bin by sys-devel/binutils-config but they can be helpful for binutils-free setups.
 sys-devel/parity:vc10_0 - Enable support for Visual Studio 2010

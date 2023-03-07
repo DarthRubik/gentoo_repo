@@ -102,7 +102,7 @@ LICENSE="|| ( LGPL-3 MPL-1.1 )"
 SLOT="0"
 
 [[ ${MY_PV} == *9999* ]] || \
-KEYWORDS=""
+KEYWORDS="~riscv"
 
 COMMON_DEPEND="${PYTHON_DEPS}
 	app-arch/unzip
@@ -163,7 +163,6 @@ COMMON_DEPEND="${PYTHON_DEPS}
 	media-libs/openjpeg:=
 	media-libs/tiff:=
 	media-libs/zxing-cpp:=
-	>=net-libs/neon-0.31.1:=
 	net-misc/curl
 	sci-mathematics/lpsolve:=
 	sys-libs/zlib
@@ -496,7 +495,6 @@ src_configure() {
 		--with-system-openjpeg
 		--with-tls=nss
 		--with-vendor="Gentoo Foundation"
-		--with-webdav="neon"
 		--with-x
 		--without-fonts
 		--without-myspell-dicts

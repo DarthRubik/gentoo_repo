@@ -19,7 +19,6 @@
     <flag name="osmesa">Build the Mesa library for off-screen rendering.</flag>
   
     <flag name="xa">Enable the XA (X Acceleration) API for Gallium3D.</flag>
-    <flag name="xvmc">Enable the XvMC acceleration interface for the Gallium3D Video Layer.</flag>
     <flag name="zink">Enable the Zink OpenGL-over-Vulkan Gallium driver</flag>
   </use>
   <upstream>

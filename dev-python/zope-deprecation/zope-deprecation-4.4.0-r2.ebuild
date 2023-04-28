@@ -4,19 +4,17 @@
 EAPI=8
 
 DISTUTILS_USE_PEP517=setuptools
+PYPI_NO_NORMALIZE=1
+PYPI_PN=${PN/-/.}
 PYTHON_COMPAT=( python3_{9..11} pypy3 )
 
-inherit distutils-r1
+inherit distutils-r1 pypi
 
-MY_PN=${PN/-/.}
-MY_P=${MY_PN}-${PV}
 DESCRIPTION="Zope Deprecation Infrastructure"
 HOMEPAGE="
 	https://pypi.org/project/zope.deprecation/
 	https://github.com/zopefoundation/zope.deprecation/
 "
-SRC_URI="mirror://pypi/${MY_PN::1}/${MY_PN}/${MY_P}.tar.gz"
-S="${WORKDIR}/${MY_P}"
 
 LICENSE="ZPL"
 SLOT="0"

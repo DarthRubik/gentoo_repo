@@ -17,16 +17,16 @@ HOMEPAGE="
 
 LICENSE="BSD"
 SLOT="0"
-KEYWORDS="~amd64 ~riscv"
+KEYWORDS="amd64 arm arm64 ~hppa ~loong ~ppc ppc64 ~riscv ~s390 ~sparc x86"
 
 RDEPEND="
-	>=dev-python/jupyter_server-1.1[${PYTHON_USEDEP}]
+	>=dev-python/jupyter-server-1.1[${PYTHON_USEDEP}]
 "
 BDEPEND="
 	dev-python/jupyter_packaging[${PYTHON_USEDEP}]
 	test? (
 		dev-python/pytest-tornasync[${PYTHON_USEDEP}]
-		dev-python/pytest_jupyter[${PYTHON_USEDEP}]
+		dev-python/pytest-jupyter[${PYTHON_USEDEP}]
 	)
 "
 

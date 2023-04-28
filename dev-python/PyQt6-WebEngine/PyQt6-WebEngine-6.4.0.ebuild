@@ -3,7 +3,10 @@
 
 EAPI=8
 
+DISTUTILS_EXT=1
 DISTUTILS_USE_PEP517=sip
+PYPI_NO_NORMALIZE=1
+PYPI_PN=${PN/-/_}
 PYTHON_COMPAT=( python3_{9..11} )
 inherit distutils-r1 flag-o-matic multiprocessing pypi qmake-utils
 
@@ -11,17 +14,16 @@ QT_PV="$(ver_cut 1-2):6"
 
 DESCRIPTION="Python bindings for QtWebEngine"
 HOMEPAGE="https://www.riverbankcomputing.com/software/pyqtwebengine/"
-SRC_URI="$(pypi_sdist_url --no-normalize ${PN/-/_})"
-S="${WORKDIR}/${P/-/_}"
 
 LICENSE="GPL-3"
 SLOT="0"
 KEYWORDS="~amd64"
 IUSE="debug quick +widgets"
 
+# can use parts of the Qt private api and "sometimes" needs rebuilds wrt :=
 RDEPEND="
 	>=dev-python/PyQt6-${PV}[gui,ssl,${PYTHON_USEDEP}]
-	>=dev-qt/qtbase-${QT_PV}
+	>=dev-qt/qtbase-${QT_PV}=
 	>=dev-qt/qtwebengine-${QT_PV}[widgets]
 	quick? ( dev-python/PyQt6[qml] )
 	widgets? ( dev-python/PyQt6[network,printsupport,webchannel,widgets] )"
@@ -41,8 +43,9 @@ src_prepare() {
 	PATH=${T}/cxx:${PATH}
 }
 
-src_configure() {
+python_configure_all() {
 	append-cxxflags -std=c++17 # for old gcc / clang that use <17 (bug #892331)
+	append-cxxflags ${CPPFLAGS} # respect CPPFLAGS
 
 	DISTUTILS_ARGS=(
 		--jobs=$(makeopts_jobs)

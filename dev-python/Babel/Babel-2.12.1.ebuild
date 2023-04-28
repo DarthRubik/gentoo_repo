@@ -37,6 +37,7 @@ BDEPEND="
 	${RDEPEND}
 	test? (
 		dev-python/freezegun[${PYTHON_USEDEP}]
+		dev-python/pytz[${PYTHON_USEDEP}]
 	)
 "
 
@@ -44,6 +45,10 @@ distutils_enable_sphinx docs
 distutils_enable_tests pytest
 
 src_prepare() {
+	local PATCHES=(
+		"${FILESDIR}/${P}-dst-test.patch"
+	)
+
 	rm babel/locale-data/*.dat || die
 	rm babel/global.dat || die
 	distutils-r1_src_prepare

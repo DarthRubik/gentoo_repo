@@ -1,13 +1,13 @@
-BDEPEND=app-emacs/xelb >=app-editors/emacs-23.1:*
-DEFINED_PHASES=compile configure install postinst postrm prepare setup unpack
+BDEPEND=app-emacs/xelb >=app-editors/emacs-25.3:*
+DEFINED_PHASES=compile configure install postinst postrm prepare setup test unpack
 DESCRIPTION=Emacs X Window Manager
 EAPI=8
 HOMEPAGE=https://github.com/ch11ng/exwm/
 INHERIT=elisp
 KEYWORDS=~amd64 ~x86
 LICENSE=GPL-3+
-RDEPEND=app-emacs/xelb >=app-editors/emacs-23.1:*
+RDEPEND=app-emacs/xelb >=app-editors/emacs-25.3:*
 SLOT=0
 SRC_URI=https://github.com/ch11ng/exwm/archive/0.26.tar.gz -> exwm-0.26.tar.gz
-_eclasses_=elisp-common	79f8e13c80c89792e5c9b3fc8ef59f3b	elisp	8aab2c847b5894dc40503ae1d203abcf
+_eclasses_=elisp-common	dcd21c5d379fc2217e95f529504c5fe0	elisp	7190c722d9e06fabcae26ef1e1dc9183
 _md5_=a598f956f8378f6b326dde09587d1e93

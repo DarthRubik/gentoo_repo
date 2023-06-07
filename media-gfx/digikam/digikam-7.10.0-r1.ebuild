@@ -14,7 +14,7 @@ if [[ ${KDE_BUILD_TYPE} != live ]]; then
 		SRC_URI="mirror://kde/stable/${PN}/${PV}/"
 	fi
 	SRC_URI+="digiKam-${PV/_/-}.tar.xz"
-	KEYWORDS="~amd64 ~x86"
+	KEYWORDS="amd64 ~x86"
 	S="${WORKDIR}/${PN}-${PV/_/-}"
 fi
 
@@ -109,6 +109,7 @@ BDEPEND="
 PATCHES=(
 	"${FILESDIR}/${PN}-7.8.0-cmake.patch"
 	"${FILESDIR}/${PN}-7.9.0-akonadi-23.04.patch" # bug 904976
+	"${FILESDIR}/${P}-gcc13.patch"
 )
 
 pkg_pretend() {

@@ -13,13 +13,14 @@ S="${WORKDIR}/${PN^^}.${PV}"
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS="~alpha ~amd64 ~arm ~arm64 ~hppa ~ia64 ~loong ~m68k ~mips ~ppc ~ppc64 ~riscv ~s390 ~sparc ~x86 ~amd64-linux ~x86-linux"
-IUSE="lvm lvm2create-initrd readline sanlock selinux static static-libs systemd thin +udev"
+KEYWORDS="~alpha amd64 arm arm64 hppa ~ia64 ~loong ~m68k ~mips ppc ppc64 ~riscv ~s390 sparc x86 ~amd64-linux ~x86-linux"
+IUSE="lvm readline sanlock selinux static static-libs systemd thin +udev valgrind"
 REQUIRED_USE="
 	static? ( !systemd !udev )
 	static-libs? ( static !udev )
 	systemd? ( udev )
-	thin? ( lvm )"
+	thin? ( lvm )
+"
 
 DEPEND_COMMON="
 	udev? ( virtual/libudev:= )
@@ -29,19 +30,22 @@ DEPEND_COMMON="
 		readline? ( sys-libs/readline:= )
 		sanlock? ( sys-cluster/sanlock )
 		systemd? ( sys-apps/systemd:= )
-	)"
+	)
+"
 # /run is now required for locking during early boot. /var cannot be assumed to
 # be available -- thus, pull in recent enough baselayout for /run.
 # This version of LVM is incompatible with cryptsetup <1.1.2.
-RDEPEND="${DEPEND_COMMON}
+RDEPEND="
+	${DEPEND_COMMON}
 	>=sys-apps/baselayout-2.2
 	lvm? (
 		virtual/tmpfiles
-		lvm2create-initrd? ( sys-apps/makedev )
 		thin? ( sys-block/thin-provisioning-tools )
-	)"
-# note: thin- 0.3.0 is required to avoid --disable-thin_check_needs_check
-DEPEND="${DEPEND_COMMON}
+	)
+"
+# note: thin-0.3.0 is required to avoid --disable-thin_check_needs_check
+DEPEND="
+	${DEPEND_COMMON}
 	static? (
 		lvm? (
 			dev-libs/libaio[static-libs]
@@ -49,21 +53,21 @@ DEPEND="${DEPEND_COMMON}
 			readline? ( sys-libs/readline[static-libs] )
 		)
 		selinux? ( sys-libs/libselinux[static-libs] )
-	)"
+	)
+	valgrind? ( >=dev-util/valgrind-3.6 )
+"
 BDEPEND="
 	sys-devel/autoconf-archive
-	virtual/pkgconfig"
+	virtual/pkgconfig
+"
 
 PATCHES=(
 	# Gentoo specific modification(s):
-	"${FILESDIR}"/${PN}-2.03.17-example.conf.in.patch
+	"${FILESDIR}"/${PN}-2.03.20-example.conf.in.patch
 
 	# For upstream -- review and forward:
-	"${FILESDIR}"/${PN}-2.02.56-lvm2create_initrd.patch
-	"${FILESDIR}"/${PN}-2.02.67-createinitrd.patch #301331
-	"${FILESDIR}"/${PN}-2.03.17-locale-muck.patch #330373
-	"${FILESDIR}"/${PN}-2.03.19-dmeventd-no-idle-exit.patch
-	"${FILESDIR}"/${PN}-2.03.19-freopen-musl.patch
+	"${FILESDIR}"/${PN}-2.03.20-dmeventd-no-idle-exit.patch
+	"${FILESDIR}"/${PN}-2.03.20-freopen-musl.patch
 )
 
 pkg_setup() {
@@ -95,7 +99,7 @@ src_prepare() {
 
 	# Users without systemd get no auto-activation of any logical volume
 	if ! use systemd ; then
-		eapply "${FILESDIR}"/${PN}-2.03.19-dm_lvm_rules_no_systemd.patch
+		eapply "${FILESDIR}"/${PN}-2.03.20-dm_lvm_rules_no_systemd.patch
 	fi
 
 	eautoreconf
@@ -163,6 +167,7 @@ src_configure() {
 		$(use_enable systemd app-machineid)
 		$(use_enable systemd systemd-journal)
 		$(use_with systemd systemd-run "/usr/bin/systemd-run")
+		$(use_enable valgrind valgrind-pool)
 		--with-systemdsystemunitdir="$(systemd_get_systemunitdir)"
 		CLDFLAGS="${LDFLAGS}"
 	)
@@ -201,13 +206,13 @@ src_install() {
 	)
 	emake V=1 DESTDIR="${D}" "${INSTALL_TARGETS[@]}"
 
-	newinitd "${FILESDIR}"/device-mapper.rc-2.02.105-r2 device-mapper
-	newconfd "${FILESDIR}"/device-mapper.conf-1.02.22-r3 device-mapper
+	newinitd "${FILESDIR}"/device-mapper.rc-r3 device-mapper
+	newconfd "${FILESDIR}"/device-mapper.conf-r4 device-mapper
 
 	if use lvm ; then
-		newinitd "${FILESDIR}"/dmeventd.initd-2.02.184-r2 dmeventd
-		newinitd "${FILESDIR}"/lvm.rc-2.02.187 lvm
-		newconfd "${FILESDIR}"/lvm.confd-2.02.184-r3 lvm
+		newinitd "${FILESDIR}"/dmeventd.initd-r3 dmeventd
+		newinitd "${FILESDIR}"/lvm.rc-r1 lvm
+		newconfd "${FILESDIR}"/lvm.confd-r4 lvm
 		if ! use udev ; then
 			# We keep the variable but remove udev from it.
 			sed -r -i \
@@ -215,17 +220,11 @@ src_install() {
 				"${ED}"/etc/conf.d/lvm || die "Could not drop udev from rc_need"
 		fi
 
-		newinitd "${FILESDIR}"/lvm-monitoring.initd-2.02.105-r2 lvm-monitoring
-		newinitd "${FILESDIR}"/lvmpolld.initd-2.02.183 lvmpolld
-
-		if use lvm2create-initrd; then
-			dosbin scripts/lvm2create_initrd/lvm2create_initrd
-			doman scripts/lvm2create_initrd/lvm2create_initrd.8
-			newdoc scripts/lvm2create_initrd/README README.lvm2create_initrd
-		fi
+		newinitd "${FILESDIR}"/lvm-monitoring.initd-r3 lvm-monitoring
+		newinitd "${FILESDIR}"/lvmpolld.initd-r1 lvmpolld
 
 		if use sanlock; then
-			newinitd "${FILESDIR}"/lvmlockd.initd-2.02.166-r1 lvmlockd
+			newinitd "${FILESDIR}"/lvmlockd.initd-r2 lvmlockd
 		fi
 	fi
 

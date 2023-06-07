@@ -4,7 +4,7 @@
 EAPI=8
 
 LUA_COMPAT=( lua5-{1..2} )
-PYTHON_COMPAT=( python3_{9..10} )
+PYTHON_COMPAT=( python3_{9..11} )
 
 inherit fcaps flag-o-matic readme.gentoo-r1 lua-single python-any-r1 qmake-utils xdg cmake
 
@@ -19,7 +19,7 @@ else
 	S="${WORKDIR}/${P/_/}"
 
 	if [[ ${PV} != *_rc* ]] ; then
-		KEYWORDS="~amd64 ~arm ~arm64 ~hppa ~ia64 ~ppc64 ~riscv ~x86"
+		KEYWORDS="amd64 arm arm64 ~hppa ~ia64 ppc64 ~riscv x86"
 	fi
 fi
 
@@ -35,7 +35,9 @@ REQUIRED_USE="
 	lua? ( ${LUA_REQUIRED_USE} )
 "
 
-RESTRICT="!test? ( test )"
+# Tests restricted for now because rely on pytest internals w/ >=3.11
+# See bug #897078 and https://gitlab.com/wireshark/wireshark/-/issues/18740.
+RESTRICT="!test? ( test ) test"
 
 # bug #753062 for speexdsp
 RDEPEND="

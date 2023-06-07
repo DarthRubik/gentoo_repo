@@ -46,7 +46,7 @@ SRC_URI="
 IUSE="gnome java kde"
 LICENSE="LGPL-3"
 SLOT="0"
-KEYWORDS="-* ~amd64 ~x86"
+KEYWORDS="-* amd64 x86"
 
 BIN_COMMON_DEPEND="
 	app-text/hunspell:0/1.7
@@ -62,7 +62,7 @@ BIN_COMMON_DEPEND="
 	media-libs/libpng:0/16
 	media-libs/openjpeg:2/7
 	media-libs/zxing-cpp:0/3
-	sci-mathematics/lpsolve:0/0
+	sci-mathematics/lpsolve:0/55
 	>=sys-devel/gcc-12.2.1
 	>=sys-libs/glibc-2.36
 "

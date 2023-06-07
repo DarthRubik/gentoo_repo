@@ -3,6 +3,7 @@
 
 EAPI=8
 
+DISTUTILS_EXT=1
 DISTUTILS_USE_PEP517=setuptools
 PYPI_PN=reedsolo
 PYTHON_COMPAT=( python3_{9..11} )
@@ -17,7 +18,7 @@ HOMEPAGE="
 
 LICENSE="|| ( Unlicense MIT-0 )"
 SLOT="0"
-KEYWORDS="~amd64 ~arm ~arm64 ~x86"
+KEYWORDS="amd64 ~arm ~arm64 x86"
 IUSE="+native-extensions"
 
 distutils_enable_tests pytest

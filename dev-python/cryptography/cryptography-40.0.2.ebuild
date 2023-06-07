@@ -4,6 +4,7 @@
 EAPI=8
 
 CARGO_OPTIONAL=yes
+DISTUTILS_EXT=1
 DISTUTILS_USE_PEP517=setuptools
 PYTHON_COMPAT=( python3_{9..11} pypy3 )
 PYTHON_REQ_USE="threads(+)"
@@ -112,7 +113,7 @@ LICENSE="|| ( Apache-2.0 BSD ) PSF-2"
 # Dependent crate licenses
 LICENSE+=" Apache-2.0 BSD-2 BSD MIT Unicode-DFS-2016"
 SLOT="0"
-KEYWORDS="~amd64 ~arm ~arm64 ~ppc ~ppc64 ~riscv ~s390 ~sparc ~x86"
+KEYWORDS="amd64 arm arm64 ppc ppc64 ~riscv ~s390 sparc x86"
 
 RDEPEND="
 	>=dev-libs/openssl-1.0.2o-r6:0=

@@ -3,6 +3,7 @@
 
 EAPI=8
 
+DISTUTILS_EXT=1
 DISTUTILS_USE_PEP517=setuptools
 PYPI_NO_NORMALIZE=1
 PYTHON_COMPAT=( python3_{9..11} )
@@ -14,7 +15,7 @@ HOMEPAGE="https://github.com/jd-boyd/python-lzo"
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS="amd64 ~riscv x86 ~amd64-linux ~x86-linux"
+KEYWORDS="amd64 ~arm64 ~riscv x86 ~amd64-linux ~x86-linux"
 
 RDEPEND="dev-libs/lzo:2"
 DEPEND="${RDEPEND}"

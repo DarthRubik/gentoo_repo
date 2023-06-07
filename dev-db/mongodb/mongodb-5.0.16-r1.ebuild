@@ -20,7 +20,7 @@ SRC_URI="https://fastdl.mongodb.org/src/${MY_P}.tar.gz"
 
 LICENSE="Apache-2.0 SSPL-1"
 SLOT="0"
-KEYWORDS="~amd64 ~arm64 -riscv"
+KEYWORDS="amd64 ~arm64 -riscv"
 CPU_FLAGS="cpu_flags_x86_avx"
 IUSE="debug kerberos lto mongosh ssl +tools ${CPU_FLAGS}"
 
@@ -72,6 +72,7 @@ PATCHES=(
 	"${FILESDIR}/${PN}-4.4.10-boost-1.81.patch"
 	"${FILESDIR}/${PN}-5.0.5-boost-1.81-extra.patch"
 	"${FILESDIR}/${PN}-4.4.8-gcc-13.patch"
+	"${FILESDIR}/${PN}-5.0.16-arm64-assert.patch"
 )
 
 S="${WORKDIR}/${MY_P}"
@@ -88,7 +89,7 @@ pkg_pretend() {
 	if use amd64 && ! use cpu_flags_x86_avx; then
 		ewarn "MongoDB 5.0 requires use of the AVX instruction set."
 		ewarn "This ebuild will use --experimental-optimization=-sandybridge which"
-        ewarn "will result in an experimental build of MongoDB as per upstream."
+	        ewarn "will result in an experimental build of MongoDB as per upstream."
 		ewarn "https://docs.mongodb.com/v5.0/administration/production-notes/"
 	fi
 
@@ -123,6 +124,7 @@ src_configure() {
 		CXX="$(tc-getCXX)"
 
 		--disable-warnings-as-errors
+		--force-jobs
 		--jobs="$(makeopts_jobs)"
 		--use-system-boost
 		--use-system-pcre

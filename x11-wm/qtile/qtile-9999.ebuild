@@ -9,7 +9,7 @@ PYTHON_COMPAT=( python3_{9..11} )
 inherit distutils-r1 virtualx
 
 DESCRIPTION="A full-featured, hackable tiling window manager written in Python"
-HOMEPAGE="http://qtile.org/"
+HOMEPAGE="http://www.qtile.org/"
 
 if [[ ${PV} == 9999 ]]; then
 	inherit git-r3
@@ -35,12 +35,8 @@ RDEPEND="
 	x11-libs/cairo[X,xcb(+)]
 	x11-libs/libnotify[introspection]
 	x11-libs/pango
-	pulseaudio? (
-		media-sound/pulseaudio
-	)
-	wayland? (
-		=dev-python/pywlroots-0.15*[${PYTHON_USEDEP}]
-	)
+	pulseaudio? ( media-libs/libpulse )
+	wayland? ( =dev-python/pywlroots-0.15*[${PYTHON_USEDEP}] )
 "
 BDEPEND="
 	dev-python/setuptools-scm[${PYTHON_USEDEP}]
@@ -87,6 +83,11 @@ python_test() {
 
 	# TODO: remove "-p no:xdist" for next release when https://github.com/qtile/qtile/issues/1634 will be resolved.
 	epytest -p no:xdist --backend=x11 $(usev wayland '--backend=wayland') || die "Tests failed with ${EPYTHON}"
+}
+
+python_compile() {
+	export CFFI_TMPDIR=${T}
+	distutils-r1_python_compile
 }
 
 python_install_all() {

@@ -144,7 +144,7 @@ PDEPEND="
 PATCHES=(
 	"${FILESDIR}"/${PN}-9.4.0-fix_paths_in_libvirt-guests_sh.patch
 	"${FILESDIR}"/${PN}-9.4.0-do-not-use-sysconfig.patch
-	"${FILESDIR}"/${PN}-8.2.0-fix-paths-for-apparmor.patch
+	"${FILESDIR}"/${PN}-9.5.0-fix-paths-for-apparmor.patch
 )
 
 pkg_setup() {
@@ -302,7 +302,7 @@ src_configure() {
 		-Ddriver_vmware=enabled
 
 		--localstatedir="${EPREFIX}/var"
-		-Dinitconfdir="${EPREFIX}/etc/conf.d"
+		-Dinitconfdir="${EPREFIX}/etc/systemd"
 		-Drunstatedir="${EPREFIX}/run"
 		-Ddocdir="${EPREFIX}/usr/share/doc/${PF}"
 	)

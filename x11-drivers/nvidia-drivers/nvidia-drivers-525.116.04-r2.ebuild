@@ -81,6 +81,7 @@ BDEPEND="
 QA_PREBUILT="lib/firmware/* opt/bin/* usr/lib*"
 
 PATCHES=(
+	"${FILESDIR}"/nvidia-drivers-525.116.04-clang-unused-option.patch
 	"${FILESDIR}"/nvidia-kernel-module-source-515.86.01-raw-ldflags.patch
 	"${FILESDIR}"/nvidia-modprobe-390.141-uvm-perms.patch
 	"${FILESDIR}"/nvidia-settings-390.144-desktop.patch
@@ -410,14 +411,14 @@ https://wiki.gentoo.org/wiki/NVIDIA/nvidia-drivers"
 			VDPAU_SYMLINK) m[4]=vdpau/; m[5]=${m[5]#vdpau/};; # .so to vdpau/
 		esac
 
-		if [[ -v paths[${m[2]}] ]]; then
+		if [[ -v 'paths[${m[2]}]' ]]; then
 			into=${paths[${m[2]}]}
-		elif [[ ${m[2]} =~ _BINARY$ ]]; then
+		elif [[ ${m[2]} == *_BINARY ]]; then
 			into=/opt/bin
 		elif [[ ${m[3]} == COMPAT32 ]]; then
 			use abi_x86_32 || continue
 			into=/usr/${libdir32}
-		elif [[ ${m[2]} =~ _LIB$|_SYMLINK$ ]]; then
+		elif [[ ${m[2]} == *_@(LIB|SYMLINK) ]]; then
 			into=/usr/${libdir}
 		else
 			die "No known installation path for ${m[0]}"

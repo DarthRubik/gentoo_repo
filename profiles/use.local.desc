@@ -480,6 +480,7 @@ app-editors/vim:terminal - Enable terminal emulation support
 app-editors/vim:vim-pager - Install vimpager and vimmanpager links
 app-editors/vis:tre - more memory efficient regex search using dev-libs/tre
 app-editors/xemacs:athena - Chooses the MIT Athena widget set
+app-editors/xemacs:bignum - Support for OpenSSL bignum implementation
 app-editors/xemacs:dnd - Enables support for the x11-libs/dnd drag-n-drop library
 app-editors/xemacs:eolconv - Support detection and translation of newline conventions
 app-editors/xemacs:mule - Add multi-language support to XEmacs
@@ -1143,7 +1144,6 @@ app-text/groonga:zeromq - Enable net-libs/zeromq used for suggestion
 app-text/htmltidy:deprecated - Install tools and header files which are now considered deprecated
 app-text/hyperestraier:mecab - Enable app-text/mecab support for Estraier
 app-text/kbibtex:webengine - Use dev-qt/qtwebengine for HTML previews
-app-text/kbibtex:zotero - Enable support for synchronisation with zotero.org web service
 app-text/kjots:speech - Enable text-to-speech support
 app-text/lcdf-typetools:kpathsea - Enable integration with kpathsea search library (TeX related)
 app-text/libebook:tools - Build file conversion tools
@@ -1172,6 +1172,7 @@ app-text/pelican:markdown - Markdown support
 app-text/podofo:boost - Add support for boost
 app-text/podofo:tools - Build and install commandline tools.
 app-text/poppler:boost - Use boost::small_vector for a serious performance gain
+app-text/poppler:gpgme - Enable signatures handling with app-crypt/gpgme
 app-text/poppler:nss - Enable signatures handling with dev-libs/nss
 app-text/poppler:utils - Install command-line PDF converters and various utilities.
 app-text/qpdfview:fitz - Use experimental fitz rendering, provided by app-text/mupdf, instead of poppler
@@ -1180,25 +1181,6 @@ app-text/robodoc:examples - Installs usage examples in /usr/share for Perl
 app-text/sdcv:darkterm - Improve readability of color output on terminals with dark background.
 app-text/sigil:plugins - Installed needed Python packages for using Sigil plugins
 app-text/sigil:system-mathjax - Use the system-wide dev-libs/mathjax instead of bundled
-app-text/stardict:advertisement - Enable stardict advertisements plugin
-app-text/stardict:cal - Enable calendar support using cal program
-app-text/stardict:dictdotcn - Enable dict.cn network plugin (for Chinese language)
-app-text/stardict:espeak - Enable text to speech synthesizer plugin using app-accessibility/espeak-ng engine
-app-text/stardict:flite - Enable text to speech synthesizer plugin using app-accessibility/flite engine
-app-text/stardict:fortune - Enable plugin to read fortune messages using games-misc/fortune-mod. You may consider installing games-misc/fortune-mod-all to get all fortune messages.
-app-text/stardict:gucharmap - Enable plugin for unicode symbols description using gnome-extra/gucharmap
-app-text/stardict:htmlparse - Enable plugin to parse dictionaries with html content
-app-text/stardict:info - Enable plugin to read info pages
-app-text/stardict:man - Enable plugin to read manual pages
-app-text/stardict:powerwordparse - Enable plugin to parse powerword dictionaries
-app-text/stardict:pronounce - Install WyabdcRealPeopleTTS package (it is just many .wav files) to make StarDict pronounce English words
-app-text/stardict:qqwry - Enable QQWry plugin, which provides information (in Chinese language) about geographical positions, owner, etc. for IP addresses
-app-text/stardict:tools - Build and install dictionary management tools and converters from various dictionary formats
-app-text/stardict:updateinfo - Enable plugin to check for stardict updates
-app-text/stardict:wikiparse - Enable plugin to parse dictionaries in wikimedia format
-app-text/stardict:wordnet - Enable wordnet plugin to find similar English words using lexical database
-app-text/stardict:xdxfparse - Enable plugin to parse dictionaries in xdxf (XML Dictionary eXchange Format)
-app-text/stardict:youdaodict - Enable youdao.com network plugin (for Chinese language)
 app-text/sword:clucene - Use dev-cpp/clucene for lucene search support
 app-text/tessdata_best:osd - Enable support orientation and script detection.
 app-text/tessdata_fast:osd - Enable support orientation and script detection.
@@ -1295,6 +1277,7 @@ dev-cpp/cpp-httplib:brotli - Enable app-arch/brotli support
 dev-cpp/eigen:cuda - Build with cuda support
 dev-cpp/glog:gflags - Use dev-cpp/gflags for flag parsing
 dev-cpp/glog:libunwind - Use libunwind library (sys-libs/libunwind or sys-libs/llvm-libunwind) instead of built-in fallback implementation for stack unwinding
+dev-cpp/jwt-cpp:picojson - Enable use of dev-cpp/picojson
 dev-cpp/libcmis:tools - Build client tool for testing and viewing features
 dev-cpp/libjson-rpc-cpp:http-client - Build support for HTTP client using net-misc/curl
 dev-cpp/libjson-rpc-cpp:http-server - Build support for HTTP server using net-libs/libmicrohttpd
@@ -2612,10 +2595,8 @@ dev-qt/qtgui:wayland - Provide dev-qt/qtwayland to ensure Qt applications can be
 dev-qt/qtmultimedia:gstreamer - Enable audio support via media-libs/gstreamer
 dev-qt/qtmultimedia:qml - Build QML/QtQuick bindings and imports
 dev-qt/qtmultimedia:widgets - Build the QtMultimediaWidgets module
-dev-qt/qtnetwork:connman - Enable net-misc/connman-based bearer plugin
 dev-qt/qtnetwork:gssapi - Enable support for GSSAPI (virtual/krb5)
 dev-qt/qtnetwork:libproxy - Use net-libs/libproxy for automatic HTTP/SOCKS proxy configuration
-dev-qt/qtnetwork:networkmanager - Enable net-misc/networkmanager-based bearer plugin
 dev-qt/qtpositioning:geoclue - Use enhanced location information from app-misc/geoclue
 dev-qt/qtpositioning:qml - Build QML bindings
 dev-qt/qtquickcontrols:widgets - Enable QtWidgets support
@@ -2628,11 +2609,11 @@ dev-qt/qttools:designer - Build Qt Designer
 dev-qt/qttools:distancefieldgenerator - Build Qt Distance Field Generator
 dev-qt/qttools:linguist - Build Qt Linguist
 dev-qt/qttools:pixeltool - Build Qt Pixeltool
+dev-qt/qttools:qattributionsscanner - Build Qt Source Code Attribution Scanner
 dev-qt/qttools:qdbus - Build the Qt D-Bus Interface and D-Bus Viewer
+dev-qt/qttools:qdiag - Build Qt Diag
 dev-qt/qttools:qdoc - Build Qt Documentation Generator
-dev-qt/qttools:qtattributionsscanner - Build Qt Source Code Attribution Scanner
-dev-qt/qttools:qtdiag - Build Qt Diag
-dev-qt/qttools:qtplugininfo - Build Qt Plugin Info
+dev-qt/qttools:qplugininfo - Build Qt Plugin Info
 dev-qt/qtvirtualkeyboard:handwriting - Adds handwriting recognition integration support
 dev-qt/qtwayland:vulkan - Enable support for Vulkan-based server buffer integration
 dev-qt/qtwebchannel:qml - Build QML/QtQuick bindings and imports
@@ -2722,6 +2703,7 @@ dev-util/ccache:redis - Enable Redis backend for storage via dev-libs/hiredis
 dev-util/ccache:static-c++ - Avoid dynamic dependency on gcc's libstdc++.
 dev-util/cccc:apidoc - Build software docs with doxygen/graphviz and metrics with cccc
 dev-util/cccc:mfc - Add patch for MFC dialect options
+dev-util/cmake:dap - Build debugger for CMake with Debug Adapter Protocol support via dev-cpp/cppdap
 dev-util/codeblocks:contrib - Build additional contrib components
 dev-util/codeblocks:fortran - Build FortranProject plugin which enables to use Code::Blocks IDE for Fortran language
 dev-util/cppcheck:htmlreport - install cppcheck-htmlreport
@@ -2860,9 +2842,6 @@ dev-util/uftrace:capstone - Use capstone to provide dynamic tracing without reco
 dev-util/vulkan-tools:cube - Build the cube/cubepp demos
 dev-util/watchman:python - Install pywatchman bindings and the watchman-{wait,make} utils
 dev-vcs/cvs:server - Enable server support
-dev-vcs/cvsync:gcrypt - Use dev-libs/libgcrypt for hash functions.
-dev-vcs/cvsync:mhash - Use app-crypt/mhash for hash functions.
-dev-vcs/cvsync:openssl - Use dev-libs/openssl for hash functions.
 dev-vcs/darcs:terminfo - Use the terminfo package for enhanced console support.
 dev-vcs/darcs:threaded - Use threading and SMP support.
 dev-vcs/fossil:fusefs - Enable the Fuse Filesystem
@@ -3031,10 +3010,6 @@ games-emulation/mupen64plus-core:opencv - Support video capture via media-libs/o
 games-emulation/mupen64plus-core:osd - Overlay emulator messages using on-screen-display
 games-emulation/mupen64plus-video-glide64mk2:hires - Support hi-resolution textures (requires dev-libs/boost)
 games-emulation/pcsx2:sndio - Enable support for the media-sound/sndio backend
-games-emulation/pcsxr:archive - Support compressed files (via libarchive)
-games-emulation/pcsxr:ccdda - Support compressed CDDA (requires ffmpeg)
-games-emulation/pcsxr:cdio - Use libcdio for CD support
-games-emulation/pcsxr:sdl - Use SDL sound backend (other parts of SDL are used unconditionally)
 games-emulation/ppsspp:discord - Enable interfacing with a locally running Discord desktop client
 games-emulation/snes9x:glslang - Build support for slang-type shaders
 games-emulation/snes9x:libretro - Build libretro port
@@ -3044,6 +3019,7 @@ games-engines/devilutionx:sodium - Enable network packet encryption using dev-li
 games-engines/devilutionx:zerotier - Enable ZeroTier for online public games
 games-engines/exult:fluidsynth - Compile with support for FluidSynth
 games-engines/exult:tools - Enable tools, usercode compiler and mods support
+games-engines/fheroes2:tools - Install development tools like 82m2wav and xmi2midi.
 games-engines/frobtads:tads2compiler - Build TADS2 compiler
 games-engines/frobtads:tads3compiler - Build TADS3 compiler
 games-engines/love:gme - Use media-libs/game-music-emu to support additional music formats
@@ -3550,7 +3526,7 @@ kde-frameworks/sonnet:designer - Build plugins for dev-qt/designer
 kde-frameworks/sonnet:hunspell - Enable the app-text/hunspell spell-checking backend
 kde-frameworks/sonnet:qml - Enable QML/QtQuick support via dev-qt/qtdeclarative
 kde-misc/kdeconnect:X - Enable remote input mousepad plugin using x11-libs/libfakekey
-kde-misc/kdeconnect:pulseaudio - Enable system volume control plugin using media-sound/pulseaudio
+kde-misc/kdeconnect:pulseaudio - Enable system volume control plugin using media-libs/libpulse
 kde-misc/kdeconnect:telephony - Enable telephony plugin using kde-frameworks/modemmanager-qt
 kde-misc/kio-gdrive:share - Enable support for a share menu using kde-frameworks/purpose
 kde-misc/tellico:bibtex - Add support for bibtex importing using btparse from dev-perl/Text-BibTeX
@@ -4073,7 +4049,7 @@ media-gfx/shotwell:opencv - Enable face detection via media-libs/opencv
 media-gfx/skanpage:ocr - Enable support for Optical Character Recognition via app-text/tesseract
 media-gfx/solvespace:system-mimalloc - Use system dev-libs/mimalloc instead of vendored library
 media-gfx/ueberzugpp:opencv - Use media-libs/opencv for additional image formats and OpenCL accelerated scaling
-media-gfx/ueberzugpp:wayland - Enable wayland support (only usable with some wlroots-based compositors)
+media-gfx/ueberzugpp:wayland - Enable wayland support (proper window positioning is only supported with some compositors)
 media-gfx/xpaint:pgf - Support for loading PGF images
 media-gfx/xsane:ocr - Enable support for Optical Character Recognition reader
 media-gfx/yafaray:fastmath - Enable mathematic approximations to make code faster
@@ -4469,7 +4445,6 @@ media-plugins/vdr-vdrmanager:stream - Add support for streaming Video to Android
 media-plugins/vdr-weatherng:dxr3 - enables lower osd color depth for dxr3 cards
 media-plugins/vdr-xineliboutput:bluray - Enable BluRay metadata support through media-libs/libbluray
 media-plugins/vdr-xineliboutput:cec - Enable CEC support through dev-libs/libcec
-media-plugins/vdr-xineliboutput:libextractor - Use media-libs/libextractor to gather files' metadata in media-player
 media-plugins/vdr-xineliboutput:vdr - Compile the vdr output plugin to use local or remote xine as output
 media-plugins/vdr-xineliboutput:xine - Compile the xine input plugin for displaying vdr video and OSD
 media-radio/ax25-tools:X - Enable some X based configuration tools.
@@ -5286,6 +5261,7 @@ net-analyzer/net-snmp:mfd-rewrites - Use MFD rewrites of mib modules where avail
 net-analyzer/net-snmp:netlink - Use dev-libs/libnl to fetch TCP statistics instead of using /proc/net/tcp (Linux only).
 net-analyzer/net-snmp:pcap - Install snmppcap which reads from PCAP files and writes to the SNMP transport
 net-analyzer/net-snmp:pci - Use libpci (from sys-apps/pciutils) to look up network interface description. This feature is only available on Linux.
+net-analyzer/net-snmp:pcre - Add support for Perl Compatible Regular Expressions in process table filtering.
 net-analyzer/net-snmp:rpm - Enable monitoring of app-arch/rpm. This flag requires the bzip2 and zlib flags to be enabled as well.
 net-analyzer/net-snmp:smux - Enable support for the legacy smux protocol (superseded by agentx)
 net-analyzer/net-snmp:ucd-compat - Build UCD compatibility library. Increases significantly the install size.
@@ -5742,8 +5718,6 @@ net-im/gajim:upnp - Ability to request your router to forward port for file tran
 net-im/gajim:webp - Support WebP avatars
 net-im/libcommuni:qml - Install optional qml files.
 net-im/libcommuni:uchardet - Use app-i18n/uchardet, which is upstreams default, instead of dev-libs/icu, which makes impossible to run tests.
-net-im/mcabber:aspell - Adds support for app-text/aspell spell checker.
-net-im/mcabber:otr - Enable encrypted conversations using Off-The-Records messaging
 net-im/pidgin:gadu - Enable Gadu Gadu protocol support
 net-im/pidgin:groupwise - Enable Novell Groupwise protocol support
 net-im/pidgin:gstreamer - Enables voice and video sessions
@@ -6106,6 +6080,8 @@ net-libs/xdp-tools:tools - Install various helper tools rather than just libxdp.
 net-libs/xrootd:fuse - Enable the sys-fs/fuse filesystem driver
 net-libs/xrootd:http - Enable http protocol support
 net-libs/xrootd:libxml2 - Use dev-libs/libxml2 for XML parsing (preferred) instead of bundled tinyxml
+net-libs/xrootd:macaroons - Enable support for macaroons with dev-libs/libmacaroons
+net-libs/xrootd:scitokens - Enable support for scitokens with dev-cpp/scitokens-cpp
 net-libs/xrootd:server - Install xrootd server and related plug-ins
 net-libs/xrootd:xrdec - Enable erasure coding support (XrdEc plugin) with dev-libs/isa-l
 net-libs/zeromq:drafts - Build draft API, which may change at any time without any notice, and is therefore not recommended for normal use.
@@ -7112,9 +7088,6 @@ sci-electronics/splat:hires - Builds additional high resolution application 'rfs
 sci-geosciences/gmt:gdal - Enable sci-libs/gdal library support
 sci-geosciences/gmt:geos - Enable sci-libs/geos library support
 sci-geosciences/gmt:gmttria - Non GNU triangulation method, more efficient
-sci-geosciences/gmt:htmldoc - Install html documentation
-sci-geosciences/gmt:pcre2 - Use dev-libs/libpcre2 for regular expressions
-sci-geosciences/gmt:tutorial - Install data files for tutorial
 sci-geosciences/gpsd:dbus - export gpsd data over dbus connections
 sci-geosciences/gpsd:latency-timing - support latency timing information
 sci-geosciences/gpsd:ntp - Enable net-misc/ntp shared memory interface and PPS kernel support for GPS time
@@ -7203,10 +7176,12 @@ sci-libs/cgnslib:base-scope - Enable base scoped families or connectivities
 sci-libs/cgnslib:legacy - Enable or disable building legacy code (3.0 compatible)
 sci-libs/cgnslib:scoping - Enable scoping of enumeration values
 sci-libs/cgnslib:tools - A number of utility programs: cgnscheck, cgnscompress, cgnsdiff, cgnslist, cgnsnames, cgnsupdate, cgnsconvert, adf2hdf, hdf2adf.
+sci-libs/cholmod:cholesky - Enable sparse Cholesky factorisation
 sci-libs/cholmod:cuda - Use nvidia cuda toolkit for speeding up computations
 sci-libs/cholmod:matrixops - Support basic sparse and dense matrix operations (add, multiply, scale, et cetera)
 sci-libs/cholmod:modify - Enable Cholesky-modification routines like update, downdate, row-add, and row-delete
-sci-libs/cholmod:partition - Enable graph partitioning and graph-partition-based orderings through sci-libs/metis or sci-libs/parmetis
+sci-libs/cholmod:partition - Enable graph partitioning and graph-partition-based orderings through sci-libs/metis (using a bundled fork in 4.0.0+) or sci-libs/parmetis
+sci-libs/cholmod:supernodal - supernodal cholesky factorisation
 sci-libs/clblas:client - Build a command line clBLAS client program.
 sci-libs/clblas:ktest - A command line tool for testing single clBLAS kernel.
 sci-libs/clblas:performance - Copy performance scripts that can measure and graph performance.
@@ -8221,7 +8196,8 @@ sys-firmware/intel-microcode:initramfs - Install a small initramfs for use with 
 sys-firmware/intel-microcode:split-ucode - Install the split binary ucode files (used by the kernel directly)
 sys-firmware/intel-microcode:vanilla - Only install microcode updates from Intel's official microcode tarball
 sys-firmware/ipxe:binary - Use pre-built binaries
-sys-firmware/ipxe:efi - Build an EFI program for using PXE
+sys-firmware/ipxe:efi - Build a 32bit EFI program for using PXE
+sys-firmware/ipxe:efi64 - Build a 64bit EFI program for using PXE
 sys-firmware/ipxe:iso - Build a bootable ISO for using PXE
 sys-firmware/ipxe:lkrn - Build a linux kernel bootable file for using with grub/etc...
 sys-firmware/ipxe:qemu - Build the required PXE ROM images for app-emulation/qemu
@@ -8432,7 +8408,13 @@ sys-libs/zlib:minizip - include the minizip library for quick and dirty zip extr
 sys-libs/zlib-ng:compat - Enable compatibility to sys-libs/zlib
 sys-power/apcupsd:modbus - Enable MODBUS support over USB
 sys-power/intel-undervolt:elogind - Use elogind hook to apply voltage after system sleep
-sys-power/nut:ipmi - Support IPMI-based UPSes.
+sys-power/nut:gpio - Includes all UPS drivers that use GPIO.
+sys-power/nut:i2c - Includes all UPS drivers that use I2C.
+sys-power/nut:ipmi - Includes all UPS drivers that use ipmi.
+sys-power/nut:modbus - Includes all UPS drivers that use MODBUS.
+sys-power/nut:monitor - Add a QT5 gui monitor.
+sys-power/nut:serial - Includes all UPS drivers that use SERIAL.
+sys-power/nut:snmp - Includes all UPS drivers that use SNMP.
 sys-power/nut:ups_drivers_al175 - Driver for Eltek UPS models with AL175 alarm module
 sys-power/nut:ups_drivers_apcsmart - Driver for American Power Conversion Smart Protocol UPS equipment
 sys-power/nut:ups_drivers_apcsmart-old - Driver for American Power Conversion Smart Protocol UPS equipment
@@ -8484,6 +8466,8 @@ sys-power/nut:ups_drivers_tripplitesu - Driver for Tripp-Lite SmartOnline (SU) U
 sys-power/nut:ups_drivers_upscode2 - Driver for UPScode II compatible UPS equipment
 sys-power/nut:ups_drivers_usbhid-ups - Driver for USB/HID UPS equipment
 sys-power/nut:ups_drivers_victronups - Driver for IMV/Victron UPS unit Match, Match Lite, NetUps
+sys-power/nut:usb - Includes all UPS drivers that use USB.
+sys-power/nut:xml - Includes all UPS drivers that use XML.
 sys-power/nvclock:gtk - Install the GTK+ based graphical interface
 sys-power/nvclock:nvcontrol - Add NVCONTROL support for OpenGL options
 sys-power/suspend:crypt - Allows suspend and resume from encrypted disk
@@ -8596,8 +8580,6 @@ www-client/chromium:system-harfbuzz - Use system harfbuzz instead of the bundled
 www-client/chromium:system-icu - Use system icu instead of the bundled one
 www-client/chromium:system-png - Use system libpng instead of the bundled one.
 www-client/chromium:widevine - Unsupported closed-source DRM capability (required by Netflix VOD)
-www-client/chromium-bin:suid - Install the SUID sandbox, which is only needed on CONFIG_USER_NS=n kernels.
-www-client/chromium-bin:widevine - Unsupported closed-source DRM capability (required by Netflix VOD).
 www-client/elinks:bittorrent - Enable support for the BitTorrent protocol
 www-client/elinks:brotli - Enable support for brotli compression
 www-client/elinks:finger - Enable support for the finger protocol
@@ -8937,7 +8919,7 @@ x11-terms/rxvt-unicode:iso14755 - Enable ISO-14755 support
 x11-terms/rxvt-unicode:mousewheel - Enable scrolling via mouse wheel or buttons 4 and 5
 x11-terms/rxvt-unicode:perl - Enable perl script support. You can still disable this at runtime with -pe ""
 x11-terms/rxvt-unicode:unicode3 - Use 21 instead of 16 bits to represent unicode characters
-x11-terms/rxvt-unicode:wide-glyphs - Enable *unofficial* support for wide glyphs, required for certain symbol/icon fonts to display correctly
+x11-terms/rxvt-unicode:wide-glyphs - Enable support for wide glyphs, required for certain symbol/icon fonts to display correctly. Note that this feature is *unofficial* and has been observed to cause stability issues for some users.
 x11-terms/terminology:extras - Install additional testing tools
 x11-terms/xfce4-terminal:utempter - Include utmp management support via sys-libs/libutempter
 x11-terms/xterm:openpty - Use openpty() in preference to posix_openpt()
@@ -9075,7 +9057,6 @@ xfce-base/xfwm4:xpresent - Enable the XPresent extension for sync to vblank
 xfce-extra/xfce4-clipman-plugin:qrcode - Enable support for media-gfx/qrencode
 xfce-extra/xfce4-mixer:keybinder - Enable support for global hotkeys using dev-libs/keybinder.
 xfce-extra/xfce4-mixer:sndio - Enable media-sound/sndio backend.
-xfce-extra/xfce4-mpc-plugin:libmpd - Build using media-libs/libmpd backend, instead of native fallback which is preferred
 xfce-extra/xfce4-pulseaudio-plugin:keybinder - Enable support for global hotkeys using dev-libs/keybinder.
 xfce-extra/xfce4-pulseaudio-plugin:libcanberra - Enable sound event support using media-libs/libcanberra
 xfce-extra/xfce4-pulseaudio-plugin:libxfce4windowing - Enable experimental support for raising media player windows using xfce-base/libxfce4windowing.

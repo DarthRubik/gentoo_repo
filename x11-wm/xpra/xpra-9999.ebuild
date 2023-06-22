@@ -68,7 +68,7 @@ DEPEND="
 	ffmpeg? ( >=media-video/ffmpeg-3.2.2:0=[x264] )
 	jpeg? ( media-libs/libjpeg-turbo )
 	pulseaudio? (
-		media-sound/pulseaudio
+		media-libs/libpulse
 		media-plugins/gst-plugins-pulse:1.0
 	)
 	sound? (
@@ -111,7 +111,7 @@ BDEPEND="
 		>=dev-python/cython-0.16[${PYTHON_USEDEP}]
 	')
 	virtual/pkgconfig
-	doc? ( app-text/pandoc )
+	doc? ( virtual/pandoc )
 "
 
 RESTRICT="!test? ( test )"
@@ -128,7 +128,7 @@ python_prepare_all() {
 	# double-prefixes some files under /etc. Looks tricky to fix. :(
 	#hprefixify $(find -type f \( -name "*.py" -o -name "*.conf" \))
 
-	sed -r -e "/\bdoc_dir =/s:/${PN}\":/${PF}/html\":" \
+	sed -r -e "/\bdoc_dir =/s:/${PN}/\":/${PF}/html\":" \
 		-i setup.py || die
 
 	if use minimal; then
@@ -196,11 +196,13 @@ python_test() {
 python_install_all() {
 	distutils-r1_python_prepare_all
 
-	# Move udev dir to the right place.
+	# Move udev dir to the right place if necessary.
 	if use udev; then
 		local dir=$(get_udevdir)
-		dodir "${dir%/*}"
-		mv -vnT "${ED}"/usr/lib/udev "${ED}${dir}" || die
+		if [[ ! ${ED}/usr/lib/udev -ef ${ED}${dir} ]]; then
+			dodir "${dir%/*}"
+			mv -vnT "${ED}"/usr/lib/udev "${ED}${dir}" || die
+		fi
 	else
 		rm -vr "${ED}"/usr/lib/udev || die
 		rm -v "${ED}"/usr/libexec/xpra/xpra_udev_product_version || die

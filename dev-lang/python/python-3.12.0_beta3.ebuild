@@ -66,13 +66,15 @@ RDEPEND="
 		dev-tcltk/blt:=
 		dev-tcltk/tix
 	)
-	!!<sys-apps/sandbox-2.21
 "
 # bluetooth requires headers from bluez
 DEPEND="
 	${RDEPEND}
 	bluetooth? ( net-wireless/bluez )
-	test? ( app-arch/xz-utils[extra-filters(+)] )
+	test? (
+		app-arch/xz-utils[extra-filters(+)]
+		dev-python/ensurepip-wheels
+	)
 	valgrind? ( dev-util/valgrind )
 "
 # autoconf-archive needed to eautoreconf

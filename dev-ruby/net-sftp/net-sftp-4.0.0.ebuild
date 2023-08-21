@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=8
-USE_RUBY="ruby27 ruby30 ruby31"
+USE_RUBY="ruby30 ruby31 ruby32"
 
 RUBY_FAKEGEM_EXTRADOC="CHANGES.txt README.rdoc"
 
@@ -32,5 +32,5 @@ all_ruby_prepare() {
 }
 
 each_ruby_test() {
-	${RUBY} -Ilib:test:. -e 'Dir["test/**/test_*.rb"].each { require _1 }' || die
+	MT_NO_PLUGINS=1 ${RUBY} -Ilib:test:. -e 'Dir["test/**/test_*.rb"].each { require _1 }' || die
 }

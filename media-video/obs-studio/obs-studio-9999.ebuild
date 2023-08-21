@@ -10,7 +10,7 @@ PYTHON_COMPAT=( python3_{9..12} )
 inherit cmake lua-single optfeature python-single-r1 xdg
 
 CEF_DIR="cef_binary_5060_linux64"
-OBS_BROWSER_COMMIT="995ad53cf3b774928a690d9de813fc8cb43175fe"
+OBS_BROWSER_COMMIT="291464d6988083411e7369fc53eba6d5ef07ff67"
 OBS_WEBSOCKET_COMMIT="6fd18a7ef1ecb149e8444154af1daab61d4241a9"
 QR_COMMIT="8518684c0f33d004fa93971be2c6a8eca3167d1e"
 
@@ -43,7 +43,7 @@ LICENSE="Boost-1.0 GPL-2+ MIT Unlicense"
 SLOT="0"
 IUSE="
 	+alsa browser decklink fdk jack lua nvenc pipewire pulseaudio
-	python qt6 speex +ssl truetype v4l vlc wayland websocket
+	python qsv speex +ssl truetype v4l vlc wayland websocket
 "
 REQUIRED_USE="
 	browser? ( || ( alsa pulseaudio ) )
@@ -55,28 +55,33 @@ BDEPEND="
 	lua? ( dev-lang/swig )
 	python? ( dev-lang/swig )
 "
+# media-video/ffmpeg[opus] required due to bug 909566
 DEPEND="
 	dev-libs/glib:2
 	dev-libs/jansson:=
+	dev-qt/qtbase:6[network,widgets,xml(+)]
+	dev-qt/qtsvg:6
 	media-libs/libglvnd
 	media-libs/libva
 	media-libs/x264:=
-	media-video/ffmpeg:=[nvenc?,x264]
+	media-video/ffmpeg:=[nvenc?,opus,x264]
 	net-misc/curl
 	sys-apps/dbus
 	sys-apps/pciutils
 	sys-apps/util-linux
 	sys-libs/zlib:=
 	x11-libs/libX11
+	x11-libs/libxcb:=
 	x11-libs/libXcomposite
 	x11-libs/libXfixes
-	x11-libs/libxcb:=
+	x11-libs/libxkbcommon
 	alsa? ( media-libs/alsa-lib )
 	browser? (
 		|| (
 			>=app-accessibility/at-spi2-core-2.46.0:2
 			( app-accessibility/at-spi2-atk dev-libs/atk )
 		)
+		dev-cpp/nlohmann_json
 		dev-libs/expat
 		dev-libs/glib
 		dev-libs/nspr
@@ -106,20 +111,7 @@ DEPEND="
 	pipewire? ( media-video/pipewire:= )
 	pulseaudio? ( media-libs/libpulse )
 	python? ( ${PYTHON_DEPS} )
-	qt6? (
-		dev-qt/qtbase:6[network,widgets,xml(+)]
-		dev-qt/qtsvg:6
-		x11-libs/libxkbcommon
-	)
-	!qt6? (
-		dev-qt/qtcore:5
-		dev-qt/qtgui:5[wayland?]
-		dev-qt/qtnetwork:5
-		dev-qt/qtquickcontrols:5
-		dev-qt/qtsvg:5
-		dev-qt/qtwidgets:5
-		dev-qt/qtxml:5
-	)
+	qsv? ( media-libs/oneVPL )
 	speex? ( media-libs/speexdsp )
 	ssl? ( net-libs/mbedtls:= )
 	truetype? (
@@ -200,6 +192,7 @@ src_configure() {
 		-DENABLE_NEW_MPEGTS_OUTPUT=OFF # Requires librist and libsrt.
 		-DENABLE_PIPEWIRE=$(usex pipewire)
 		-DENABLE_PULSEAUDIO=$(usex pulseaudio)
+		-DENABLE_QSV11=$(usex qsv)
 		-DENABLE_RTMPS=$(usex ssl ON OFF) # Needed for bug 880861
 		-DENABLE_SPEEXDSP=$(usex speex)
 		-DENABLE_V4L2=$(usex v4l)
@@ -209,7 +202,6 @@ src_configure() {
 		-DENABLE_WEBRTC=OFF # Requires libdatachannel.
 		-DENABLE_WEBSOCKET=$(usex websocket)
 		-DOBS_MULTIARCH_SUFFIX=${libdir#lib}
-		-DQT_VERSION=$(usex qt6 6 5)
 		-DUNIX_STRUCTURE=1
 	)
 

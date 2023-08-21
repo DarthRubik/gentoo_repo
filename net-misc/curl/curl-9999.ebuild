@@ -4,7 +4,7 @@
 EAPI=8
 
 VERIFY_SIG_OPENPGP_KEY_PATH="${BROOT}"/usr/share/openpgp-keys/danielstenberg.asc
-inherit autotools multilib-minimal multiprocessing prefix verify-sig
+inherit autotools multilib-minimal multiprocessing prefix toolchain-funcs verify-sig
 
 DESCRIPTION="A Client that groks URLs"
 HOMEPAGE="https://curl.se/"
@@ -47,17 +47,24 @@ REQUIRED_USE="
 	curl_ssl_rustls? ( rustls )
 "
 
+# cURL's docs and CI/CD are great resources for confirming supported versions
+# particulary for fast-moving targets like HTTP/2 and TCP/2 e.g.:
+# - https://github.com/curl/curl/blob/master/docs/HTTP3.md
+# - https://github.com/curl/curl/blob/master/.github/workflows/quiche-linux.yml
+# However 'supported' vs 'works' are two entirely different things; be sane but
+# don't be afraid to require a later version.
+
 RDEPEND="
 	sys-libs/zlib[${MULTILIB_USEDEP}]
 	adns? ( net-dns/c-ares:=[${MULTILIB_USEDEP}] )
 	brotli? ( app-arch/brotli:=[${MULTILIB_USEDEP}] )
-	http2? ( net-libs/nghttp2:=[${MULTILIB_USEDEP}] )
+	http2? ( >=net-libs/nghttp2-1.12.0:=[${MULTILIB_USEDEP}] )
 	idn? ( net-dns/libidn2:=[static-libs?,${MULTILIB_USEDEP}] )
 	kerberos? ( >=virtual/krb5-0-r1[${MULTILIB_USEDEP}] )
-	ldap? ( net-nds/openldap:=[${MULTILIB_USEDEP}] )
+	ldap? ( net-nds/openldap:=[static-libs?,${MULTILIB_USEDEP}] )
 	nghttp3? (
-		net-libs/nghttp3[${MULTILIB_USEDEP}]
-		net-libs/ngtcp2[ssl,${MULTILIB_USEDEP}]
+		>=net-libs/nghttp3-0.14.0[${MULTILIB_USEDEP}]
+		>=net-libs/ngtcp2-0.18.0[gnutls,ssl,-openssl,${MULTILIB_USEDEP}]
 	)
 	rtmp? ( media-video/rtmpdump[${MULTILIB_USEDEP}] )
 	ssh? ( net-libs/libssh2[${MULTILIB_USEDEP}] )
@@ -85,13 +92,15 @@ RDEPEND="
 	)
 	zstd? ( app-arch/zstd:=[${MULTILIB_USEDEP}] )
 "
+
 DEPEND="${RDEPEND}"
+
 BDEPEND="
 	dev-lang/perl
 	virtual/pkgconfig
 	test? (
 		sys-apps/diffutils
-		http2? ( net-libs/nghttp2:=[utils,${MULTILIB_USEDEP}] )
+		http2? ( >=net-libs/nghttp2-1.15.0:=[utils,${MULTILIB_USEDEP}] )
 		nghttp3? ( net-libs/nghttp2:=[utils,${MULTILIB_USEDEP}] )
 	)
 	verify-sig? ( sec-keys/openpgp-keys-danielstenberg )
@@ -137,7 +146,7 @@ multilib_src_configure() {
 	local myconf=()
 
 	myconf+=( --without-ca-fallback --with-ca-bundle="${EPREFIX}"/etc/ssl/certs/ca-certificates.crt  )
-	if use ssl ; then
+	if use ssl; then
 		myconf+=( --without-gnutls --without-mbedtls --without-nss --without-rustls )
 
 		if use gnutls; then
@@ -177,6 +186,7 @@ multilib_src_configure() {
 			myconf+=( --with-default-ssl-backend=rustls )
 		else
 			eerror "We can't be here because of REQUIRED_USE."
+			die "Please file a bug, hit impossible condition w/ USE=ssl handling."
 		fi
 
 	else
@@ -241,7 +251,7 @@ multilib_src_configure() {
 		--without-amissl
 		--without-bearssl
 		$(use_with brotli)
-		--without-fish-functions-dir
+		--with-fish-functions-dir="${EPREFIX}"/usr/share/fish/vendor_completions.d
 		$(use_with http2 nghttp2)
 		--without-hyper
 		$(use_with idn libidn2)
@@ -263,6 +273,7 @@ multilib_src_configure() {
 		--without-wolfssl
 		--with-zlib
 		$(use_with zstd)
+		--with-zsh-functions-dir="${EPREFIX}"/usr/share/zsh/site-functions
 	)
 
 	if use test && multilib_is_native_abi && ( use http2 || use nghttp3 ); then
@@ -305,6 +316,15 @@ multilib_src_configure() {
 	echo "Requires.private: ${priv[*]}" >> libcurl.pc || die
 }
 
+multilib_src_compile() {
+	default
+
+	if multilib_is_native_abi; then
+		# Shell completions
+		! tc-is-cross-compiler && emake -C scripts
+	fi
+}
+
 # There is also a pytest harness that tests for bugs in some very specific
 # situations; we can rely on upstream for this rather than adding additional test deps.
 multilib_src_test() {
@@ -322,6 +342,15 @@ multilib_src_test() {
 	# The network sandbox causes tests 241 and 1083 to fail; these are typically skipped
 	# as most gentoo users don't have an 'ip6-localhost'
 	multilib_is_native_abi && emake test TFLAGS="-n -v -a -k -am -p -j$((7*$(makeopts_jobs))) !241 !1083"
+}
+
+multilib_src_install() {
+	emake DESTDIR="${D}" install
+
+	if multilib_is_native_abi; then
+		# Shell completions
+		! tc-is-cross-compiler && emake -C scripts DESTDIR="${D}" install
+	fi
 }
 
 multilib_src_install_all() {

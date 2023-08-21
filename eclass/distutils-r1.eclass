@@ -129,6 +129,8 @@ esac
 #
 # - poetry - poetry-core backend
 #
+# - scikit-build-core - scikit-build-core backend
+#
 # - setuptools - distutils or setuptools (incl. legacy mode)
 #
 # - sip - sipbuild backend
@@ -191,6 +193,7 @@ esac
 if [[ -z ${_DISTUTILS_R1_ECLASS} ]]; then
 _DISTUTILS_R1_ECLASS=1
 
+inherit flag-o-matic
 inherit multibuild multilib multiprocessing ninja-utils toolchain-funcs
 
 if [[ ! ${DISTUTILS_SINGLE_IMPL} ]]; then
@@ -212,7 +215,7 @@ _distutils_set_globals() {
 		case ${DISTUTILS_USE_PEP517} in
 			flit)
 				bdep+='
-					>=dev-python/flit-core-3.8.0[${PYTHON_USEDEP}]
+					>=dev-python/flit-core-3.9.0[${PYTHON_USEDEP}]
 				'
 				;;
 			flit_scm)
@@ -256,23 +259,27 @@ _distutils_set_globals() {
 				;;
 			pdm-backend)
 				bdep+='
-					>=dev-python/pdm-backend-2.0.7[${PYTHON_USEDEP}]
+					>=dev-python/pdm-backend-2.1.0[${PYTHON_USEDEP}]
 				'
 				;;
 			poetry)
 				bdep+='
-					>=dev-python/poetry-core-1.5.2[${PYTHON_USEDEP}]
+					>=dev-python/poetry-core-1.6.1[${PYTHON_USEDEP}]
+				'
+				;;
+			scikit-build-core)
+				bdep+='
+					>=dev-python/scikit-build-core-0.4.6[${PYTHON_USEDEP}]
 				'
 				;;
 			setuptools)
 				bdep+='
-					>=dev-python/setuptools-67.7.2[${PYTHON_USEDEP}]
-					>=dev-python/wheel-0.40.0[${PYTHON_USEDEP}]
+					>=dev-python/setuptools-67.8.0-r1[${PYTHON_USEDEP}]
 				'
 				;;
 			sip)
 				bdep+='
-					>=dev-python/sip-6.7.8[${PYTHON_USEDEP}]
+					>=dev-python/sip-6.7.9[${PYTHON_USEDEP}]
 				'
 				;;
 			standalone)
@@ -287,7 +294,7 @@ _distutils_set_globals() {
 			eqawarn "is enabled."
 		fi
 	else
-		local setuptools_dep='>=dev-python/setuptools-65.7.0[${PYTHON_USEDEP}]'
+		local setuptools_dep='>=dev-python/setuptools-67.8.0-r1[${PYTHON_USEDEP}]'
 
 		case ${DISTUTILS_USE_SETUPTOOLS:-bdepend} in
 			no|manual)
@@ -1002,9 +1009,15 @@ _distutils-r1_print_package_versions() {
 					dev-python/poetry-core
 				)
 				;;
+			scikit-build-core)
+				packages+=(
+					dev-python/scikit-build-core
+				)
+				;;
 			setuptools)
 				packages+=(
 					dev-python/setuptools
+					dev-python/setuptools-rust
 					dev-python/setuptools-scm
 					dev-python/wheel
 				)
@@ -1199,6 +1212,9 @@ _distutils-r1_backend_to_key() {
 			;;
 		poetry.core.masonry.api|poetry.masonry.api)
 			echo poetry
+			;;
+		scikit_build_core.build)
+			echo scikit-build-core
 			;;
 		setuptools.build_meta|setuptools.build_meta:__legacy__)
 			echo setuptools
@@ -1704,7 +1720,7 @@ distutils-r1_python_install() {
 		# python likes to compile any module it sees, which triggers sandbox
 		# failures if some packages haven't compiled their modules yet.
 		addpredict "${EPREFIX}/usr/lib/${EPYTHON}"
-		addpredict "${EPREFIX}/usr/lib/pypy3.9"
+		addpredict "${EPREFIX}/usr/lib/pypy3.10"
 		addpredict "${EPREFIX}/usr/local" # bug 498232
 
 		if [[ ! ${DISTUTILS_SINGLE_IMPL} ]]; then
@@ -1820,6 +1836,12 @@ distutils-r1_run_phase() {
 		# bug fixes from Cython (this works only when setup.py is using
 		# cythonize() but it's better than nothing)
 		local -x CYTHON_FORCE_REGEN=1
+	fi
+
+	# Rust extensions are incompatible with C/C++ LTO compiler
+	# see e.g. https://bugs.gentoo.org/910220
+	if has cargo ${INHERITED}; then
+		filter-lto
 	fi
 
 	# How to build Python modules in different worlds...
@@ -1960,7 +1982,7 @@ _distutils-r1_post_python_compile() {
 			die "${rscriptdir} should not exist!"
 		if [[ -d ${bindir} ]]; then
 			mkdir -p "${rscriptdir}" || die
-			cp -a --reflink=auto "${bindir}"/. "${rscriptdir}"/ || die
+			cp -a "${bindir}"/. "${rscriptdir}"/ || die
 		fi
 
 		# enable venv magic inside the install tree

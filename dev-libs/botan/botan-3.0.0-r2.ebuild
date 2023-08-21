@@ -5,7 +5,7 @@ EAPI=8
 
 PYTHON_COMPAT=( python3_{10..11} )
 VERIFY_SIG_OPENPGP_KEY_PATH="${BROOT}"/usr/share/openpgp-keys/botan.asc
-inherit edo python-r1 toolchain-funcs verify-sig
+inherit edo multiprocessing python-r1 toolchain-funcs verify-sig
 
 MY_P="Botan-${PV}"
 DESCRIPTION="C++ crypto library"
@@ -55,6 +55,9 @@ BDEPEND="
 # NOTE: Considering patching Botan?
 # Please see upstream's guidance:
 # https://botan.randombit.net/handbook/packaging.html#minimize-distribution-patches
+PATCHES=(
+	"${FILESDIR}"/${P}-getentropy-includes.patch
+)
 
 python_check_deps() {
 	use doc || return 0
@@ -173,7 +176,7 @@ src_configure() {
 }
 
 src_test() {
-	LD_LIBRARY_PATH="${S}" ./botan-test$(ver_cut 1) || die "Validation tests failed"
+	LD_LIBRARY_PATH="${S}" edo ./botan-test$(ver_cut 1) --test-threads="$(makeopts_jobs)"
 }
 
 src_install() {

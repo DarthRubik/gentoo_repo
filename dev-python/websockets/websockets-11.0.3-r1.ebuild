@@ -24,7 +24,7 @@ SRC_URI="
 
 LICENSE="BSD"
 SLOT="0"
-KEYWORDS="~alpha amd64 arm ~arm64 ~hppa ~ia64 ~loong ~mips ~ppc ~ppc64 ~riscv ~s390 ~sparc ~x86"
+KEYWORDS="~alpha amd64 arm arm64 ~hppa ~ia64 ~loong ~mips ppc ~ppc64 ~riscv ~s390 ~sparc x86"
 IUSE="+native-extensions"
 
 distutils_enable_tests pytest
@@ -41,6 +41,10 @@ python_test() {
 	local EPYTEST_DESELECT=(
 		# very fragile to speed
 		tests/legacy/test_protocol.py::ServerTests::test_local_close_receive_close_frame_timeout
+		# requires DNS access
+		# https://bugs.gentoo.org/909567
+		tests/legacy/test_client_server.py::ClientServerTests::test_explicit_host_port
+		tests/legacy/test_client_server.py::SecureClientServerTests::test_explicit_host_port
 	)
 
 	epytest tests

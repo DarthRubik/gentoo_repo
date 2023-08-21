@@ -13,7 +13,7 @@ SRC_URI="https://github.com/BestImageViewer/${PN}/releases/download/v${PV}/${P}.
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS="~amd64 ~ppc ~x86"
+KEYWORDS="~amd64 ~arm64 ~ppc ~x86"
 IUSE="debug djvu exif ffmpegthumbnailer heif jpeg jpeg2k jpegxl lcms lua map pdf raw spell tiff webp xmp zip"
 
 RDEPEND="gnome-extra/zenity
@@ -45,6 +45,10 @@ BDEPEND="
 
 REQUIRED_USE="lua? ( ${LUA_REQUIRED_USE} )"
 
+PATCHES=(
+	"${FILESDIR}"/${P}-lua_hpp.patch
+)
+
 pkg_setup() {
 	# Do not require setting LUA_SINGLE_TARGET if lua is not used
 	use lua && lua-single_pkg_setup
@@ -55,9 +59,6 @@ src_prepare() {
 
 	# Disable doc build - not useful most of the time per upstream
 	sed -e "/subdir('doc')/d" -i meson.build || die
-
-	# Lua version
-	sed -e "s/lua5.[0-9]/${LUA_SINGLE_TARGET/-/.}/" -i meson.build || die
 }
 
 src_configure() {

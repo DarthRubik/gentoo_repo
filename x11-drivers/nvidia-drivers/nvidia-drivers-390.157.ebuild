@@ -73,6 +73,8 @@ BDEPEND="
 QA_PREBUILT="opt/bin/* usr/lib*"
 
 PATCHES=(
+	# note: no plans to add patches for newer kernels here, when the last
+	# working 6.1.x LTS is EOL then 390 will simply be removed from the tree
 	"${FILESDIR}"/nvidia-modprobe-390.141-uvm-perms.patch
 	"${FILESDIR}"/nvidia-settings-390.141-fno-common.patch
 	"${FILESDIR}"/nvidia-settings-390.144-desktop.patch
@@ -91,81 +93,22 @@ pkg_setup() {
 		~!LOCKDEP
 		~!X86_KERNEL_IBT
 		!DEBUG_MUTEXES"
+
 	local ERROR_DRM_KMS_HELPER="CONFIG_DRM_KMS_HELPER: is not set but needed for Xorg auto-detection
 	of drivers (no custom config), and optional nvidia-drm.modeset=1.
 	With 390.xx drivers, also used by a GLX workaround needed for OpenGL.
 	Cannot be directly selected in the kernel's menuconfig, and may need
 	selection of a DRM device even if unused, e.g. CONFIG_DRM_AMDGPU=m or
 	DRM_I915=y, DRM_NOUVEAU=m also acceptable if a module and not built-in."
-	local ERROR_X86_KERNEL_IBT="CONFIG_X86_KERNEL_IBT: is set, be warned the modules may not load.
-	If run into problems, either unset or try to pass ibt=off to the kernel."
+
+	local ERROR_X86_KERNEL_IBT="CONFIG_X86_KERNEL_IBT: is set and, if the CPU supports the feature,
+	this will likely lead to modules load failure with ENDBR errors.
+	Please ignore if not having issues, but otherwise try to unset or
+	pass ibt=off to the kernel's command line." #911142
 
 	kernel_is -ge 5 8 && CONFIG_CHECK+=" X86_PAT" #817764
 
 	linux-mod-r1_pkg_setup
-
-	# do some extra checks manually as it gets messy to handle builtin-only
-	# and some other conditional checks through CONFIG_CHECK
-	# TODO?: maybe move other custom checks here for uniformity
-	local warn=()
-
-	if linux_chkconfig_builtin DRM_NOUVEAU; then
-		# suggest =m given keeps KMS_HELPER enabled and can serve as fallback
-		warn+=(
-			"  CONFIG_DRM_NOUVEAU: is builtin (=y), and will prevent loading NVIDIA"
-			"    modules (can be safely kept as a module (=m) instead)."
-		)
-	fi
-
-	if linux_chkconfig_builtin DRM_SIMPLEDRM; then
-		# wrt prebuilts, Fedora is pushing =y and gentoo-kernel-bin uses its
-		# configs (bug #840439), but without Fedora's kernel patch to
-		# workaround this issue (which is unlikely to work for us anyway)
-		# https://github.com/NVIDIA/open-gpu-kernel-modules/issues/228
-		warn+=(
-			"  CONFIG_DRM_SIMPLEDRM: is builtin (=y), and may conflict with NVIDIA"
-			"    (i.e. blanks when X/wayland starts, and tty loses display)."
-			"    For prebuilt kernels, unfortunately no known good workarounds."
-		)
-	fi
-
-	if ! linux_chkconfig_present FB_EFI &&
-		! linux_chkconfig_present FB_SIMPLE &&
-		! linux_chkconfig_present FB_VESA
-	then
-		# nvidia-drivers does not handle the tty (beside mode restoration) but,
-		# given few options are viable, try to warn if all missing
-		warn+=(
-			"  CONFIG_FB_(EFI|SIMPLE|VESA): none set, but note at least one is normally"
-			"    needed to get a display for the tty console. In most cases, it is"
-			"    recommended to enable FB_EFI=y and disable FB_SIMPLE (can be quirky)."
-			"    Non-EFI systems are likely to want FB_VESA=y. Users with multiple GPUs"
-			"    or not using the tty may be able to safely ignore this warning."
-		)
-	fi
-
-	if kernel_is -ge 5 18 13; then
-		if linux_chkconfig_present FB_SIMPLE; then
-			warn+=(
-				"  CONFIG_FB_SIMPLE: is set, recommended to disable and switch to FB_EFI or"
-				"    FB_VESA as it currently may be broken with >=kernel-5.18.13 + NVIDIA:"
-				"    https://github.com/NVIDIA/open-gpu-kernel-modules/issues/341"
-				"    (feel free to ignore this if it works for you)"
-			)
-		fi
-
-		if linux_chkconfig_present SYSFB_SIMPLEFB &&
-			{ linux_chkconfig_present FB_EFI || linux_chkconfig_present FB_VESA; }
-		then
-			warn+=(
-				"  CONFIG_SYSFB_SIMPLEFB: is set, this may prevent FB_EFI or FB_VESA"
-				"    from providing a working tty console display (ignore if unused)."
-			)
-		fi
-	fi
-
-	(( ${#warn[@]} )) &&
-		ewarn "Detected potential configuration issues with used kernel:${warn[*]/#/$'\n'}"
 }
 
 src_prepare() {
@@ -323,8 +266,9 @@ If wish to continue using this hardware, should consider switching
 to the Nouveau open source driver.
 https://nvidia.custhelp.com/app/answers/detail/a_id/3142/
 
-For general information on using ${PN}, please see:
-https://wiki.gentoo.org/wiki/NVIDIA/nvidia-drivers"
+For additional information or for troubleshooting issues, please see
+https://wiki.gentoo.org/wiki/NVIDIA/nvidia-drivers and NVIDIA's own
+documentation that is installed alongside this README."
 	readme.gentoo_create_doc
 
 	if use modules; then

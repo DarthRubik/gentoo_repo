@@ -4,6 +4,7 @@
 EAPI=8
 
 PYTHON_COMPAT=( python3_{10..12} )
+MULTILIB_ABIS="amd64 x86" # allow usage on /no-multilib/
 MULTILIB_COMPAT=( abi_x86_{32,64} )
 inherit flag-o-matic meson-multilib python-any-r1
 
@@ -48,6 +49,10 @@ BDEPEND="
 	dev-util/glslang
 	!crossdev-mingw? ( dev-util/mingw64-toolchain[${MULTILIB_USEDEP}] )"
 
+PATCHES=(
+	"${FILESDIR}"/${PN}-1.10.3-wow64-setup.patch
+)
+
 pkg_pretend() {
 	[[ ${MERGE_TYPE} == binary ]] && return
 
@@ -76,11 +81,11 @@ src_prepare() {
 		mv ../Vulkan-Headers-${HASH_VULKAN} include/vulkan || die
 		mv ../libdisplay-info-${HASH_DISPLAYINFO} subprojects/libdisplay-info || die
 	fi
+	cp -- "${DISTDIR}"/setup_dxvk.sh . || die
 
 	default
 
-	sed "/^basedir=/s|=.*|=${EPREFIX}/usr/lib/${PN}|" \
-		"${DISTDIR}"/setup_dxvk.sh > setup_dxvk.sh || die
+	sed -i "/^basedir=/s|=.*|=${EPREFIX}/usr/lib/${PN}|" setup_dxvk.sh || die
 }
 
 src_configure() {

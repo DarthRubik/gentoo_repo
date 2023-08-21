@@ -18,7 +18,7 @@ HOMEPAGE="
 
 LICENSE="Apache-2.0"
 SLOT="0"
-KEYWORDS="~alpha amd64 arm arm64 ~hppa ~ia64 ~loong ppc ppc64 ~riscv ~sparc x86 ~x64-macos"
+KEYWORDS="~alpha amd64 arm arm64 ~hppa ~ia64 ~loong ppc ppc64 ~riscv ~s390 ~sparc x86 ~x64-macos"
 IUSE="+native-extensions"
 
 # extension code is relying on CPython implementation details
@@ -41,4 +41,9 @@ python_prepare_all() {
 	fi
 
 	distutils-r1_python_prepare_all
+}
+
+python_test() {
+	rm -rf msgpack || die
+	epytest
 }

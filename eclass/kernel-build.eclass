@@ -29,6 +29,11 @@ if [[ ! ${_KERNEL_BUILD_ECLASS} ]]; then
 _KERNEL_BUILD_ECLASS=1
 
 PYTHON_COMPAT=( python3_{10..12} )
+if [[ ${KERNEL_IUSE_MODULES_SIGN} ]]; then
+	# If we have enabled module signing IUSE
+	# then we can also enable secureboot IUSE
+	KERNEL_IUSE_SECUREBOOT=1
+fi
 
 inherit multiprocessing python-any-r1 savedconfig toolchain-funcs kernel-install
 
@@ -39,6 +44,9 @@ BDEPEND="
 	sys-devel/flex
 	virtual/libelf
 	app-alternatives/yacc
+	arm? ( sys-apps/dtc )
+	arm64? ( sys-apps/dtc )
+	riscv? ( sys-apps/dtc )
 "
 
 IUSE="+strip"
@@ -49,7 +57,8 @@ IUSE="+strip"
 # @DESCRIPTION:
 # If set to a non-null value, adds IUSE=modules-sign and required
 # logic to manipulate the kernel config while respecting the
-# MODULES_SIGN_HASH and MODULES_SIGN_KEY user variables.
+# MODULES_SIGN_HASH, MODULES_SIGN_CERT, and MODULES_SIGN_KEY  user
+# variables.
 
 # @ECLASS_VARIABLE: MODULES_SIGN_HASH
 # @USER_VARIABLE
@@ -81,9 +90,31 @@ IUSE="+strip"
 #
 # Default if unset: certs/signing_key.pem
 
+# @ECLASS_VARIABLE: MODULES_SIGN_CERT
+# @USER_VARIABLE
+# @DEFAULT_UNSET
+# @DESCRIPTION:
+# Used with USE=modules-sign.  Can be set to the path of the public
+# key in PEM format to use. Must be specified if MODULES_SIGN_KEY
+# is set to a path of a file that only contains the private key.
+
 if [[ ${KERNEL_IUSE_MODULES_SIGN} ]]; then
 	IUSE+=" modules-sign"
+	REQUIRED_USE="secureboot? ( modules-sign )"
+	BDEPEND+="
+		modules-sign? ( dev-libs/openssl )
+	"
 fi
+
+# @FUNCTION: kernel-build_pkg_setup
+# @DESCRIPTION:
+# Call python-any-r1 and secureboot pkg_setup
+kernel-build_pkg_setup() {
+	python-any-r1_pkg_setup
+	if [[ ${KERNEL_IUSE_MODULES_SIGN} ]]; then
+		secureboot_pkg_setup
+	fi
+}
 
 # @FUNCTION: kernel-build_src_configure
 # @DESCRIPTION:
@@ -188,7 +219,7 @@ kernel-build_src_test() {
 	debug-print-function ${FUNCNAME} "${@}"
 	local targets=( modules_install )
 	# on arm or arm64 you also need dtb
-	if use arm || use arm64; then
+	if use arm || use arm64 || use riscv; then
 		targets+=( dtbs_install )
 	fi
 
@@ -216,7 +247,7 @@ kernel-build_src_install() {
 	# on what kind of installkernel is installed
 	local targets=( modules_install )
 	# on arm or arm64 you also need dtb
-	if use arm || use arm64; then
+	if use arm || use arm64 || use riscv; then
 		targets+=( dtbs_install )
 	fi
 
@@ -238,6 +269,14 @@ kernel-build_src_install() {
 	local kern_arch=$(tc-arch-kernel)
 	local dir_ver=${PV}${KV_LOCALVERSION}
 	local kernel_dir=/usr/src/linux-${dir_ver}
+
+	if use sparc ; then
+		# We don't want tc-arch-kernel's sparc64, even though we do
+		# need to pass ARCH=sparc64 to the build system. It's a quasi-alias
+		# in Kbuild.
+		kern_arch=sparc
+	fi
+
 	dodir "${kernel_dir}/arch/${kern_arch}"
 	mv include scripts "${ED}${kernel_dir}/" || die
 	mv "arch/${kern_arch}/include" \
@@ -264,10 +303,18 @@ kernel-build_src_install() {
 		')' -delete || die
 	rm modprep/source || die
 	cp -p -R modprep/. "${ED}${kernel_dir}"/ || die
+	# If CONFIG_MODULES=y, then kernel.release will be found in modprep as well, but not
+	# in case of CONFIG_MODULES is not set.
+	# The one in build is exactly the same as the one in modprep, but the one in build
+	# always exists, so it can just be copied unconditionally.
+	cp "${WORKDIR}/build/include/config/kernel.release" \
+		"${ED}${kernel_dir}/include/config/" || die
 
 	# install the kernel and files needed for module builds
 	insinto "${kernel_dir}"
-	doins build/{System.map,Module.symvers}
+	doins build/System.map
+	# build/Module.symvers does not exist if CONFIG_MODULES is not set.
+	[[ -f build/Module.symvers ]] && doins build/Module.symvers
 	local image_path=$(dist-kernel_get_image_path)
 	cp -p "build/${image_path}" "${ED}${kernel_dir}/${image_path}" || die
 
@@ -367,6 +414,13 @@ kernel-build_merge_configs() {
 				CONFIG_MODULE_SIG_FORCE=y
 				CONFIG_MODULE_SIG_${MODULES_SIGN_HASH^^}=y
 			EOF
+			if [[ -e ${MODULES_SIGN_KEY} && -e ${MODULES_SIGN_CERT} &&
+				${MODULES_SIGN_KEY} != ${MODULES_SIGN_CERT} &&
+				${MODULES_SIGN_KEY} != pkcs11:* ]]
+			then
+				cat "${MODULES_SIGN_CERT}" "${MODULES_SIGN_KEY}" > "${T}/kernel_key.pem" || die
+				MODULES_SIGN_KEY="${T}/kernel_key.pem"
+			fi
 			if [[ ${MODULES_SIGN_KEY} == pkcs11:* || -e ${MODULES_SIGN_KEY} ]]; then
 				echo "CONFIG_MODULE_SIG_KEY=\"${MODULES_SIGN_KEY}\"" \
 					>> "${WORKDIR}/modules-sign.config"
@@ -392,4 +446,4 @@ kernel-build_merge_configs() {
 
 fi
 
-EXPORT_FUNCTIONS src_configure src_compile src_test src_install pkg_postinst
+EXPORT_FUNCTIONS pkg_setup src_configure src_compile src_test src_install pkg_postinst

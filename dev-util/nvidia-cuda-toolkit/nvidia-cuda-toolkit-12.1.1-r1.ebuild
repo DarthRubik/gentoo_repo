@@ -218,8 +218,8 @@ src_install() {
 		rm "${ED}"/${cudadir}/${nsys_dir}/host-linux-x64/libstdc++.so.6 || die
 
 		# unbundle openssl
-		rm "${ED}"/${cudadir}/${ncu_dir}/host/linux-desktop-glibc_2_11_3-x64/libssl.so* || die
-		rm "${ED}"/${cudadir}/${nsys_dir}/host-linux-x64/libssl.so* || die
+		rm "${ED}"/${cudadir}/${ncu_dir}/host/linux-desktop-glibc_2_11_3-x64/lib{crypto,ssl}.so* || die
+		rm "${ED}"/${cudadir}/${nsys_dir}/host-linux-x64/lib{crypto,ssl}.so* || die
 
 		# unbundle libpfm
 		rm "${ED}"/${cudadir}/${nsys_dir}/host-linux-x64/libpfm.so* || die
@@ -257,8 +257,8 @@ src_install() {
 	fi
 
 	# Add include and lib symlinks
-	dosym targets/x86_64-linux/include ${ecudadir}/include
-	dosym targets/x86_64-linux/lib ${ecudadir}/lib64
+	dosym targets/x86_64-linux/include ${cudadir}/include
+	dosym targets/x86_64-linux/lib ${cudadir}/lib64
 
 	# Remove bad symlinks
 	rm "${ED}"/${cudadir}/targets/x86_64-linux/include/include || die

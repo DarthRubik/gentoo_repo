@@ -3,6 +3,7 @@
 
 EAPI=8
 
+MULTILIB_ABIS="amd64 x86" # allow usage on /no-multilib/
 MULTILIB_COMPAT=( abi_x86_{32,64} )
 inherit flag-o-matic meson-multilib toolchain-funcs
 
@@ -46,6 +47,10 @@ IUSE="+abi_x86_32 crossdev-mingw debug extras +strip"
 BDEPEND="
 	dev-util/glslang
 	!crossdev-mingw? ( dev-util/mingw64-toolchain[${MULTILIB_USEDEP}] )"
+
+PATCHES=(
+	"${FILESDIR}"/${PN}-2.6-wow64-setup.patch
+)
 
 pkg_pretend() {
 	[[ ${MERGE_TYPE} == binary ]] && return

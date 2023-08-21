@@ -19,7 +19,7 @@ SRC_URI="https://github.com/rails/rails/archive/v${PV}.tar.gz -> rails-${PV}.tgz
 
 LICENSE="MIT"
 SLOT="$(ver_cut 1-2)"
-KEYWORDS="~amd64 ~arm ~arm64 ~hppa ~loong ~ppc ~ppc64 ~riscv ~s390 ~sparc ~x86"
+KEYWORDS="amd64 arm arm64 ~hppa ~loong ppc ppc64 ~riscv ~s390 sparc x86"
 IUSE=""
 
 RUBY_S="rails-${PV}/${PN}"
@@ -58,15 +58,17 @@ all_ruby_prepare() {
 
 	# Remove items from the common Gemfile that we don't need for this
 	# test run. This also requires handling some gemspecs.
-	sed -i -e "/\(system_timer\|pg\|execjs\|jquery-rails\|mysql\|journey\|ruby-prof\|stackprof\|benchmark-ips\|turbolinks\|coffee-rails\|debugger\|sprockets-rails\|bcrypt\|uglifier\|minitest\|sprockets\|stackprof\|rack-cache\|sqlite\|websocket-client-simple\|\libxml-ruby\|bootsnap\|aws-sdk\|webmock\|capybara\|sass-rails\|selenium-webdriver\|webpacker\|webrick\|rack-test\)/ s:^:#:" \
+	sed -i -e "/\(system_timer\|pg\|execjs\|jquery-rails\|mysql\|journey\|ruby-prof\|stackprof\|benchmark-ips\|turbolinks\|coffee-rails\|debugger\|sprockets-rails\|bcrypt\|uglifier\|minitest\|sprockets\|stackprof\|rack-cache\|sqlite\|websocket-client-simple\|\libxml-ruby\|bootsnap\|aws-sdk\|webmock\|capybara\|sass-rails\|selenium-webdriver\|webpacker\|webrick\|rack-test\|net-smtp\|net-imap\|net-pop\|digest\|matrix\)/ s:^:#:" \
 		-e '/group :\(doc\|rubocop\|job\|cable\|storage\|ujs\|test\) do/,/^end/ s:^:#:' \
 		-e 's/gemspec/gemspec path: "activesupport"/' \
 		-e '5igem "builder"; gem "rack"' ../Gemfile || die
 	rm ../Gemfile.lock || die
 #	sed -i -e '1igem "tzinfo", "~> 1.1"' test/abstract_unit.rb || die
 
-	# Avoid test that depends on timezone
-	sed -i -e '/test_implicit_coercion/,/^  end/ s:^:#:' test/core_ext/duration_test.rb || die
+	# Avoid test that depends on timezone and test that fails on 32-bit arches
+	sed -e '/test_implicit_coercion/,/^  end/ s:^:#:' \
+		-e '/test_iso8601_output_and_reparsing/askip "Broken on 32-bit arches"' \
+		-i test/core_ext/duration_test.rb || die
 
 	# Avoid tests that seem to trigger race conditions.
 	rm -f test/evented_file_update_checker_test.rb || die

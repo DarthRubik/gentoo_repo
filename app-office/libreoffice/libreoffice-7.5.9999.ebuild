@@ -3,7 +3,7 @@
 
 EAPI=8
 
-PYTHON_COMPAT=( python3_{9..11} )
+PYTHON_COMPAT=( python3_{10..11} )
 PYTHON_REQ_USE="threads(+),xml(+)"
 
 MY_PV="${PV/_alpha/.alpha}"
@@ -88,7 +88,7 @@ googledrive gstreamer +gtk kde ldap +mariadb odk pdfimport postgres test valgrin
 $(printf 'libreoffice_extensions_%s ' ${LO_EXTS})"
 
 REQUIRED_USE="${PYTHON_REQUIRED_USE}
-	base? ( firebird java )
+	base? ( java )
 	bluetooth? ( dbus )
 	libreoffice_extensions_nlpsolver? ( java )
 	libreoffice_extensions_scripting-beanshell? ( java )
@@ -125,7 +125,6 @@ COMMON_DEPEND="${PYTHON_DEPS}
 	app-text/libwpg:0.3
 	>=app-text/libwps-0.4
 	app-text/mythes
-	dev-cpp/abseil-cpp:=
 	>=dev-cpp/clucene-2.3.3.4-r2
 	>=dev-cpp/libcmis-0.5.2-r2
 	dev-db/unixODBC
@@ -294,7 +293,7 @@ PATCHES=(
 	"${FILESDIR}/${PN}-7.2.0.4-qt5detect.patch"
 
 	# git master
-	"${WORKDIR}"/${PN}-7.5.2.2-loong-buildsys-fix.patch
+	"${WORKDIR}/${PN}-7.5.2.2-loong-buildsys-fix.patch"
 )
 
 S="${WORKDIR}/${PN}-${MY_PV}"
@@ -494,7 +493,6 @@ src_configure() {
 		--with-external-tar="${DISTDIR}"
 		--with-lang=""
 		--with-parallelism=$(makeopts_jobs)
-		--with-system-abseil
 		--with-system-openjpeg
 		--with-tls=nss
 		--with-vendor="Gentoo Foundation"
@@ -504,6 +502,7 @@ src_configure() {
 		--with-help="html"
 		--without-helppack-integration
 		--with-system-gpgmepp
+		--without-system-abseil
 		--without-system-dragonbox
 		--without-system-jfreereport
 		--without-system-libfixmath

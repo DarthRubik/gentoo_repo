@@ -72,7 +72,7 @@ SRC_URI="
 
 LICENSE="GPL-3+ LGPL-2.1+"
 SLOT="0"
-IUSE="cet guile lzma multitarget nls +python +server sim source-highlight test vanilla xml xxhash zstd"
+IUSE="cet debuginfod guile lzma multitarget nls +python +server sim source-highlight test vanilla xml xxhash zstd"
 if [[ -n ${REGULAR_RELEASE} ]] ; then
 	KEYWORDS="~alpha ~amd64 ~arm ~arm64 ~hppa ~ia64 ~loong ~m68k ~mips ~ppc ~ppc64 ~riscv ~s390 ~sparc ~x86 ~amd64-linux ~x86-linux ~x64-macos ~x64-solaris"
 fi
@@ -86,6 +86,9 @@ RDEPEND="
 	>=sys-libs/readline-7:=
 	sys-libs/zlib
 	elibc_glibc? ( net-libs/libnsl:= )
+	debuginfod? (
+		dev-libs/elfutils[debuginfod(-)]
+	)
 	lzma? ( app-arch/xz-utils )
 	python? ( ${PYTHON_DEPS} )
 	guile? ( >=dev-scheme/guile-2.0 )
@@ -141,6 +144,14 @@ gdb_branding() {
 src_configure() {
 	strip-unsupported-flags
 
+	# Originally added for bug #853898.
+	# During 14 development (not yet released as of writing), there's active
+	# work ongoing here:
+	# * https://sourceware.org/PR22395 (general/catchall/tracker)
+	# * https://sourceware.org/PR30751 (btrace)
+	# * https://sourceware.org/PR30757 (opcodes)
+	filter-lto
+
 	# See https://www.gnu.org/software/make/manual/html_node/Parallel-Output.html
 	# Avoid really confusing logs from subconfigure spam, makes logs far
 	# more legible.
@@ -149,8 +160,9 @@ src_configure() {
 	local myconf=(
 		# portage's econf() does not detect presence of --d-d-t
 		# because it greps only top-level ./configure. But not
-		# gnulib's or gdb's configure.
+		# libiberty's or gdb's configure.
 		--disable-dependency-tracking
+		--disable-silent-rules
 
 		--with-pkgversion="$(gdb_branding)"
 		--with-bugurl='https://bugs.gentoo.org/'
@@ -158,9 +170,7 @@ src_configure() {
 		# Disable modules that are in a combined binutils/gdb tree. bug #490566
 		--disable-{binutils,etc,gas,gold,gprof,gprofng,ld}
 
-		# avoid automagic dependency on (currently prefix) systems
-		# systems with debuginfod library, bug #754753
-		--without-debuginfod
+		$(use_with debuginfod)
 
 		$(use_enable test unit-tests)
 
@@ -232,10 +242,6 @@ src_configure() {
 	econf "${myconf[@]}"
 }
 
-src_compile() {
-	emake V=1
-}
-
 src_test() {
 	# Run the unittests (nabbed invocation from Fedora's spec file) at least
 	emake -k -C gdb run GDBFLAGS='-batch -ex "maintenance selftest"'
@@ -249,7 +255,7 @@ src_test() {
 }
 
 src_install() {
-	emake V=1 DESTDIR="${D}" install
+	emake DESTDIR="${D}" install
 
 	find "${ED}"/usr -name libiberty.a -delete || die
 

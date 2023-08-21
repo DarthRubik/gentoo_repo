@@ -19,7 +19,7 @@ if [[ "${PV}" == "9999" ]]; then
 	inherit git-r3
 else
 	inherit pypi
-	KEYWORDS="~amd64 ~riscv"
+	KEYWORDS="amd64 ~riscv"
 fi
 
 DEPEND="
@@ -34,5 +34,13 @@ RDEPEND="
 	dev-python/pyasn1[${PYTHON_USEDEP}]
 	${DEPEND}
 "
+BDEPEND="
+	dev-python/cython[${PYTHON_USEDEP}]
+"
 
 distutils_enable_tests unittest
+
+python_test() {
+	rm -rf slixmpp || die
+	eunittest
+}

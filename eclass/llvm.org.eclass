@@ -52,12 +52,12 @@ LLVM_VERSION=$(ver_cut 1-3)
 
 # == internal control bits ==
 
-# @ECLASS_VARIABLE: _LLVM_MASTER_MAJOR
+# @ECLASS_VARIABLE: _LLVM_MAIN_MAJOR
 # @INTERNAL
 # @DESCRIPTION:
 # The major version of current LLVM trunk.  Used to determine
 # the correct branch to use.
-_LLVM_MASTER_MAJOR=17
+_LLVM_MAIN_MAJOR=18
 
 # @ECLASS_VARIABLE: _LLVM_SOURCE_TYPE
 # @INTERNAL
@@ -72,14 +72,14 @@ if [[ -z ${_LLVM_SOURCE_TYPE+1} ]]; then
 			_LLVM_SOURCE_TYPE=snapshot
 
 			case ${PV} in
-				17.0.0_pre20230620)
-					EGIT_COMMIT=aad51417452432092258034c55537a7092fa6295
+				18.0.0_pre20230820)
+					EGIT_COMMIT=fe42682e7818d44cbe19f98ef34caa4e414aa937
 					;;
-				17.0.0_pre20230615)
-					EGIT_COMMIT=0e08374abb2c61a3ae5c24d5f60be3b548da9778
+				18.0.0_pre20230810)
+					EGIT_COMMIT=7d259b36d2e8148d13087844e6494ad3a5c63edf
 					;;
-				17.0.0_pre20230609)
-					EGIT_COMMIT=62c0bdabfa32f6e32b17b45425b15309db340dfb
+				18.0.0_pre20230803)
+					EGIT_COMMIT=c4bb3e073548cf436d5fa0406e3ae75e94684dec
 					;;
 				*)
 					die "Unknown snapshot: ${PV}"
@@ -95,8 +95,8 @@ fi
 
 [[ ${_LLVM_SOURCE_TYPE} == git ]] && inherit git-r3
 
-[[ ${LLVM_MAJOR} == ${_LLVM_MASTER_MAJOR} && ${_LLVM_SOURCE_TYPE} == tar ]] &&
-	die "${ECLASS}: Release ebuild for master branch?!"
+[[ ${LLVM_MAJOR} == ${_LLVM_MAIN_MAJOR} && ${_LLVM_SOURCE_TYPE} == tar ]] &&
+	die "${ECLASS}: Release ebuild for main branch?!"
 
 inherit multiprocessing
 
@@ -211,7 +211,7 @@ ALL_LLVM_TARGET_FLAGS=(
 # as a subslot.  This is equal to LLVM_MAJOR for releases, and to PV
 # for the main branch.
 LLVM_SOABI=${LLVM_MAJOR}
-[[ ${LLVM_MAJOR} == ${_LLVM_MASTER_MAJOR} ]] && LLVM_SOABI=${PV}
+[[ ${LLVM_MAJOR} == ${_LLVM_MAIN_MAJOR} ]] && LLVM_SOABI=${PV}
 
 # == global scope logic ==
 
@@ -233,7 +233,7 @@ llvm.org_set_globals() {
 		git)
 			EGIT_REPO_URI="https://github.com/llvm/llvm-project.git"
 
-			[[ ${LLVM_MAJOR} != ${_LLVM_MASTER_MAJOR} ]] &&
+			[[ ${LLVM_MAJOR} != ${_LLVM_MAIN_MAJOR} ]] &&
 				EGIT_BRANCH="release/${LLVM_MAJOR}.x"
 			;;
 		tar)
